@@ -89,7 +89,7 @@ git remote add origin
     .background_img {
         width: 1400px;
         height: 100%;
-        background-image: url("../assets/login_background1.png");
+        background-image: url("../assets/login_background.png");
         margin: 0 auto;
     }
 
