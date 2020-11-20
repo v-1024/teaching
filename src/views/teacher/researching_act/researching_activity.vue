@@ -19,7 +19,6 @@
                         <span>教师奖励</span>
                     </el-menu-item>
             </sidebar>
-            <el-main>Main</el-main>
         </el-container>
     </div>
 </template>
@@ -28,7 +27,10 @@
     import Sidebar from "../../../components/sidebar";
     export default {
         name: "researching_activity",
-        components: {Sidebar}
+        components: {Sidebar} ,
+        methods: {
+
+        }
     }
 </script>
 

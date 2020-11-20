@@ -2,12 +2,12 @@
     <div>
         <el-container>
             <sidebar>
-                <el-menu-item index="1" slot="title">
+                <el-menu-item index="1" slot="title" @click="competition">
                     <i class="el-icon-medal-1"></i>
                     <span>学生竞赛</span>
                 </el-menu-item>
             </sidebar>
-            <el-main>Main</el-main>
+            <router-view></router-view>
         </el-container>
     </div>
 </template>
@@ -16,7 +16,12 @@
     import Sidebar from "../../../components/sidebar";
     export default {
         name: "stu_projects",
-        components: {Sidebar}
+        components: {Sidebar} ,
+        methods: {
+            competition() {
+                this.$router.push('/teacher/stu_projects/stu_competition')
+            }
+        }
     }
 </script>
 

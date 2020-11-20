@@ -1,12 +1,12 @@
 <template>
     <div class="content">
-        <el-main>教案检查</el-main>
+        <el-main>学生竞赛</el-main>
     </div>
 </template>
 
 <script>
     export default {
-        name: "plans_inspection"
+        name: "stu_competition"
     }
 </script>
 

@@ -2,12 +2,12 @@
     <div>
         <el-container>
             <sidebar>
-                <el-menu-item index="1" slot="title">
+                <el-menu-item index="1" slot="title"  @click="exchange">
                     <i class="el-icon-connection"></i>
                     <span>交流考察</span>
                 </el-menu-item>
             </sidebar>
-            <el-main>Main</el-main>
+            <router-view></router-view>
         </el-container>
     </div>
 </template>
@@ -16,7 +16,12 @@
     import Sidebar from "../../../components/sidebar";
     export default {
         name: "external_exchange",
-        components: {Sidebar}
+        components: {Sidebar} ,
+        methods: {
+            exchange() {
+                this.$router.push('/teacher/external_exchange/exchange')
+            }
+        }
     }
 </script>
 

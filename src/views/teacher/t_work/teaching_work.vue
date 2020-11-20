@@ -2,16 +2,16 @@
     <div>
         <el-container>
             <sidebar>
-                <el-menu-item index="1" slot="title">
+                <el-menu-item index="1" slot="title" @click="teaching_check">
                     <i class="el-icon-s-custom"></i>
                     <span>教学检查</span>
                 </el-menu-item>
-                <el-menu-item index="2" slot="title">
+                <el-menu-item index="2" slot="title" @click="plans_check">
                     <i class="el-icon-notebook-2"></i>
                     <span>教案检查</span>
                 </el-menu-item>
             </sidebar>
-            <el-main>Main</el-main>
+            <router-view></router-view>
         </el-container>
     </div>
 
@@ -21,15 +21,18 @@
     import Sidebar from "../../../components/sidebar";
     export default {
         name: "teaching_work",
-        components: {Sidebar}
+        components: {Sidebar} ,
+        methods: {
+            teaching_check() {
+                this.$router.push('/teacher/teaching_work/teaching_inspection')
+            } ,
+            plans_check() {
+                this.$router.push('/teacher/teaching_work/plans_inspection')
+            }
+        }
     }
 </script>
 
 <style scoped>
-    .el-main {
-        background-color: white;
-        color: #333;
-        text-align: center;
-        line-height: 160px;
-    }
+
 </style>

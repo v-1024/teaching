@@ -4,7 +4,7 @@
 
         <el-container>
             <el-header>
-                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff">
+                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff" >
                     <el-menu-item index="1" @click="teaching">教学运行</el-menu-item>
                     <el-menu-item index="2" @click="researching">
                         <template slot="title">教研活动</template>
@@ -44,14 +44,14 @@
 
 <style scoped>
     .el-header {
-        background-color: #ECEAEA;
+        background-color: rgb(243, 241, 241);
         text-align: center;
         height: 60px;
         line-height: 60px;
     }
 
     .el-menu-demo {
-        background-color:#ECEAEA;
+        background-color: #f3f1f1;
         color:black;
     }
 
