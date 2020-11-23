@@ -42,26 +42,22 @@
     }
 </script>
 
-<style scoped>
+<style >
     .el-header {
-        background-color: rgb(243, 241, 241);
+        background-color: rgb(245, 247, 250);
         text-align: center;
         height: 60px;
         line-height: 60px;
     }
-
     .el-menu-demo {
-        background-color: #f3f1f1;
+        background-color: rgb(245, 247, 250);
         color:black;
     }
-
     .el-menu-item {
-        width: 250px;
+        width: 220px;
         font-size: 17px;
     }
-
     .el-menu-demo {
-        margin-left: 200px;
+        margin-left: 150px;
     }
-
 </style>

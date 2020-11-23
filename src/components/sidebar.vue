@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-aside width="250px">
+        <el-aside width="220px">
             <el-col>
                 <el-menu class="el-menu-vertical-demo" active-text-color="#6876ff" >
                     <slot name="title"></slot>
@@ -18,7 +18,7 @@
 
 <style scoped>
     .el-menu-vertical-demo {
-        background-color: #f3f1f1;
+        background-color: rgb(245, 247, 250);
         color:black;
         height: 600px;
     }

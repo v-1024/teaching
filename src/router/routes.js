@@ -52,23 +52,6 @@ const routes = [
             {
                 path: 'researching_activity' ,
                 component: researching_activity ,
-                children: [
-                    {
-
-                    } ,
-                    {
-
-                    } ,
-                    {
-
-                    } ,
-                    {
-
-                    } ,
-                    {
-
-                    }
-                ]
             } ,
             {
                 path: 'stu_projects' ,
