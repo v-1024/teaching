@@ -42,7 +42,7 @@
     }
 </script>
 
-<style >
+<style scoped>
     .el-header {
         background-color: rgb(245, 247, 250);
         text-align: center;
@@ -54,10 +54,10 @@
         color:black;
     }
     .el-menu-item {
-        width: 220px;
+        width: 150px;
         font-size: 17px;
     }
     .el-menu-demo {
-        margin-left: 150px;
+        margin-left: 200px;
     }
 </style>

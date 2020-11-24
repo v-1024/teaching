@@ -2,23 +2,24 @@
     <div>
         <el-container>
             <sidebar>
-                    <el-menu-item index="1" slot="title">
+                    <el-menu-item index="1" slot="title" @click="achievement">
                         <i class="el-icon-s-check"></i>
                         <span>教研成果</span>
                     </el-menu-item>
-                    <el-menu-item index="2" slot="title">
+                    <el-menu-item index="2" slot="title" @click="thesis">
                         <i class="el-icon-tickets"></i>
                         <span>教研论文</span>
                     </el-menu-item>
-                    <el-menu-item index="3" slot="title">
+                    <el-menu-item index="3" slot="title" @click="projects">
                         <i class="el-icon-collection"></i>
                         <span>教研项目</span>
                     </el-menu-item>
-                    <el-menu-item index="4" slot="title">
+                    <el-menu-item index="4" slot="title" @click="award">
                         <i class="el-icon-trophy"></i>
                         <span>教师奖励</span>
                     </el-menu-item>
             </sidebar>
+            <router-view></router-view>
         </el-container>
     </div>
 </template>
@@ -29,7 +30,18 @@
         name: "researching_activity",
         components: {Sidebar} ,
         methods: {
-
+            achievement() {
+                this.$router.push('/teacher/researching_activity/achievement')
+            } ,
+            thesis() {
+                this.$router.push('/teacher/researching_activity/thesis')
+            } ,
+            projects() {
+                this.$router.push('/teacher/researching_activity/projects')
+            } ,
+            award() {
+                this.$router.push('/teacher/researching_activity/teacher_award')
+            }
         }
     }
 </script>

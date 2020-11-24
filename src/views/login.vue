@@ -94,7 +94,7 @@ git remote add origin
     }
 
     .grey {
-        background-color: #f3f1f1;
+        background-color: rgb(245, 247, 250);
         margin: 0 auto;
         width: 100%;
         height: 45px;

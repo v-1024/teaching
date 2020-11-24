@@ -9,6 +9,10 @@ const teaching_inspection = ()=> import("views/teacher/t_work/work_content/teach
 const plans_inspection = ()=> import("views/teacher/t_work/work_content/plans_inspection");  //教案检查
 const exchange = ()=> import("views/teacher/external_exchange/exchange_content/exchange");  //交流考察
 const stu_competition = ()=> import("views/teacher/stu_projects/stu_content/stu_competition");  //学生竞赛
+const achievement = ()=> import("views/teacher/researching_act/activity_content/achievement");  //教研成果
+const projects = ()=> import("views/teacher/researching_act/activity_content/projects");  //教研论文
+const thesis = ()=> import("views/teacher/researching_act/activity_content/thesis");  //教研项目
+const teacher_award = ()=> import("views/teacher/researching_act/activity_content/teacher_award");  //教师奖励
 
 const routes = [
     {
@@ -52,6 +56,29 @@ const routes = [
             {
                 path: 'researching_activity' ,
                 component: researching_activity ,
+                children: [
+                    {
+                        path: '' ,
+                        redirect: 'achievement'
+                    } ,
+                    {
+                        path: 'achievement' ,
+                        component: achievement
+                    } ,
+                    {
+                        path: 'projects' ,
+                        component: projects
+                    } ,
+                    {
+                        path: 'thesis' ,
+                        component: thesis
+                    } ,
+                    {
+                        path: 'teacher_award' ,
+                        component: teacher_award
+                    } ,
+
+                ]
             } ,
             {
                 path: 'stu_projects' ,
