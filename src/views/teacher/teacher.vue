@@ -11,6 +11,20 @@
                     </el-menu-item>
                     <el-menu-item index="3" @click="project">学生项目</el-menu-item>
                     <el-menu-item index="4" @click="exchange">对外交流</el-menu-item>
+                    <el-menu-item index="5" @click="">查看系部汇总表</el-menu-item>
+
+                    <el-popover class="span"
+                            placement="bottom"
+                            trigger="hover">
+                        <div class="span">
+                            <p >教师：张三</p> <el-divider></el-divider>
+                            <p class="hover">个人中心</p>
+                            <p class="hover">切换角色</p>
+                            <p class="hover">退出登录</p>
+                        </div>
+
+                        <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
+                    </el-popover>
                 </el-menu>
             </el-header>
             <router-view></router-view>
@@ -52,6 +66,8 @@
     .el-menu-demo {
         background-color: rgb(245, 247, 250);
         color:black;
+        height: 60px;
+        line-height: 60px;
     }
     .el-menu-item {
         width: 150px;
@@ -59,5 +75,36 @@
     }
     .el-menu-demo {
         margin-left: 200px;
+    }
+
+    .el-avatar {
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        margin-top: 10px;
+        margin-left: 400px;
+    }
+
+    .el-button {
+        margin: auto;
+    }
+
+    .span {
+       text-align: center;
+    }
+
+    p {
+        height: 30px;
+        line-height: 30px;
+        font-family: Arial;
+    }
+
+    .hover:hover {
+        background-color: rgba(192, 192, 192, 0.6);
+        cursor: pointer;
+    }
+
+    .el-divider {
+        margin: 5px 0 ;
     }
 </style>
