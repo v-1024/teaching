@@ -19,7 +19,7 @@
                         <div class="span">
                             <p >教师：张三</p> <el-divider></el-divider>
                             <p class="hover">个人中心</p>
-                            <p class="hover">切换角色</p>
+                            <p class="hover" v-show="role != '0'">切换角色</p>
                             <p class="hover">退出登录</p>
                         </div>
 
@@ -39,6 +39,11 @@
     export default {
         name: "teacher",
         components: {Teaching_work, Navigation} ,
+        data() {
+            return {
+                role:'1'   //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
+            }
+        } ,
         methods: {
             researching() {
                 this.$router.push("/teacher/researching_activity");
