@@ -1,5 +1,6 @@
 const login = ()=> import("views/login");
 const register = ()=> import("views/register");
+//教师
 const teacher = ()=> import("views/teacher/teacher");
 const teaching_work = ()=> import("views/teacher/t_work/teaching_work");  //教学运行
 const researching_activity = ()=> import("views/teacher/researching_act/researching_activity");  //教研活动
@@ -13,6 +14,8 @@ const achievement = ()=> import("views/teacher/researching_act/activity_content/
 const projects = ()=> import("views/teacher/researching_act/activity_content/projects");  //教研论文
 const thesis = ()=> import("views/teacher/researching_act/activity_content/thesis");  //教研项目
 const teacher_award = ()=> import("views/teacher/researching_act/activity_content/teacher_award");  //教师奖励
+//系主任
+const dep_head = () => import("views/dep_head/dep_head");
 
 const routes = [
     {
@@ -109,6 +112,10 @@ const routes = [
                 ]
             }
         ]
+    } ,
+    {
+        path: '/dep_head' ,
+        component: dep_head
     }
 ]
 export default routes

@@ -5,26 +5,24 @@
         <el-container>
             <el-header>
                 <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff" >
-                    <el-menu-item index="1" @click="teaching">教学运行</el-menu-item>
-                    <el-menu-item index="2" @click="researching">教研活动</el-menu-item>
-                    <el-menu-item index="3" @click="project">学生项目</el-menu-item>
-                    <el-menu-item index="4" @click="exchange">对外交流</el-menu-item>
-                    <el-menu-item index="5" @click="">查看系部汇总表</el-menu-item>
+                    <el-menu-item index="1" @click="">进度检查</el-menu-item>
+                    <el-menu-item index="2" @click="">汇总上传</el-menu-item>
+                    <el-menu-item index="3" @click="">注册审核</el-menu-item>
 
                     <el-popover class="span"
-                            placement="bottom"
-                            trigger="hover">
+                                placement="bottom"
+                                trigger="hover">
                         <div class="span">
-                            <p >教师：张三</p> <el-divider></el-divider>
+                            <p >系主任：张三</p> <el-divider></el-divider>
                             <p class="hover">个人中心</p>
-                            <p class="hover" v-show="role != '0'">切换角色</p>
+                            <p class="hover" v-show="role != '0'" @click="change_role">切换角色</p>
                             <p class="hover">退出登录</p>
                         </div>
                         <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
                     </el-popover>
                 </el-menu>
             </el-header>
-            <router-view></router-view>
+
         </el-container>
     </div>
 
@@ -32,27 +30,17 @@
 
 <script>
     import Navigation from "../../components/navigation";
-    import Teaching_work from "./t_work/teaching_work";
     export default {
-        name: "teacher",
-        components: {Teaching_work, Navigation} ,
+        name: "dep_head",
+        components: {Navigation} ,
         data() {
             return {
                 role:'1'   //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
             }
         } ,
         methods: {
-            researching() {
-                this.$router.push("/teacher/researching_activity");
-            } ,
-            teaching() {
-                this.$router.push("/teacher/teaching_work");
-            } ,
-            project() {
-                this.$router.push("/teacher/stu_projects");
-            } ,
-            exchange() {
-                this.$router.push("/teacher/external_exchange");
+            change_role() {
+                this.$router.push('/teacher');
             }
         }
     }
@@ -93,7 +81,7 @@
     }
 
     .span {
-       text-align: center;
+        text-align: center;
     }
 
     p {
