@@ -5,9 +5,9 @@
         <el-container>
             <el-header>
                 <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff" >
-                    <el-menu-item index="1" @click="">进度检查</el-menu-item>
-                    <el-menu-item index="2" @click="">汇总上传</el-menu-item>
-                    <el-menu-item index="3" @click="">注册审核</el-menu-item>
+                    <el-menu-item index="1" @click="schedule">进度检查</el-menu-item>
+                    <el-menu-item index="2" @click="collection">汇总上传</el-menu-item>
+                    <el-menu-item index="3" @click="audit">注册审核</el-menu-item>
 
                     <el-popover class="span"
                                 placement="bottom"
@@ -22,8 +22,8 @@
                     </el-popover>
                 </el-menu>
             </el-header>
-
         </el-container>
+        <router-view></router-view>
     </div>
 
 </template>
@@ -47,6 +47,15 @@
         methods: {
             change_role() {
                 this.$router.push('/teacher');
+            } ,
+            schedule() {
+                this.$router.push('/dep_head/schedule');
+            } ,
+            collection() {
+                this.$router.push('/dep_head/collection');
+            } ,
+            audit() {
+                this.$router.push('/dep_head/reg_audit');
             }
         }
     }

@@ -16,6 +16,9 @@ const thesis = ()=> import("views/teacher/researching_act/activity_content/thesi
 const teacher_award = ()=> import("views/teacher/researching_act/activity_content/teacher_award");  //教师奖励
 //系主任
 const dep_head = () => import("views/dep_head/dep_head");
+const schedule = () => import("views/dep_head/dep_content/schedule");
+const collection = () => import("views/dep_head/dep_content/collection");
+const reg_audit = () => import("views/dep_head/dep_content/reg_audit");
 
 //院长/教务办
 const dean_academic = () => import("views/dean_academic/dean_academic");
@@ -118,7 +121,25 @@ const routes = [
     } ,
     {
         path: '/dep_head' ,
-        component: dep_head
+        component: dep_head ,
+        children: [
+            {
+                path: '' ,
+                redirect: 'schedule'
+            } ,
+            {
+                path: 'schedule' ,
+                component: schedule
+            } ,
+            {
+                path: 'collection' ,
+                component: collection
+            } ,
+            {
+                path: 'reg_audit' ,
+                component: reg_audit
+            }
+        ]
     } ,
     {
         path: '/dean_academic' ,
