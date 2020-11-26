@@ -17,6 +17,9 @@ const teacher_award = ()=> import("views/teacher/researching_act/activity_conten
 //系主任
 const dep_head = () => import("views/dep_head/dep_head");
 
+//院长/教务办
+const dean_academic = () => import("views/dean_academic/dean_academic");
+
 const routes = [
     {
         path: '/' ,
@@ -116,6 +119,10 @@ const routes = [
     {
         path: '/dep_head' ,
         component: dep_head
+    } ,
+    {
+        path: '/dean_academic' ,
+        component: dean_academic
     }
 ]
 export default routes
