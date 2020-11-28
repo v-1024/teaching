@@ -7,31 +7,12 @@
                 :default-sort = "{prop: 'date', order: 'ascending'}"
                 height="600px"
                 style="width: 100%">
-            <el-table-column
-                    prop="date"
-                    label="申请日期"
-                    sortable>
-            </el-table-column>
-            <el-table-column
-                    prop="t_id"
-                    label="员工号">
-            </el-table-column>
-            <el-table-column
-                    prop="t_name"
-                    label="姓名">
-            </el-table-column>
-            <el-table-column
-                    prop="col_name"
-                    label="学院">
-            </el-table-column>
-            <el-table-column
-                    prop="dep_name"
-                    label="系部">
-            </el-table-column>
-            <el-table-column
-                    prop="t_tel"
-                    label="电话号码">
-            </el-table-column>
+            <el-table-column prop="date" label="申请日期" sortable></el-table-column>
+            <el-table-column prop="t_id" label="员工号"></el-table-column>
+            <el-table-column prop="t_name" label="姓名"></el-table-column>
+            <el-table-column prop="col_name" label="学院"></el-table-column>
+            <el-table-column prop="dep_name" label="系部"></el-table-column>
+            <el-table-column prop="t_tel" label="电话号码"></el-table-column>
             <el-table-column label="是否通过">
                 <template slot-scope="scope">
                     <el-button

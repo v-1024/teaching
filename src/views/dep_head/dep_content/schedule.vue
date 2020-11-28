@@ -21,7 +21,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="" icon="el-icon-search">查询</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
             </el-form-item>
         </el-form>
         <el-table
@@ -30,69 +30,39 @@
                 :data="tableData"
                 height="600px"
                 style="width: 100%">
-            <el-table-column
-                    prop="t_name"
-                    label="姓名">
-            </el-table-column>
-            <el-table-column
-                    prop="t_id"
-                    label="员工号">
-            </el-table-column>
+            <el-table-column prop="t_id" label="员工号"></el-table-column>
+            <el-table-column prop="t_name" label="姓名"></el-table-column>
             <el-table-column label="教学活动">
-                <el-table-column
-                        prop="activity"
-                        label="教学检查">
-                </el-table-column>
-                <el-table-column
-                        prop="check"
-                        label="教案检查">
-                </el-table-column>
+                <el-table-column prop="activity" label="教学检查"></el-table-column>
+                <el-table-column prop="check" label="教案检查"></el-table-column>
             </el-table-column>
             <el-table-column label="教研活动">
-                <el-table-column
-                        prop="achievement"
-                        label="教研成果">
-                </el-table-column>
-                <el-table-column
-                        prop="project"
-                        label="教研项目">
-                </el-table-column>
-                <el-table-column
-                        prop="award"
-                        label="教师奖励">
-                </el-table-column>
+                <el-table-column prop="achievement" label="教研成果"></el-table-column>
+                <el-table-column prop="project" label="教研项目"></el-table-column>
+                <el-table-column prop="award" label="教师奖励"></el-table-column>
             </el-table-column>
             <el-table-column label="学生培养">
-                <el-table-column
-                        prop="competition"
-                        label="学生竞赛">
-                </el-table-column>
+                <el-table-column prop="competition" label="学生竞赛"></el-table-column>
             </el-table-column>
             <el-table-column label="对外交流">
-                <el-table-column
-                        prop="exchange"
-                        label="交流考察">
-                </el-table-column>
+                <el-table-column prop="exchange" label="交流考察"></el-table-column>
             </el-table-column>
             <el-table-column label="备注">
-                <el-table-column
-                        prop="confirm"
-                        label="教师是否确认">
-                </el-table-column>
+                <el-table-column prop="confirm" label="教师是否确认"></el-table-column>
             </el-table-column>
             <el-table-column label="是否通过" width="190px">
                 <template slot-scope="scope">
                     <el-tooltip content="查看教师提交材料的详细内容" placement="left-start" effect="light">
                         <el-button
-                                size="mini"
-                                type="primary"
-                                @click="details(scope.$index, scope.row)">审核</el-button>
+                            size="mini"
+                            type="primary"
+                            @click="details(scope.$index, scope.row)">审核</el-button>
                     </el-tooltip>
 
                     <el-button
-                            size="mini"
-                            type="danger"
-                            @click="reject(scope.$index)">不通过</el-button>
+                        size="mini"
+                        type="danger"
+                        @click="reject(scope.$index)">不通过</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -117,8 +87,8 @@
                 } ,
                 tableData: [
                     {
-                        t_name: '张三',
                         t_id: '150222' ,
+                        t_name: '张三',
                         activity: '已完成',
                         check: '已完成',
                         achievement: '已完成',
@@ -129,8 +99,8 @@
                         confirm: '是' ,
                     } ,
                     {
-                        t_name: '李四',
                         t_id: '150220' ,
+                        t_name: '李四',
                         activity: '已完成',
                         check: '已完成',
                         achievement: '已完成',
@@ -141,8 +111,8 @@
                         confirm: '是' ,
                     } ,
                     {
-                        t_name: '王五',
                         t_id: '150221' ,
+                        t_name: '王五',
                         activity: '已完成',
                         check: '已完成',
                         achievement: '已完成',
@@ -188,9 +158,5 @@
     .box {
         margin-top: 10px;
         text-align: center;
-    }
-
-    .el-table .warning-row {
-        background: oldlace;
     }
 </style>

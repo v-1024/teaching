@@ -23,6 +23,11 @@ const reg_audit = () => import("views/dep_head/dep_content/reg_audit");
 //院长/教务办
 const dean_academic = () => import("views/dean_academic/dean_academic");
 
+//管理员
+const admin = () => import("views/admin/admin");
+const user_admin = () => import("views/admin/admin_content/user_admin");
+const system_admin = () => import("views/admin/admin_content/system_admin");
+
 const routes = [
     {
         path: '/' ,
@@ -144,6 +149,24 @@ const routes = [
     {
         path: '/dean_academic' ,
         component: dean_academic
+    } ,
+    {
+        path: '/admin' ,
+        component: admin ,
+        children: [
+            {
+                path: '' ,
+                redirect: 'user_admin'
+            } ,
+            {
+                path: 'user_admin' ,
+                component: user_admin
+            } ,
+            {
+                path: 'system_admin' ,
+                component: system_admin
+            }
+        ]
     }
 ]
 export default routes
