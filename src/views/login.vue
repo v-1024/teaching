@@ -28,7 +28,7 @@
                     </tr>
                     <tr>
                         <td class="btn">
-                            <el-button type="primary">登录</el-button>
+                            <el-button type="primary" @click="login">登录</el-button>
                         </td>
                     </tr>
                     <tr>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+    import {request} from "../network/request";
     import Navigation from "../components/navigation";
     export default {
         name: "login",
@@ -75,7 +76,21 @@
         methods: {
             register() {
                 this.$router.push('/register')
-            }
+            },
+            // login()
+            // {
+            //     let forms=new FormData();
+            //     forms.append("username",this.ruleForm.t_id);
+            //     forms.append("password",this.ruleForm.pwd);
+            //     request({
+            //         method:"post",
+            //         data:forms,
+            //         url:"login"
+            //     }).then(response=>{
+            //         console.log(response);
+            //         this.$message.success(response.data.msg);
+            //     })
+            // }
         }
     }
 </script>

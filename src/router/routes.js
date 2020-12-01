@@ -1,5 +1,6 @@
 const login = ()=> import("views/login");
 const register = ()=> import("views/register");
+//教师
 const teacher = ()=> import("views/teacher/teacher");
 const teaching_work = ()=> import("views/teacher/t_work/teaching_work");  //教学运行
 const researching_activity = ()=> import("views/teacher/researching_act/researching_activity");  //教研活动
@@ -13,6 +14,19 @@ const achievement = ()=> import("views/teacher/researching_act/activity_content/
 const projects = ()=> import("views/teacher/researching_act/activity_content/projects");  //教研论文
 const thesis = ()=> import("views/teacher/researching_act/activity_content/thesis");  //教研项目
 const teacher_award = ()=> import("views/teacher/researching_act/activity_content/teacher_award");  //教师奖励
+//系主任
+const dep_head = () => import("views/dep_head/dep_head");
+const schedule = () => import("views/dep_head/dep_content/schedule");
+const collection = () => import("views/dep_head/dep_content/collection");
+const reg_audit = () => import("views/dep_head/dep_content/reg_audit");
+
+//院长/教务办
+const dean_academic = () => import("views/dean_academic/dean_academic");
+
+//管理员
+const admin = () => import("views/admin/admin");
+const user_admin = () => import("views/admin/admin_content/user_admin");
+const system_admin = () => import("views/admin/admin_content/system_admin");
 
 const routes = [
     {
@@ -107,6 +121,50 @@ const routes = [
                         component: exchange
                     }
                 ]
+            }
+        ]
+    } ,
+    {
+        path: '/dep_head' ,
+        component: dep_head ,
+        children: [
+            {
+                path: '' ,
+                redirect: 'schedule'
+            } ,
+            {
+                path: 'schedule' ,
+                component: schedule
+            } ,
+            {
+                path: 'collection' ,
+                component: collection
+            } ,
+            {
+                path: 'reg_audit' ,
+                component: reg_audit
+            }
+        ]
+    } ,
+    {
+        path: '/dean_academic' ,
+        component: dean_academic
+    } ,
+    {
+        path: '/admin' ,
+        component: admin ,
+        children: [
+            {
+                path: '' ,
+                redirect: 'user_admin'
+            } ,
+            {
+                path: 'user_admin' ,
+                component: user_admin
+            } ,
+            {
+                path: 'system_admin' ,
+                component: system_admin
             }
         ]
     }
