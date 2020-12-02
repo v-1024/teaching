@@ -4,7 +4,7 @@
 
         <el-container>
             <el-header>
-                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff" >
+                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff">
                     <el-menu-item index="1" @click="">进度检查</el-menu-item>
                     <el-menu-item index="2" @click="">院汇总</el-menu-item>
 

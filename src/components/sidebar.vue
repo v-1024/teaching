@@ -2,7 +2,8 @@
     <div>
         <el-aside width="220px">
             <el-col>
-                <el-menu class="el-menu-vertical-demo" active-text-color="#6876ff" >
+                <el-menu class="el-menu-vertical-demo" active-text-color="#6876ff"
+                         :default-active="active_index" @select="handleSelect">
                     <slot name="title"></slot>
                 </el-menu>
             </el-col>
@@ -12,7 +13,24 @@
 
 <script>
     export default {
-        name: "sidebar"
+        name: "sidebar" ,
+        data() {
+            return {
+                active_index: ''
+            }
+        } ,
+        created() {
+            console.log("Csession"+sessionStorage.getItem('child_index'));
+            this.active_index = sessionStorage.getItem('child_index')
+        } ,
+        methods: {
+            handleSelect(key) {
+                console.log( "child:" + key);
+                this.$store.commit('child_index',key);
+                sessionStorage.setItem('child_index', key);
+                console.log("Csession"+sessionStorage.getItem('child_index'));
+            }
+        }
     }
 </script>
 

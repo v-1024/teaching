@@ -4,12 +4,13 @@
 
         <el-container>
             <el-header>
-                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff" >
+                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff"
+                         :default-active="active_index" @select="handleSelect">
                     <el-menu-item index="1" @click="teaching">教学运行</el-menu-item>
                     <el-menu-item index="2" @click="researching">教研活动</el-menu-item>
                     <el-menu-item index="3" @click="project">学生项目</el-menu-item>
                     <el-menu-item index="4" @click="exchange">对外交流</el-menu-item>
-                    <el-menu-item index="5" @click="">查看系部汇总表</el-menu-item>
+                    <el-menu-item index="5" >查看系部汇总表</el-menu-item>
 
                     <el-popover class="span"
                             placement="bottom"
@@ -39,15 +40,25 @@
         components: {Teaching_work, Navigation} ,
         data() {
             return {
+                active_index: '' ,
                 role_id:'' ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
                 t_name: ''
             }
         } ,
         created() {   //请求后端的数据
-            this.role_id = '1'
+            this.role_id = '1';
             this.t_name = '张三'
+            console.log("Psession:"+sessionStorage.getItem('parent_index'));
+            this.active_index = sessionStorage.getItem('parent_index')
         } ,
         methods: {
+            handleSelect(key) {
+                console.log( "parent:" + key);
+                this.$store.commit('parent_index',key);
+                sessionStorage.setItem('parent_index', key);
+                sessionStorage.setItem('child_index', '1');
+                console.log("Psession:"+sessionStorage.getItem('parent_index'));
+            } ,
             researching() {
                 this.$router.push("/teacher/researching_activity");
             } ,
