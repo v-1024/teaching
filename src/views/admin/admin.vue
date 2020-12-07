@@ -4,7 +4,8 @@
 
         <el-container>
             <el-header>
-                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff">
+                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff"
+                         :default-active="active_index" @select="handleSelect">
                     <el-menu-item index="1" @click="user">用户管理</el-menu-item>
                     <el-menu-item index="2" @click="system">设置系统信息</el-menu-item>
 
@@ -32,10 +33,17 @@
         components: {Navigation} ,
         data() {
             return {
-
+                active_index: ''
             }
         } ,
+        created() {   //请求后端的数据
+            this.active_index = sessionStorage.getItem('parent_index')
+        } ,
         methods: {
+            handleSelect(key) {
+                sessionStorage.setItem('parent_index', key);
+                sessionStorage.setItem('child_index', '1');
+            } ,
             user() {
                 this.$router.push('/admin/user_admin')
             } ,

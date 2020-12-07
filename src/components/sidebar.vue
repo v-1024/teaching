@@ -20,15 +20,11 @@
             }
         } ,
         created() {
-            console.log("Csession"+sessionStorage.getItem('child_index'));
             this.active_index = sessionStorage.getItem('child_index')
         } ,
         methods: {
             handleSelect(key) {
-                console.log( "child:" + key);
-                this.$store.commit('child_index',key);
                 sessionStorage.setItem('child_index', key);
-                console.log("Csession"+sessionStorage.getItem('child_index'));
             }
         }
     }

@@ -48,16 +48,12 @@
         created() {   //请求后端的数据
             this.role_id = '1';
             this.t_name = '张三'
-            console.log("Psession:"+sessionStorage.getItem('parent_index'));
             this.active_index = sessionStorage.getItem('parent_index')
         } ,
         methods: {
             handleSelect(key) {
-                console.log( "parent:" + key);
-                this.$store.commit('parent_index',key);
                 sessionStorage.setItem('parent_index', key);
                 sessionStorage.setItem('child_index', '1');
-                console.log("Psession:"+sessionStorage.getItem('parent_index'));
             } ,
             researching() {
                 this.$router.push("/teacher/researching_activity");
@@ -72,6 +68,8 @@
                 this.$router.push("/teacher/external_exchange");
             } ,
             change_role() {
+                sessionStorage.setItem('parent_index', '1');
+                sessionStorage.setItem('child_index', '1');
                 if (this.role_id == '1')
                     this.$router.push('/dep_head');
                 else
