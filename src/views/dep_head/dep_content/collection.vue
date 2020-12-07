@@ -106,7 +106,7 @@
 
      .btn {
          width: 150px;
-         height: 45px;
+         height: 40px;
          position: absolute;
          right: 150px;
      }
