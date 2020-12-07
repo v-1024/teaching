@@ -11,46 +11,88 @@
         </el-select>
         <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
         <el-table  class="table"
-                   :data="tableData"
-                   height="250"
+                   :data="tableData1"
+                   height="97"
                    border
-                   style="width:740px;">
+                   style="width:980px;margin-bottom: 0">
             <el-table-column
                     prop="name"
                     label="姓名"
                     width="100">
+                <el-input v-model="input" class="input"></el-input>
             </el-table-column>
             <el-table-column
                     prop="teaching_plan"
                     label="是否是电子教案"
-                    width="120">
+                    width="150">
             </el-table-column>
             <el-table-column
                     prop="txt"
                     label="是否是文本文档"
-                    width="120">
+                    width="150">
             </el-table-column>
             <el-table-column
                     prop="plan_over"
                     label="教案是否完善"
-                    width="120">
+                    width="150">
             </el-table-column>
             <el-table-column
                     prop="attendance_times"
                     label="考勤次数"
-                    width="80">
+                    width="110">
             </el-table-column>
             <el-table-column
                     prop="attendance"
                     label="考情是否有记录"
-                    width="120">
+                    width="150">
             </el-table-column>
             <el-table-column
                     prop="times"
                     label="听课次数"
-                    width="80">
+                   >
             </el-table-column>
         </el-table>
+        <el-table  class="table"
+                              :data="tableData2"
+                              height="97"
+                              border
+                              style="width:980px;margin-top: 0px;">
+        <el-table-column
+                prop="lesson_assessment"
+                label="评课次数"
+                width="100">
+        </el-table-column>
+        <el-table-column
+                prop="lesson_record"
+                label="听课是否有记录"
+                width="150">
+        </el-table-column>
+        <el-table-column
+                prop="assign_works_times"
+                label="布置作业次数"
+                width="150">
+        </el-table-column>
+        <el-table-column
+                prop="check_works_times"
+                label="批改作业次数"
+                width="150">
+        </el-table-column>
+        <el-table-column
+                prop="test_times"
+                label="实验次数"
+                width="110">
+        </el-table-column>
+        <el-table-column
+                prop="test_report_times"
+                label="批改实验报告次数"
+                width="150">
+        </el-table-column>
+        <el-table-column
+                prop="ele_paper"
+                label="电子作业/纸质作业"
+               >
+        </el-table-column>
+    </el-table>
         <span style="font-weight: bold;margin-left:200px">添加附件</span>
         <el-upload
                 class="upload-demo"
@@ -67,6 +109,8 @@
         </el-upload>
         <el-button slot="reference" style="margin:20px 500px">提交</el-button>
     </div>
+
+
 </template>
 
 <script>
@@ -78,12 +122,25 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData: [{
-                    teacher: '张三',
-                    achievement: '教学礼拜项目',
-                    level: '一等奖',
-                    department: '湖南科技大学'
+                tableData1: [{
+                    name: '张三',
+                    teaching_plan: '是',
+                    txt: '是',
+                    plan_over: '是',
+                    attendance_times:'5次',
+                    attendance:'是',
+                    times:'5次'
                 }],
+            tableData2: [{
+                   lesson_assessment: '5次',
+                   lesson_record: '是',
+                assign_works_times: '7次',
+                check_works_times: '是',
+                test_times:'5次',
+                test_report_times:'是',
+                ele_paper:'电子'
+                }],
+                input: '上次',
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
         },
@@ -102,12 +159,14 @@
             }
         }
     }
+
 </script>
 
 <style scoped>
     .table{
         align: center;
-        margin: 20px 200px;
+        margin: 20px 150px;
+        font-size:16px;
     }
 
     .content {
@@ -120,5 +179,8 @@
     .upload-demo{
         margin-left: 300px;
         padding-right: 700px;
+    }
+    .input{
+       height: 20%;
     }
 </style>

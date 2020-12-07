@@ -12,9 +12,9 @@
         <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
-                   height="250"
+                   height="280"
                    border
-                   style="width:730px;">
+                   style="width:750px;">
             <el-table-column
                     prop="teacher"
                     label="教师姓名"
@@ -23,7 +23,7 @@
             <el-table-column
                     prop="award"
                     label="奖励名称"
-                    width="190">
+                    width="210">
             </el-table-column>
             <el-table-column
                     prop="level"
@@ -113,6 +113,7 @@
     .table{
         align: center;
         margin: 20px 200px;
+        font-size:16px;
     }
 
     .content {

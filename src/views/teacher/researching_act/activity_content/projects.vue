@@ -12,7 +12,7 @@
         <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
-                   height="250"
+                   height="280"
                    border
                    style="width:930px;">
             <el-table-column
@@ -123,6 +123,7 @@
     .table{
         align: center;
         margin: 20px 100px;
+        font-size:16px;
     }
 
     .content {

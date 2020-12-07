@@ -12,7 +12,7 @@
         <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
                 <el-table  class="table"
                         :data="tableData"
-                        height="250"
+                        height="280"
                         border
                         style="width:910px;">
                     <el-table-column
@@ -55,7 +55,7 @@
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
-        <el-button slot="reference" style="margin:20px 500px">提交</el-button>
+        <el-button slot="reference" style="margin-left: 720px">提交</el-button>
     </div>
 </template>
 
@@ -75,29 +75,17 @@
                     teacher: '姜磊',
                     remarks: '无'
                 }, {
-                    time: '',
-                    content: '',
-                    address: '',
-                    teacher: '',
-                    remarks: ''
+                    time: '11212',
+                    content: '湖南科技大学',
+                    address: '长沙',
+                    teacher: '姜磊',
+                    remarks: '无'
                 }, {
-                    time: '',
-                    content: '',
-                    address: '',
-                    teacher: '',
-                    remarks: ''
-                }, {
-                    time: '',
-                    content: '',
-                    address: '',
-                    teacher: '',
-                    remarks: ''
-                }, {
-                    time: '',
-                    content: '',
-                    address: '',
-                    teacher: '',
-                    remarks: ''
+                    time: '11212',
+                    content: '湖南科技大学',
+                    address: '长沙',
+                    teacher: '姜磊',
+                    remarks: '无'
                 }],
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
@@ -136,6 +124,7 @@
     }
     .upload-demo{
       margin-left: 300px;
-        padding-right: 700px;
+        width:300px;
+
     }
 </style>
