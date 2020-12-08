@@ -7,11 +7,6 @@
 
 <script>
   export default {
-    mounted() {
-      if (sessionStorage.getItem('parent_index')==null){
-        sessionStorage.setItem('parent_index', '1');
-      }
-    }
   }
 </script>
 
