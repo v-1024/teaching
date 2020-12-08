@@ -20,12 +20,10 @@
             }
         } ,
         created() {
-            // this.active_index = sessionStorage.getItem('child_index')
+
         } ,
         methods: {
-            // handleSelect(key) {
-            //     sessionStorage.setItem('child_index', key);
-            // }
+
         }
     }
 </script>
