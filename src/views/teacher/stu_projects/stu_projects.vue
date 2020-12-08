@@ -2,7 +2,8 @@
     <div>
         <el-container>
             <sidebar>
-                <el-menu-item index="1" slot="title" @click="competition">
+                <el-menu-item index="/teacher/stu_projects/stu_competition"
+                              slot="title" @click="competition">
                     <i class="el-icon-medal-1"></i>
                     <span>学生竞赛</span>
                 </el-menu-item>

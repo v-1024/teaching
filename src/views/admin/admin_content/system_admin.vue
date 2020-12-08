@@ -30,19 +30,19 @@
             <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-table stripe border :data="props.row.dep">
-                        <el-table-column label="系部" prop="dep_name">
+                        <el-table-column label="系部" prop="dep_name" align="center">
                             <template scope="scope">
                                 <el-input v-model="scope.row.dep_name" v-show="!scope.row.dep_edit"></el-input>
                                 <span v-show="scope.row.dep_edit">{{scope.row.dep_name}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="状态" prop="dep_state">
+                        <el-table-column label="状态" prop="dep_state" align="center">
                             <!--作用域插槽-->
                             <template slot-scope="scope">
                                 <el-switch v-model="scope.row.dep_state"></el-switch>
                             </template>
                         </el-table-column>
-                        <el-table-column label="操作">
+                        <el-table-column label="操作" align="center">
                             <template slot-scope="scope">
                                 <el-button
                                         size="medium"
@@ -63,19 +63,19 @@
 
 
             <!--学院信息、操作-->
-            <el-table-column label="学院" prop="col_name">
+            <el-table-column label="学院" prop="col_name" align="center">
                 <template scope="scope">
                     <el-input v-model="scope.row.col_name" v-show="!scope.row.col_edit" style="width: 200px;"></el-input>
                     <span v-show="scope.row.col_edit">{{scope.row.col_name}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="状态" prop="col_state">
+            <el-table-column label="状态" prop="col_state" align="center">
                 <!--作用域插槽-->
                 <template slot-scope="scope">
                     <el-switch v-model="scope.row.col_state"></el-switch>
                 </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button
                             size="medium"

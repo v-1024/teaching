@@ -17,7 +17,7 @@
                         <el-button
                                 size="small"
                                 type="primary"
-                                @click="check(scope.$index, scope.row)">查看</el-button>
+                                @click="check(scope.$index, scope.row)">查看</el-button>  <!--查看做成dialog形式-->
                     </template>
                 </el-table-column>
             </el-table>

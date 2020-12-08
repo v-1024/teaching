@@ -5,11 +5,11 @@
         <el-container>
             <el-header>
                 <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff"
-                         :default-active="active_index" @select="handleSelect">
-                    <el-menu-item index="1" @click="teaching">教学运行</el-menu-item>
-                    <el-menu-item index="2" @click="researching">教研活动</el-menu-item>
-                    <el-menu-item index="3" @click="project">学生项目</el-menu-item>
-                    <el-menu-item index="4" @click="exchange">对外交流</el-menu-item>
+                         :default-active="active_index">
+                    <el-menu-item index="/teacher/teaching_work" @click="teaching">教学运行</el-menu-item>
+                    <el-menu-item index="/teacher/researching_activity" @click="researching">教研活动</el-menu-item>
+                    <el-menu-item index="/teacher/stu_projects" @click="project">学生项目</el-menu-item>
+                    <el-menu-item index="/teacher/external_exchange" @click="exchange">对外交流</el-menu-item>
                     <el-menu-item index="5" >查看系部汇总表</el-menu-item>
 
                     <el-popover class="span"
@@ -40,7 +40,6 @@
         components: {Teaching_work, Navigation} ,
         data() {
             return {
-                active_index: '' ,
                 role_id:'' ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
                 t_name: ''
             }
@@ -48,13 +47,8 @@
         created() {   //请求后端的数据
             this.role_id = '1';
             this.t_name = '张三'
-            this.active_index = sessionStorage.getItem('parent_index')
         } ,
         methods: {
-            handleSelect(key) {
-                sessionStorage.setItem('parent_index', key);
-                sessionStorage.setItem('child_index', '1');
-            } ,
             researching() {
                 this.$router.push("/teacher/researching_activity");
             } ,
@@ -68,12 +62,16 @@
                 this.$router.push("/teacher/external_exchange");
             } ,
             change_role() {
-                sessionStorage.setItem('parent_index', '1');
-                sessionStorage.setItem('child_index', '1');
                 if (this.role_id == '1')
                     this.$router.push('/dep_head');
                 else
                     this.$router.push('/dean_academic');
+            }
+        } ,
+        computed: {
+            active_index() {
+                const head = this.$route.path.indexOf("/") , tail = this.$route.path.lastIndexOf("/");
+                return this.$route.path.substring(head,tail);
             }
         }
     }

@@ -4,7 +4,8 @@
 
         <el-container>
             <el-header>
-                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff">
+                <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff"
+                         :default-active="active_index" @select="handleSelect">
                     <el-menu-item index="1" @click="">进度检查</el-menu-item>
                     <el-menu-item index="2" @click="">院汇总</el-menu-item>
 
@@ -33,6 +34,7 @@
         components: {Navigation} ,
         data() {
             return {
+                active_index: '' ,
                 role_id:'' ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
                 role: '' ,
                 t_name: ''
@@ -42,9 +44,12 @@
             this.role_id = '2'
             this.role = '院长'
             this.t_name = '张三'
+            this.active_index = sessionStorage.getItem('parent_index')
         } ,
         methods: {
             change_role() {
+                sessionStorage.setItem('parent_index', '1');
+                sessionStorage.setItem('child_index', '1');
                 this.$router.push('/teacher');
             }
         }

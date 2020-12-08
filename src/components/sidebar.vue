@@ -3,7 +3,7 @@
         <el-aside width="220px">
             <el-col>
                 <el-menu class="el-menu-vertical-demo" active-text-color="#6876ff"
-                         :default-active="active_index" @select="handleSelect">
+                         :default-active="$route.path">
                     <slot name="title"></slot>
                 </el-menu>
             </el-col>
@@ -20,12 +20,10 @@
             }
         } ,
         created() {
-            this.active_index = sessionStorage.getItem('child_index')
+
         } ,
         methods: {
-            handleSelect(key) {
-                sessionStorage.setItem('child_index', key);
-            }
+
         }
     }
 </script>
