@@ -5,10 +5,10 @@
         <el-container>
             <el-header>
                 <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff"
-                         :default-active="active_index" @select="handleSelect">
-                    <el-menu-item index="1" @click="schedule">进度检查</el-menu-item>
-                    <el-menu-item index="2" @click="collection">汇总上传</el-menu-item>
-                    <el-menu-item index="3" @click="audit">注册审核</el-menu-item>
+                         :default-active="$route.path">
+                    <el-menu-item index="/dep_head/schedule" @click="schedule">进度检查</el-menu-item>
+                    <el-menu-item index="/dep_head/collection" @click="collection">汇总上传</el-menu-item>
+                    <el-menu-item index="/dep_head/reg_audit" @click="audit">注册审核</el-menu-item>
 
                     <el-popover class="span"
                                 placement="bottom"
@@ -43,16 +43,9 @@
         created() {   //请求后端的数据
             this.role_id = '1'
             this.t_name = '张三'
-            this.active_index = sessionStorage.getItem('parent_index')
         } ,
         methods: {
-            handleSelect(key) {
-                sessionStorage.setItem('parent_index', key);
-                sessionStorage.setItem('child_index', '1');
-            } ,
             change_role() {
-                sessionStorage.setItem('parent_index', '1');
-                sessionStorage.setItem('child_index', '1');
                 this.$router.push('/teacher');
             } ,
             schedule() {
