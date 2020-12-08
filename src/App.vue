@@ -8,9 +8,8 @@
 <script>
   export default {
     mounted() {
-      if (sessionStorage.getItem('parent_index')==null && sessionStorage.getItem('child_index')==null){
+      if (sessionStorage.getItem('parent_index')==null){
         sessionStorage.setItem('parent_index', '1');
-        sessionStorage.setItem('child_index', '1');
       }
     }
   }

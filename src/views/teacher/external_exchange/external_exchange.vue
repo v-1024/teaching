@@ -2,7 +2,8 @@
     <div>
         <el-container>
             <sidebar>
-                <el-menu-item index="1" slot="title"  @click="exchange">
+                <el-menu-item index="/teacher/external_exchange/exchange"
+                              slot="title"  @click="exchange">
                     <i class="el-icon-connection"></i>
                     <span>交流考察</span>
                 </el-menu-item>

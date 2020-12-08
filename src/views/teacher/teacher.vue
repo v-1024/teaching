@@ -53,7 +53,6 @@
         methods: {
             handleSelect(key) {
                 sessionStorage.setItem('parent_index', key);
-                sessionStorage.setItem('child_index', '1');
             } ,
             researching() {
                 this.$router.push("/teacher/researching_activity");
@@ -69,7 +68,6 @@
             } ,
             change_role() {
                 sessionStorage.setItem('parent_index', '1');
-                sessionStorage.setItem('child_index', '1');
                 if (this.role_id == '1')
                     this.$router.push('/dep_head');
                 else
