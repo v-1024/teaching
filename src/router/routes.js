@@ -22,6 +22,8 @@ const reg_audit = () => import("views/dep_head/dep_content/reg_audit");
 
 //院长/教务办
 const dean_academic = () => import("views/dean_academic/dean_academic");
+const dean_schedule = () => import("views/dean_academic/content/schedule");
+const dean_collection = () => import("views/dean_academic/content/collection");
 
 //管理员
 const admin = () => import("views/admin/admin");
@@ -148,7 +150,21 @@ const routes = [
     } ,
     {
         path: '/dean_academic' ,
-        component: dean_academic
+        component: dean_academic ,
+        children: [
+            {
+                path: '' ,
+                redirect: 'schedule'
+            } ,
+            {
+                path: 'schedule' ,
+                component: dean_schedule
+            } ,
+            {
+                path: 'collection' ,
+                component: dean_collection
+            }
+        ]
     } ,
     {
         path: '/admin' ,

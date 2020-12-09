@@ -5,9 +5,9 @@
         <el-container>
             <el-header>
                 <el-menu class="el-menu-demo" mode="horizontal" active-text-color="#6876ff"
-                         :default-active="active_index" @select="handleSelect">
-                    <el-menu-item index="1" @click="">进度检查</el-menu-item>
-                    <el-menu-item index="2" @click="">院汇总</el-menu-item>
+                         :default-active="active_index">
+                    <el-menu-item index="/dean_academic/schedule" @click="schedule">进度检查</el-menu-item>
+                    <el-menu-item index="/dean_academic/collection" @click="collection">院汇总</el-menu-item>
 
                     <el-popover class="span"
                                 placement="bottom"
@@ -22,7 +22,7 @@
                     </el-popover>
                 </el-menu>
             </el-header>
-
+            <router-view></router-view>
         </el-container>
     </div>
 </template>
@@ -34,7 +34,6 @@
         components: {Navigation} ,
         data() {
             return {
-                active_index: '' ,
                 role_id:'' ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
                 role: '' ,
                 t_name: ''
@@ -44,13 +43,25 @@
             this.role_id = '2'
             this.role = '院长'
             this.t_name = '张三'
-            this.active_index = sessionStorage.getItem('parent_index')
         } ,
         methods: {
             change_role() {
-                sessionStorage.setItem('parent_index', '1');
-                sessionStorage.setItem('child_index', '1');
                 this.$router.push('/teacher');
+            } ,
+            schedule() {
+                this.$router.push('/dean_academic/schedule');
+            } ,
+            collection() {
+                this.$router.push('/dean_academic/collection');
+            }
+        } ,
+        computed: {
+            active_index() {
+                const head = this.$route.path.indexOf("/") , tail = this.$route.path.lastIndexOf("/");
+                if (tail-head == 14)
+                    return this.$route.path.substring(head);
+                else
+                    return this.$route.path.substring(head,tail);
             }
         }
     }
@@ -70,6 +81,11 @@
         line-height: 60px;
     }
     .el-menu-item {
+        width: 150px;
+        font-size: 17px;
+    }
+
+    .el-submenu {
         width: 150px;
         font-size: 17px;
     }
