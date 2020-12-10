@@ -9,37 +9,64 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px" @click="qqq">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
                    height="280"
                    border
-                   style="width:910px;">
+                   style="width:1100px;">
             <el-table-column
                     prop="teacher"
                     label="教师姓名"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="competition"
                     label="竞赛名称"
                     width="190">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.competition"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.competition}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="award"
                     label="获奖/成果"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.award"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.award}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="level"
                     label="级别"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.level"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.level}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="time"
                     label="时间"
-                    width="180">
+                   >
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.time"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.time}}</span>
+                </template>
             </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button @click="scope.row.show =true">编辑</el-button>
+                    <el-button @click="scope.row.show =false">保存</el-button>
+                </template>
+            </el-table-column>
+
         </el-table>
         <span style="font-weight: bold;margin-left:200px">添加附件</span>
         <el-upload
@@ -56,8 +83,8 @@
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
         <el-button slot="reference" style="margin:20px 500px">提交</el-button>
-    </div>
 
+    </div>
 </template>
 
 <script>
@@ -69,37 +96,8 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData: [{
-                    teacher: '张三',
-                    competition: '程序设计大赛',
-                    award: '获奖',
-                    level: '一等奖',
-                    time: '2020/11/20'
-                }, {
-                    teacher: '张三',
-                    competition: '程序设计大赛',
-                    award: '获奖',
-                    level: '一等奖',
-                    time: '2020/11/20'
-                }, {
-                    teacher: '张三',
-                    competition: '程序设计大赛',
-                    award: '获奖',
-                    level: '一等奖',
-                    time: '2020/11/20'
-                }, {
-                    teacher: '张三',
-                    competition: '程序设计大赛',
-                    award: '获奖',
-                    level: '一等奖',
-                    time: '2020/11/20'
-                }, {
-                    teacher: '张三',
-                    competition: '程序设计大赛',
-                    award: '获奖',
-                    level: '一等奖',
-                    time: '2020/11/20'
-                }],
+                tableData: [
+                    ],
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
         },
@@ -115,9 +113,19 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
+            },
+            qqq() {
+                this.tableData.push({
+                    teacher: '',
+                    competition: '',
+                    award: '',
+                    level: '',
+                    time: '',
+                    show:true
+                })
             }
-        }
-    }
+
+       }}
 </script>
 
 <style scoped>

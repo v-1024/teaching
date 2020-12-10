@@ -9,31 +9,53 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px" @click="qqq">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
                    height="280"
                    border
-                   style="width:750px;">
+                   style="width:950px;">
             <el-table-column
                     prop="teacher"
                     label="教师姓名"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="award"
                     label="奖励名称"
                     width="210">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.award"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.award}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="level"
                     label="级别"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.level"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.level}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="time"
                     label="时间"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.time"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.time}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button @click="scope.row.show =true">编辑</el-button>
+                    <el-button @click="scope.row.show =false">保存</el-button>
+                </template>
             </el-table-column>
         </el-table>
         <span style="font-weight: bold;margin-left:200px">添加附件</span>
@@ -63,32 +85,7 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData: [{
-                    teacher: '张三',
-                    award: '优秀讲师',
-                    level: '一级',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    award: '优秀讲师',
-                    level: '一级',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    award: '优秀讲师',
-                    level: '一级',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    award: '优秀讲师',
-                    level: '一级',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    award: '优秀讲师',
-                    level: '一级',
-                    time:'2020/11/28'
-                }],
+                tableData: [],
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
         },
@@ -104,6 +101,15 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
+            },
+            qqq(){
+                this.tableData.push({
+                        teacher: '',
+                    award: '',
+                        level: '',
+                        time:'',
+                    show :true
+                })
             }
         }
     }

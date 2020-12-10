@@ -19,26 +19,46 @@
                             prop="time"
                             label="时间"
                             width="180">
+                        <template slot-scope="scope">
+                            <el-input  v-show="scope.row.show" v-model="scope.row.time"></el-input>
+                            <span v-show="!scope.row.show">{{scope.row.time}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="content"
                             label="教学交流、考察、学习内容"
                             width="190">
+                        <template slot-scope="scope">
+                            <el-input  v-show="scope.row.show" v-model="scope.row.content"></el-input>
+                            <span v-show="!scope.row.show">{{scope.row.content}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="address"
                             label="地点"
                             width="180">
+                        <template slot-scope="scope">
+                            <el-input  v-show="scope.row.show" v-model="scope.row.address"></el-input>
+                            <span v-show="!scope.row.show">{{scope.row.address}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="teacher"
                             label="教师"
                             width="180">
+                        <template slot-scope="scope">
+                            <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
+                            <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="remarks"
                             label="备注"
                             width="180">
+                        <template slot-scope="scope">
+                            <el-input  v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
+                            <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
+                        </template>
                     </el-table-column>
                 </el-table>
         <span style="font-weight: bold;margin-left:200px">添加附件</span>
@@ -68,25 +88,7 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData: [{
-                    time: '11212',
-                    content: '湖南科技大学',
-                    address: '长沙',
-                    teacher: '姜磊',
-                    remarks: '无'
-                }, {
-                    time: '11212',
-                    content: '湖南科技大学',
-                    address: '长沙',
-                    teacher: '姜磊',
-                    remarks: '无'
-                }, {
-                    time: '11212',
-                    content: '湖南科技大学',
-                    address: '长沙',
-                    teacher: '姜磊',
-                    remarks: '无'
-                }],
+                tableData: [],
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
         },
@@ -102,6 +104,15 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
+            },
+            qqq(){
+                this.tableData.push({
+                    time: '',
+                    content: '',
+                    teacher: '',
+                    remarks:'',
+                    show :true
+                })
             }
         }
     }
