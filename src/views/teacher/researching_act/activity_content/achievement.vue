@@ -14,7 +14,7 @@
                    :data="tableData"
                    height="280"
                    border
-                   style="width:950px;">
+                   style="width:1000px;">
             <el-table-column
                     prop="teacher"
                     label="教师姓名"
@@ -27,7 +27,7 @@
             <el-table-column
                     prop="achievement"
                     label="成果名称"
-                    width="210">
+                    width="250">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.achievement"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.achievement}}</span>
@@ -45,7 +45,7 @@
             <el-table-column
                     prop="department"
                     label="审批部门"
-                    width="180">
+                    width="200">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.department"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.department}}</span>
@@ -118,7 +118,7 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px 200px;
+        margin: 20px auto;
         font-size:16px;
     }
 

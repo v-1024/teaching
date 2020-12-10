@@ -103,7 +103,6 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
-<<<<<<< HEAD
             },
             qqq(){
                 this.tableData.push({
@@ -112,11 +111,9 @@
                         level: '',
                         time:'',
                     show :true
-=======
             } ,
-            commit() {
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
+           {
+
                     method: 'post' ,
                     data: {
                         t_id: '10001' ,
@@ -125,9 +122,6 @@
                         level: '一级' ,
                         time: '2020/12/8'
                     }
-                }).then(res =>{
-                    console.log(res);
->>>>>>> ad1715d113ddfcd64148b89e98e5d2a500a87f7f
                 })
             }
         }
@@ -137,7 +131,7 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px 200px;
+        margin: 20px auto;
         font-size:16px;
     }
 

@@ -9,12 +9,12 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px"@click="qqq">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
                    height="280"
                    border
-                   style="width:750px;">
+                   style="width:1000px;">
             <el-table-column
                     prop="teacher"
                     label="教师姓名"
@@ -23,17 +23,23 @@
             <el-table-column
                     prop="thesis"
                     label="论文名称"
-                    width="210">
+                    width="250">
             </el-table-column>
             <el-table-column
                     prop="periodical"
                     label="刊物名称"
-                    width="180">
+                    width="200">
             </el-table-column>
             <el-table-column
                     prop="time"
                     label="发表时间"
                     width="180">
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button @click="scope.row.show =true">编辑</el-button>
+                    <el-button @click="scope.row.show =false">保存</el-button>
+                </template>
             </el-table-column>
         </el-table>
         <span style="font-weight: bold;margin-left:200px">添加附件</span>
@@ -63,32 +69,7 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData: [{
-                    teacher: '张三',
-                    thesis: '关于青年学生',
-                    periodical: '青年报',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    thesis: '关于青年学生',
-                    periodical: '青年报',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    thesis: '关于青年学生',
-                    periodical: '青年报',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    thesis: '关于青年学生',
-                    periodical: '青年报',
-                    time:'2020/11/28'
-                }, {
-                    teacher: '张三',
-                    thesis: '关于青年学生',
-                    periodical: '青年报',
-                    time:'2020/11/28'
-                }],
+                tableData: [],
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
         },
@@ -104,6 +85,15 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
+            },
+            qqq(){
+                this.tableData.push({
+                    teacher: '张三',
+                    thesis: '关于青年学生',
+                    periodical: '青年报',
+                    time:'2020/11/28',
+                    show:true
+                })
             }
         }
     }
@@ -112,7 +102,7 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px 200px;
+        margin: 20px auto;
         font-size:16px;
     }
 
