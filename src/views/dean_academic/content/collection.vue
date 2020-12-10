@@ -71,6 +71,6 @@
 <style scoped>
     .box {
         text-align: center;
-        margin: 10px;
+        margin-top: 10px;
     }
 </style>

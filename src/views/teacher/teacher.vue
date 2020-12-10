@@ -10,7 +10,7 @@
                     <el-menu-item index="/teacher/researching_activity" @click="researching">教研活动</el-menu-item>
                     <el-menu-item index="/teacher/stu_projects" @click="project">学生项目</el-menu-item>
                     <el-menu-item index="/teacher/external_exchange" @click="exchange">对外交流</el-menu-item>
-                    <el-menu-item index="5" >查看系部汇总表</el-menu-item>
+                    <el-menu-item index="/teacher/dep_diagram" @click="diagram">查看系部汇总表</el-menu-item>
 
                     <el-popover class="span"
                             placement="bottom"
@@ -60,6 +60,9 @@
             } ,
             exchange() {
                 this.$router.push("/teacher/external_exchange");
+            } ,
+            diagram() {
+                this.$router.push("/teacher/dep_diagram");
             } ,
             change_role() {
                 if (this.role_id == '1')

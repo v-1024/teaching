@@ -6,6 +6,7 @@ const teaching_work = ()=> import("views/teacher/t_work/teaching_work");  //教�
 const researching_activity = ()=> import("views/teacher/researching_act/researching_activity");  //教研活动
 const stu_projects = ()=> import("views/teacher/stu_projects/stu_projects");  //学生项目
 const external_exchange = ()=> import("views/teacher/external_exchange/external_exchange");  //对外交流
+const dep_diagram = ()=> import("views/teacher/dep_diagram/dep_diagram");  //查看系部汇总表
 const teaching_inspection = ()=> import("views/teacher/t_work/work_content/teaching_inspection");  //教学检查
 const plans_inspection = ()=> import("views/teacher/t_work/work_content/plans_inspection");  //教案检查
 const exchange = ()=> import("views/teacher/external_exchange/exchange_content/exchange");  //交流考察
@@ -123,6 +124,10 @@ const routes = [
                         component: exchange
                     }
                 ]
+            } ,
+            {
+                path: 'dep_diagram' ,
+                component: dep_diagram
             }
         ]
     } ,
