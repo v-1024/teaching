@@ -9,17 +9,7 @@
                     <el-menu-item index="/dean_academic/schedule" @click="schedule">进度检查</el-menu-item>
                     <el-menu-item index="/dean_academic/collection" @click="collection">院汇总</el-menu-item>
 
-                    <el-popover class="span"
-                                placement="bottom"
-                                trigger="hover">
-                        <div class="span">
-                            <p >{{role}}：{{t_name}}</p> <el-divider></el-divider>
-                            <p class="hover">个人中心</p>
-                            <p class="hover" v-show="role_id != '0'" @click="change_role">切换角色</p>
-                            <p class="hover">退出登录</p>
-                        </div>
-                        <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
-                    </el-popover>
+                    <profile_pho :role_id="role_id" :role_name="role_name" :t_name="t_name"></profile_pho>
                 </el-menu>
             </el-header>
             <router-view></router-view>
@@ -29,25 +19,23 @@
 
 <script>
     import Navigation from "../../components/navigation";
+    import Profile_pho from "../../components/profile_pho";
     export default {
         name: "dean_academic",
-        components: {Navigation} ,
+        components: {Profile_pho, Navigation} ,
         data() {
             return {
                 role_id:'' ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
-                role: '' ,
+                role_name: '' ,   //该页面是院长/教务办的专属页面（但需知道具体的角色）
                 t_name: ''
             }
         } ,
         created() {   //请求后端的数据
-            this.role_id = '2'
-            this.role = '院长'
-            this.t_name = '张三'
+            this.role_id = '2';
+            this.role_name = '院长';
+            this.t_name = '张三';
         } ,
         methods: {
-            change_role() {
-                this.$router.push('/teacher');
-            } ,
             schedule() {
                 this.$router.push('/dean_academic/schedule');
             } ,
@@ -93,35 +81,7 @@
         margin-left: 200px;
     }
 
-    .el-avatar {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        display: inline-block;
-        margin-top: 10px;
-        right: 100px;
-    }
-
     .el-button {
         margin: auto;
-    }
-
-    .span {
-        text-align: center;
-    }
-
-    p {
-        height: 30px;
-        line-height: 30px;
-        font-family: Arial;
-    }
-
-    .hover:hover {
-        background-color: rgba(192, 192, 192, 0.6);
-        cursor: pointer;
-    }
-
-    .el-divider {
-        margin: 5px 0 ;
     }
 </style>
