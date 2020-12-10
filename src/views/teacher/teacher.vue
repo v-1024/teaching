@@ -74,7 +74,10 @@
         computed: {
             active_index() {
                 const head = this.$route.path.indexOf("/") , tail = this.$route.path.lastIndexOf("/");
-                return this.$route.path.substring(head,tail);
+                if (tail - head == 8)
+                    return this.$route.path;
+                else
+                    return this.$route.path.substring(head,tail);
             }
         }
     }
