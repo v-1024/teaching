@@ -12,17 +12,7 @@
                     <el-menu-item index="/teacher/external_exchange" @click="exchange">对外交流</el-menu-item>
                     <el-menu-item index="/teacher/dep_diagram" @click="diagram">查看系部汇总表</el-menu-item>
 
-                    <el-popover class="span"
-                            placement="bottom"
-                            trigger="hover">
-                        <div class="span">
-                            <p >教师：{{t_name}}</p> <el-divider></el-divider>
-                            <p class="hover">个人中心</p>
-                            <p class="hover" v-show="role_id != '0'" @click="change_role">切换角色</p>
-                            <p class="hover">退出登录</p>
-                        </div>
-                        <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
-                    </el-popover>
+                    <profile_pho :role_id="role_id" :role_name="role_name" :t_name="t_name"></profile_pho>
                 </el-menu>
             </el-header>
             <router-view></router-view>
@@ -35,18 +25,20 @@
 <script>
     import Navigation from "../../components/navigation";
     import Teaching_work from "./t_work/teaching_work";
+    import Profile_pho from "../../components/profile_pho";
     export default {
         name: "teacher",
-        components: {Teaching_work, Navigation} ,
+        components: {Profile_pho, Teaching_work, Navigation} ,
         data() {
             return {
                 role_id:'' ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
+                role_name: '教师' ,   //该页面是教师的专属页面
                 t_name: ''
             }
         } ,
         created() {   //请求后端的数据
             this.role_id = '1';
-            this.t_name = '张三'
+            this.t_name = '张三' ;
         } ,
         methods: {
             researching() {
@@ -64,12 +56,6 @@
             diagram() {
                 this.$router.push("/teacher/dep_diagram");
             } ,
-            change_role() {
-                if (this.role_id == '1')
-                    this.$router.push('/dep_head');
-                else
-                    this.$router.push('/dean_academic');
-            }
         } ,
         computed: {
             active_index() {
@@ -104,35 +90,8 @@
         margin-left: 200px;
     }
 
-    .el-avatar {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        display: inline-block;
-        margin-top: 10px;
-        right: 100px;
-    }
-
     .el-button {
         margin: auto;
     }
 
-    .span {
-       text-align: center;
-    }
-
-    p {
-        height: 30px;
-        line-height: 30px;
-        font-family: Arial;
-    }
-
-    .hover:hover {
-        background-color: rgba(192, 192, 192, 0.6);
-        cursor: pointer;
-    }
-
-    .el-divider {
-        margin: 5px 0 ;
-    }
 </style>
