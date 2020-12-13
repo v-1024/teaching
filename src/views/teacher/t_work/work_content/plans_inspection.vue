@@ -93,22 +93,58 @@
                 </template>
             </el-table-column>
     </el-table>
-        <span style="font-weight: bold;margin:200px 200px">添加附件</span>
-        <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                :before-remove="beforeRemove"
-                multiple
-                :limit="5"
-                :on-exceed="handleExceed"
-                :file-list="fileList">
-            <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-        </el-upload>
-        <el-button slot="reference" style="margin:20px 500px">提交</el-button>
+        <span style="font-weight: bold;float: left;margin:30px 150px">添加附件
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div></span>
+        <div class="upload_1">
+            <div style="margin-left: 50px">
+                <span style="float: left;margin: 5px 10px">授课计划</span>
+                <el-upload
+                        class="upload-demo"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :before-remove="beforeRemove"
+                        multiple
+                        :limit="5"
+                        :on-exceed="handleExceed"
+                        :file-list="fileList">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
+            </div>
+            <div style="float: left;margin-left: 100px">
+                <span style="float: left;margin: 5px 10px">课堂考勤</span>
+                <el-upload
+                        class="upload-demo"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :before-remove="beforeRemove"
+                        multiple
+                        :limit="5"
+                        :on-exceed="handleExceed"
+                        :file-list="fileList">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
+            </div>
+            <div style="float: left;margin-left: 100px">
+                <span style="float: left;margin: 5px 10px">辅导答疑</span>
+                <el-upload
+                        class="upload-demo"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :before-remove="beforeRemove"
+                        multiple
+                        :limit="5"
+                        :on-exceed="handleExceed"
+                        :file-list="fileList">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
+            </div>
+        </div>
+        <el-button slot="reference" style="margin:40px 500px">提交</el-button>
     </div>
+
 
 
 </template>
@@ -174,9 +210,12 @@
         margin:30px 30px;
         border: #333333;
     }
+    .upload_1{
+        margin: 110px 150px;
+
+    }
     .upload-demo{
-        margin-left: 300px;
-        padding-right: 700px;
+        float: left;
     }
 
 </style>
