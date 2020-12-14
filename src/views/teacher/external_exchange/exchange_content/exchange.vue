@@ -9,12 +9,12 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px" @click="qqq">添加行</el-button>
                 <el-table  class="table"
                         :data="tableData"
                         height="280"
                         border
-                        style="width:910px;">
+                        style="width:1100px;">
                     <el-table-column
                             prop="time"
                             label="时间"
@@ -27,7 +27,7 @@
                     <el-table-column
                             prop="content"
                             label="教学交流、考察、学习内容"
-                            width="190">
+                            width="220">
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.content"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.content}}</span>
@@ -45,7 +45,7 @@
                     <el-table-column
                             prop="teacher"
                             label="教师"
-                            width="180">
+                            width="150">
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
@@ -58,6 +58,12 @@
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="操作">
+                        <template slot-scope="scope">
+                            <el-button @click="scope.row.show =true">编辑</el-button>
+                            <el-button @click="scope.row.show =false">保存</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -124,6 +130,7 @@
     .table{
         align: center;
         margin: 20px 100px;
+        font-size:16px;
     }
 
     .content {

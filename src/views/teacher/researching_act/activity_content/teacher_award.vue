@@ -104,31 +104,6 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-//             qqq(){
-//                 this.tableData.push({
-//                         teacher: '',
-//                     award: '',
-//                         level: '',
-//                         time:'',
-//                     show :true
-//
-//             } ,
-//             commit() {
-//                 request({
-//                     url: 'Teachingwork/TeachCheck_submit' ,
-//                     method: 'post' ,
-//                     data: {
-//                         t_id: '10001' ,
-//                         t_name: '王五' ,
-//                         award_name: '优秀讲师' ,
-//                         level: '一级' ,
-//                         time: '2020/12/8'
-//                     }
-//                 }).then(res =>{
-//                     console.log(res);
-//
-//                 })
-//             }
         }
     }
 </script>
@@ -136,7 +111,7 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px 200px;
+        margin: 20px auto;
         font-size:16px;
     }
 

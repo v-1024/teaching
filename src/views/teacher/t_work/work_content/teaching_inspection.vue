@@ -9,90 +9,79 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px"@click="qqq">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
-                   height="97"
+
                    border
-                   style="width:920px;margin-bottom: 0">
+                   style="margin-bottom: 0">
             <el-table-column
                     prop="name"
                     label="姓名"
-                    width="100">
+                    width="80">
             </el-table-column>
             <el-table-column
-                    prop="teaching_plan"
-                    label="是否是电子教案"
-                    width="150">
+                    prop="subject"
+                    label="课程"
+                    width="160">
             </el-table-column>
             <el-table-column
-                    prop="txt"
-                    label="是否是文本文档"
-                    width="150">
+                    prop="schedule"
+                    label="授课计划"
+                    width="160">
             </el-table-column>
             <el-table-column
-                    prop="plan_over"
-                    label="教案是否完善"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="attendance_times"
-                    label="考勤次数"
-                    width="110">
-            </el-table-column>
-            <el-table-column
-                    prop="attendance"
-                    label="考情是否有记录"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="times"
-                    label="听课次数"
-            >
-            </el-table-column>
-        </el-table>
-        <el-table  class="table"
-                   :data="tableData"
-                   height="97"
-                   border
-                   style="width:920px;margin-top: 0px;">
-            <el-table-column
-                    prop="name"
-                    label="姓名"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="teaching_plan"
-                    label="是否是电子教案"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="txt"
-                    label="是否是文本文档"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="plan_over"
-                    label="教案是否完善"
-                    width="150">
+                    prop="plan"
+                    label="教案(有或无）"
+                    width="80">
             </el-table-column>
             <el-table-column
                     prop="attendance_times"
-                    label="考勤次数"
-                    width="110">
+                    label="课堂考勤(次)"
+                    width="90">
             </el-table-column>
             <el-table-column
                     prop="attendance"
-                    label="考情是否有记录"
-                    width="150">
+                    label="学生出勤率"
+                    width="80">
             </el-table-column>
             <el-table-column
-                    prop="times"
-                    label="听课次数"
-            >
+                    prop="work"
+                    label="作业批改(次)"
+                    width=90">
+            </el-table-column>
+            <el-table-column
+                    prop="coach"
+                    label="辅导答疑(次)"
+                    width="80">
+            </el-table-column>
+            <el-table-column
+                    prop="test"
+                    label="是否按计划设实验(随堂)"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    prop="problem"
+                    label="教学中存在的问题"
+                    width="170">
+            </el-table-column>
+            <el-table-column
+                    prop="remarks"
+                    label="备注"
+                    width="100">
+            </el-table-column>
+            <el-table-column label="操作" >
+                <template slot-scope="scope">
+                    <el-button @click="scope.row.show =true">编辑</el-button>
+                    <el-button @click="scope.row.show =false">保存</el-button>
+                </template>
             </el-table-column>
         </el-table>
-        <span style="font-weight: bold;margin-left:200px">添加附件</span>
+        <span style="font-weight: bold;float: left;margin:30px 150px">添加附件
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div></span>
+        <div class="upload_1">
+            <div style="margin-left: 50px">
+        <span style="float: left;margin: 5px 10px">授课计划</span>
         <el-upload
                 class="upload-demo"
                 action="https://jsonplaceholder.typicode.com/posts/"
@@ -104,9 +93,40 @@
                 :on-exceed="handleExceed"
                 :file-list="fileList">
             <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
-        <el-button slot="reference" style="margin:20px 500px">提交</el-button>
+            </div>
+            <div style="float: left;margin-left: 100px">
+            <span style="float: left;margin: 5px 10px">课堂考勤</span>
+            <el-upload
+                    class="upload-demo"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="5"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList">
+                <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
+            </div>
+            <div style="float: left;margin-left: 100px">
+            <span style="float: left;margin: 5px 10px">辅导答疑</span>
+            <el-upload
+                    class="upload-demo"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="5"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList">
+                <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
+            </div>
+        </div>
+        <el-button slot="reference" style="margin:40px 500px">提交</el-button>
     </div>
 </template>
 
@@ -119,16 +139,8 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData: [{
-                    name: '张三',
-                    teaching_plan: '是',
-                    txt: '是',
-                    plan_over: '是',
-                    attendance_times:'5次',
-                    attendance:'是',
-                    times:'5次'
-                }],
-                fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+                tableData: [],
+                fileList: []
             };
         },
         methods: {
@@ -143,6 +155,23 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
+            },
+            qqq()
+            {
+                this.tableData.push({
+                    name:'' ,
+                    subject:'',
+                    schedule:'',
+                    plan:'',
+                    attendance_times:'',
+                    attendance:'',
+                    work:'',
+                    coach:'',
+                    test:'',
+                    problem:'',
+                    remarks:'',
+                    show:true
+                })
             }
         }
     }
@@ -151,8 +180,8 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px 150px;
-        font-size:16px;
+        margin: 20px auto;
+
     }
 
     .content {
@@ -162,8 +191,12 @@
         margin:30px 30px;
         border: #333333;
     }
+    .upload_1{
+        margin: 110px 150px;
+
+    }
     .upload-demo{
-        margin-left: 300px;
-        padding-right: 700px;
+        float: left;
+
     }
 </style>
