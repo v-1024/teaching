@@ -95,7 +95,7 @@
         }
     }
 </script>
-git remote add origin
+
 <style scoped>
     #login{
         width: 100%;

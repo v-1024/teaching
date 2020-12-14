@@ -12,7 +12,6 @@
         <el-button slot="reference" style="margin-left: 100px" @click="add_line">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
-
                    border
                    style="margin-bottom: 0">
             <el-table-column
