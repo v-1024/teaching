@@ -179,28 +179,37 @@
             register() {
                 this.ruleForm.col_name = this.ruleForm.ColDep[0];
                 this.ruleForm.dep_name = this.ruleForm.ColDep[1];
-                if (this.ruleForm.password !== this.ruleForm.check_pwd)
-                    this.$message.warning('两次输入的密码不一致，请重新输入');
-                else {
-                    request({
-                        url: '/api/register' ,
-                        data: {
-                            t_id: this.ruleForm.t_id ,
-                            col_name: this.ruleForm.col_name ,
-                            t_name: this.ruleForm.t_name ,
-                            dep_name: this.ruleForm.dep_name ,
-                            password: this.ruleForm.password ,
-                            t_tel: this.ruleForm.t_tel ,
-                            t_email: this.ruleForm.t_email ,
-                            t_address: this.ruleForm.t_address ,
-                            t_sex: this.ruleForm.t_sex ,
-                        }
-                    }).then(res => {
-                        console.log(res);
-                        this.$message.success('提交成功，请等待系主任审核后进入系统');
-                    })
+                if (this.ruleForm.t_id !== ''&&this.ruleForm.col_name !== ''&&this.ruleForm.t_name !== ''&&
+                    this.ruleForm.dep_name !== ''&&this.ruleForm.password !== ''&&this.ruleForm.t_tel !== ''&&
+                    this.ruleForm.t_email !== ''&&this.ruleForm.t_address !== ''&&this.ruleForm.ColDep !== '') {
+                    if (this.ruleForm.password !== this.ruleForm.check_pwd)
+                        this.$message.warning('两次输入的密码不一致，请重新输入');
+                    else {
+                        request({
+                            url: "register" ,
+                            data: {
+                                t_id: this.ruleForm.t_id ,
+                                col_name: this.ruleForm.col_name ,
+                                t_name: this.ruleForm.t_name ,
+                                dep_name: this.ruleForm.dep_name ,
+                                password: this.ruleForm.password ,
+                                t_tel: this.ruleForm.t_tel ,
+                                t_email: this.ruleForm.t_email ,
+                                t_address: this.ruleForm.t_address ,
+                                t_sex: this.ruleForm.t_sex ,
+                            }
+                        }).then(res => {
+                            console.log(res);
+                            this.$message.success('提交成功，请等待系主任审核后进入系统');
+                            setTimeout(() => {
+                                this.$router.push('/login')
+                            } , 500)
+                        })
+                    }
                 }
-
+                else {
+                    this.$message.warning('所有信息均不能为空');
+                }
             }
         }
     }

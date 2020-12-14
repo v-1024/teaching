@@ -77,20 +77,21 @@
             register() {
                 this.$router.push('/register')
             },
-            // login()
-            // {
-            //     let forms=new FormData();
-            //     forms.append("username",this.ruleForm.t_id);
-            //     forms.append("password",this.ruleForm.pwd);
-            //     request({
-            //         method:"post",
-            //         data:forms,
-            //         url:"login"
-            //     }).then(response=>{
-            //         console.log(response);
-            //         this.$message.success(response.data.msg);
-            //     })
-            // }
+            login()
+            {
+                request({
+                    url : "login" ,
+                    method : "post",
+                    data:{
+                        t_id: this.ruleForm.t_id ,
+                        pwd: this.ruleForm.password
+                    },
+                }).then(res=>{
+                    console.log(res);
+                    if (res.data.message === 'success')
+                        this.$router.push('/teacher');
+                })
+            }
         }
     }
 </script>
