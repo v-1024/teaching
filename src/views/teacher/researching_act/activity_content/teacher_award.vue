@@ -9,7 +9,7 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px" @click="qqq">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px" @click="add_line">添加行</el-button>
         <el-table  class="table"
                    :data="tableData"
                    height="280"
@@ -104,6 +104,15 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
+            add_line(){
+                this.tableData.push({
+                    teacher: '',
+                    award: '',
+                    level: '',
+                    time:'',
+                    show:true
+                })
+            }
         }
     }
 </script>
