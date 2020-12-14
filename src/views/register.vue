@@ -2,21 +2,20 @@
     <div>
         <navigation></navigation>
         <div class="grey"></div>
-
         <div class="box">
             <table class="table">
                 <tr><td class="td1" colspan="2">填写个人信息</td></tr>
                 <tr>
                     <td class="td1">
-                        <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="员工号">
+                        <el-form :model="ruleForm" :rules="rules" label-width="100px">
+                            <el-form-item label="员工号" prop="t_id">
                                 <el-input v-model="ruleForm.t_id"></el-input>
                             </el-form-item>
                         </el-form>
                     </td>
                     <td class="td1">
                         <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="学院/系部">
+                            <el-form-item label="学院/系部" required>
                                 <el-cascader :options="ruleForm.col_dep" clearable v-model="ruleForm.ColDep"></el-cascader>
                             </el-form-item>
                         </el-form>
@@ -24,15 +23,15 @@
                 </tr>
                 <tr>
                     <td class="td1">
-                        <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="姓名">
+                        <el-form :model="ruleForm" :rules="rules" label-width="100px">
+                            <el-form-item label="姓名" prop="t_name">
                                 <el-input v-model="ruleForm.t_name"></el-input>
                             </el-form-item>
                         </el-form>
                     </td>
                     <td class="td1">
                         <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="性别">
+                            <el-form-item label="性别" required>
                                 <el-radio-group v-model="ruleForm.t_sex">
                                     <el-radio label="男"></el-radio>
                                     <el-radio label="女"></el-radio>
@@ -43,15 +42,15 @@
                 </tr>
                 <tr>
                     <td class="td1">
-                        <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="密码">
+                        <el-form :model="ruleForm" :rules="rules" label-width="100px">
+                            <el-form-item label="密码" prop="password">
                                 <el-input v-model="ruleForm.password" type="password" show-password></el-input>
                             </el-form-item>
                         </el-form>
                     </td>
                     <td class="td1">
-                        <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="电话号码">
+                        <el-form :model="ruleForm" :rules="rules" label-width="100px">
+                            <el-form-item label="电话号码" prop="t_tel">
                                 <el-input v-model="ruleForm.t_tel"></el-input>
                             </el-form-item>
                         </el-form>
@@ -59,15 +58,15 @@
                 </tr>
                 <tr>
                     <td class="td1">
-                        <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="确认密码">
-                                <el-input v-model="ruleForm.repassword" show-password></el-input>
+                        <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px">
+                            <el-form-item label="确认密码" prop="check_pwd">
+                                <el-input type="password" v-model="ruleForm.check_pwd" show-password></el-input>
                             </el-form-item>
                         </el-form>
                     </td>
                     <td class="td1">
-                        <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="邮箱">
+                        <el-form :model="ruleForm" :rules="rules" label-width="100px">
+                            <el-form-item label="邮箱" prop="t_email">
                                 <el-input v-model="ruleForm.t_email"></el-input>
                             </el-form-item>
                         </el-form>
@@ -75,8 +74,8 @@
                 </tr>
                 <tr>
                     <td class="td1">
-                        <el-form :model="ruleForm" label-width="100px">
-                            <el-form-item label="办公地点">
+                        <el-form :model="ruleForm" :rules="rules" label-width="100px">
+                            <el-form-item label="办公地点" prop="t_address">
                                 <el-input v-model="ruleForm.t_address"></el-input>
                             </el-form-item>
                         </el-form>
@@ -92,6 +91,8 @@
 
 <script>
     import Navigation from "../components/navigation";
+    import {request} from "../network/request";
+
     export default {
         name: "register",
         components: {Navigation} ,
@@ -104,7 +105,7 @@
                     dep_name: '' ,
                     password: '' ,
                     t_tel: '' ,
-                    repassword: '',
+                    check_pwd: '',
                     t_email: '' ,
                     t_address: '' ,
                     t_sex: '男' ,
@@ -157,14 +158,49 @@
                     ]
                 } ,
                 rules: {
-
+                    t_id: [{required: true , message: '员工号不能为空' , trigger: 'blur'}] ,
+                    t_name: [{required: true , message: '姓名不能为空' , trigger: 'blur'}] ,
+                    password: [{required: true , message: '请输入密码' , trigger: 'blur'}] ,
+                    check_pwd: [{required: true , message: '请再次输入密码' , trigger: 'blur'}] ,
+                    t_tel: [{required: true , message: '联系方式不能为空' , trigger: 'blur'}] ,
+                    t_email: [{required: true , message: '邮箱不能为空' , trigger: 'blur'}] ,
+                    t_address: [{required: true , message: '办公地点不能为空' , trigger: 'blur'}] ,
                 }
-            }
+            } ;
         } ,
+        // created() {                                     //从后端获取学院/系部信息
+        //     request({
+        //         url: '/api/register' ,
+        //     }).then(res => {
+        //         this.ruleForm.col_dep.push(res.data);
+        //     })
+        // } ,
         methods: {
             register() {
-                this.ruleForm.col_name = this.ruleForm.ColDep[0]
-                this.ruleForm.dep_name = this.ruleForm.ColDep[1]
+                this.ruleForm.col_name = this.ruleForm.ColDep[0];
+                this.ruleForm.dep_name = this.ruleForm.ColDep[1];
+                if (this.ruleForm.password !== this.ruleForm.check_pwd)
+                    this.$message.warning('两次输入的密码不一致，请重新输入');
+                else {
+                    request({
+                        url: '/api/register' ,
+                        data: {
+                            t_id: this.ruleForm.t_id ,
+                            col_name: this.ruleForm.col_name ,
+                            t_name: this.ruleForm.t_name ,
+                            dep_name: this.ruleForm.dep_name ,
+                            password: this.ruleForm.password ,
+                            t_tel: this.ruleForm.t_tel ,
+                            t_email: this.ruleForm.t_email ,
+                            t_address: this.ruleForm.t_address ,
+                            t_sex: this.ruleForm.t_sex ,
+                        }
+                    }).then(res => {
+                        console.log(res);
+                        this.$message.success('提交成功，请等待系主任审核后进入系统');
+                    })
+                }
+
             }
         }
     }
