@@ -5,12 +5,30 @@
                     trigger="hover">
             <div class="span">
                 <p>{{head}}</p> <el-divider></el-divider>
-                <p class="hover">个人中心</p>
+                <p class="hover" @click="profile">个人中心</p>
                 <p class="hover" v-show="role_id != '0'" @click="change_role">切换角色</p>
                 <p class="hover">退出登录</p>
             </div>
             <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
         </el-popover>
+
+        <el-drawer
+                size="50%"
+                :visible.sync="drawer"
+                direction="rtl"
+                :before-close="handleClose"
+                :with-header="false">
+            <div class="drawer">
+                <el-card class="box-card">
+                    <div slot="header">
+                        <span style="font-size: 18px">个人中心</span>
+                    </div>
+                    <div v-for="o in 4" :key="o">
+                        {{'列表内容 ' + o }}
+                    </div>
+                </el-card>
+            </div>
+        </el-drawer>
     </div>
 </template>
 
@@ -19,6 +37,7 @@
         name: "profile_pho" ,
         data() {
             return {
+                drawer: false ,
                 head: '' ,
             }
         } ,
@@ -44,6 +63,9 @@
                     sessionStorage.setItem('flag' , '0');
                     this.$router.push('/teacher');
                 }
+            } ,
+            profile() {
+                this.drawer = true;
             }
         }
     }
@@ -76,5 +98,13 @@
 
     .el-divider {
         margin: 5px 0 ;
+    }
+
+    .drawer {
+        text-align: center;
+    }
+
+    .box-card {
+        height: 500px;
     }
 </style>
