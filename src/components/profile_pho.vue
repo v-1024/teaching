@@ -7,7 +7,7 @@
                 <p>{{head}}</p> <el-divider></el-divider>
                 <p class="hover" @click="profile">个人中心</p>
                 <p class="hover" v-show="role_id != '0'" @click="change_role">切换角色</p>
-                <p class="hover">退出登录</p>
+                <p class="hover" @click="quit">退出登录</p>
             </div>
             <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
         </el-popover>
@@ -21,24 +21,52 @@
             <div class="drawer">
                 <el-card class="box-card">
                     <div slot="header">
-                        <span style="font-size: 18px">个人中心</span>
+                        <span style="font-size: 20px">个人中心</span>
                     </div>
-                    <div v-for="o in 4" :key="o">
-                        {{'列表内容 ' + o }}
+                    <div>
+                        <table class="table">
+                            <tr><td class="td">姓名：</td>
+                                <td>{{t_name}}</td>
+                            </tr>
+                            <tr><td class="td">员工号：</td>
+                                <td>{{t_id}}</td>
+                            </tr>
+                            <tr><td class="td">邮箱：</td>
+                                <td v-show="show">{{t_email}}</td>
+                                <td><el-input type="text" v-show="!show" v-model="t_email"></el-input></td>
+                            </tr>
+                            <tr><td class="td">电话号码：</td>
+                                <td v-show="show">{{t_tel}}</td>
+                                <td><el-input type="text" v-show="!show" v-model="t_tel"></el-input></td>
+                            </tr>
+                            <tr><td class="td">密码：</td>
+                                <td v-show="show">{{pwd}}</td>
+                                <td><el-input type="text" v-show="!show" v-model="pwd"></el-input></td>
+                            </tr>
+                        </table>
                     </div>
                 </el-card>
+                <el-button type="primary" v-show="show" @click="edit">编辑</el-button>
+                <el-button type="primary" v-show="!show" @click="save">保存</el-button>
             </div>
         </el-drawer>
     </div>
 </template>
 
 <script>
+    import {request} from "../network/request";
+
     export default {
         name: "profile_pho" ,
         data() {
             return {
                 drawer: false ,
                 head: '' ,
+                show: true ,
+                t_id: '011522' ,
+                t_email: '123@qq.com' ,
+                t_tel: '12345678911' ,
+                pwd: '123456'
             }
         } ,
         props: {
@@ -49,6 +77,10 @@
         created() {
             return this.head =  this.role_name + '：'+ this.t_name;
             sessionStorage.setItem('flag' , '0')
+            //请求t_id t_email t_tel t_pwd
+            // request({
+            //     url: ""
+            // })
         } ,
         methods: {
             change_role() {
@@ -66,6 +98,22 @@
             } ,
             profile() {
                 this.drawer = true;
+            } ,
+            quit() {
+                sessionStorage.clear();
+                this.$router.push('/login');
+                this.$message.success('您已退出登录');
+            } ,
+            edit() {
+                this.show = false;
+            } ,
+            save() {
+                this.show = true;
+            } ,
+            handleClose(done) {
+                if (this.show == false)
+                    this.show = true;
+                done();
             }
         }
     }
@@ -105,6 +153,37 @@
     }
 
     .box-card {
-        height: 500px;
+        height: 600px;
+    }
+
+    .table {
+        width: 100%;
+        height: 460px;
+    }
+
+    .td {
+        font-size: 18px;
+        font-family: Helvetica Neue;
+    }
+
+    td {
+        width: 50%;
+        height: 20%;
+        line-height: 20%;
+    }
+
+    .el-input {
+        width: 70%;
+    }
+
+    .el-input__inner {
+        text-align: center;
+    }
+
+    .el-button {
+        width: 150px;
+        position: absolute;
+        right: 40px;
+        margin-top: 20px;
     }
 </style>
