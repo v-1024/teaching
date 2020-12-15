@@ -71,7 +71,7 @@
         <span style="font-weight: bold;margin-left:200px">添加附件</span>
         <el-upload
                 class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="https://192.168.43.225:8085/StudentProject/StuProject_submit"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
@@ -82,12 +82,14 @@
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
-        <el-button slot="reference" style="margin:20px 500px">提交</el-button>
+        <el-button slot="reference" style="margin:20px 500px" @click="submit">提交</el-button>
 
     </div>
 </template>
 
 <script>
+    import {request} from "../../../../network/request";
+
     export default {
         name: "stu_competition",
         data() {
@@ -122,6 +124,20 @@
                     level: '',
                     time: '',
                     show:true
+                })
+            } ,
+            submit() {
+                request({
+                    url: "StudentProject/StuProject_submit" ,
+                    method: "post" ,
+                    // data: {
+                    //     form: this.tableData
+                    // }
+                    data: {table:this.tableData}
+                }).then(res => {
+                    console.log(res);
+                    if (res.message === 'success')
+                        this.$message.success('提交成功！');
                 })
             }
 
