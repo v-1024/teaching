@@ -15,77 +15,48 @@
                    height="220px"
                    border
                    style="margin-bottom: 0;width:100%">
-            <el-table-column
-                    prop="name"
-                    label="姓名"
-                    width="80">
-            </el-table-column>
-            <el-table-column
-                    prop="teaching_plan"
-                    label="是否是电子教案"
-                    width="80">
-            </el-table-column>
-            <el-table-column
-                    prop="txt"
-                    label="是否是文本文档"
-                    width="80">
-            </el-table-column>
-            <el-table-column
-                    prop="plan_over"
-                    label="教案是否完善"
-                    width="80">
-            </el-table-column>
-            <el-table-column
-                    prop="attendance_times"
-                    label="考勤次数"
-                    width="80">
-            </el-table-column>
-            <el-table-column
-                    prop="attendance"
-                    label="考情是否有记录"
-                    width="80">
-            </el-table-column>
-            <el-table-column
-                    prop="times"
-                    label="听课次数"
-                    width="80">
-            </el-table-column>
+            <el-table-column prop="name" label="姓名" width="80">
 
-        <el-table-column
-                prop="lesson_assessment"
-                label="评课次数"
-                width="80">
-        </el-table-column>
-        <el-table-column
-                prop="lesson_record"
-                label="听课是否有记录"
-                width="80">
-        </el-table-column>
-        <el-table-column
-                prop="assign_works_times"
-                label="布置作业次数"
-                width="80">
-        </el-table-column>
-        <el-table-column
-                prop="check_works_times"
-                label="批改作业次数"
-                width="80">
-        </el-table-column>
-        <el-table-column
-                prop="test_times"
-                label="实验次数"
-                width="80">
-        </el-table-column>
-        <el-table-column
-                prop="test_report_times"
-                label="批改实验报告次数"
-                width="80">
-        </el-table-column>
-        <el-table-column
-                prop="ele_paper"
-                label="电子作业/纸质作业"
-                width="85">
-        </el-table-column>
+            </el-table-column>
+            <el-table-column prop="teaching_plan" label="是否是电子教案" width="80">
+
+            </el-table-column>
+            <el-table-column prop="txt" label="是否是文本文档" width="80">
+
+            </el-table-column>
+            <el-table-column prop="plan_over" label="教案是否完善" width="80">
+
+            </el-table-column>
+            <el-table-column prop="attendance_times" label="考勤次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="attendance" label="考情是否有记录" width="80">
+
+            </el-table-column>
+            <el-table-column prop="times" label="听课次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="lesson_assessment" label="评课次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="lesson_record" label="听课是否有记录" width="80">
+
+            </el-table-column>
+            <el-table-column prop="assign_works_times" label="布置作业次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="check_works_times" label="批改作业次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="test_times" label="实验次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="test_report_times" label="批改实验报告次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="ele_paper" label="电子作业/纸质作业" width="85">
+
+            </el-table-column>
             <el-table-column label="操作" >
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true">编辑</el-button>

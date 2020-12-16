@@ -14,60 +14,38 @@
                    :data="tableData"
                    border
                    style="margin-bottom: 0">
-            <el-table-column
-                    prop="name"
-                    label="姓名"
-                    width="80">
+            <el-table-column prop="name" label="姓名" width="80">
+
             </el-table-column>
-            <el-table-column
-                    prop="subject"
-                    label="课程"
-                    width="160">
+            <el-table-column prop="subject" label="课程" width="160">
+
             </el-table-column>
-            <el-table-column
-                    prop="schedule"
-                    label="授课计划"
-                    width="160">
+            <el-table-column prop="schedule" label="授课计划" width="160">
+
             </el-table-column>
-            <el-table-column
-                    prop="plan"
-                    label="教案(有或无）"
-                    width="80">
+            <el-table-column prop="plan" label="教案(有或无）" width="80">
+
             </el-table-column>
-            <el-table-column
-                    prop="attendance_times"
-                    label="课堂考勤(次)"
-                    width="90">
+            <el-table-column prop="attendance_times" label="课堂考勤(次)" width="90">
+
             </el-table-column>
-            <el-table-column
-                    prop="attendance"
-                    label="学生出勤率"
-                    width="80">
+            <el-table-column prop="attendance" label="学生出勤率" width="80">
+
             </el-table-column>
-            <el-table-column
-                    prop="work"
-                    label="作业批改(次)"
-                    width=90">
+            <el-table-column prop="work" label="作业批改(次)" width=90">
+
             </el-table-column>
-            <el-table-column
-                    prop="coach"
-                    label="辅导答疑(次)"
-                    width="80">
+            <el-table-column prop="coach" label="辅导答疑(次)" width="80">
+
             </el-table-column>
-            <el-table-column
-                    prop="test"
-                    label="是否按计划设实验(随堂)"
-                    width="120">
+            <el-table-column prop="test" label="是否按计划设实验(随堂)" width="120">
+
             </el-table-column>
-            <el-table-column
-                    prop="problem"
-                    label="教学中存在的问题"
-                    width="170">
+            <el-table-column prop="problem" label="教学中存在的问题" width="170">
+
             </el-table-column>
-            <el-table-column
-                    prop="remarks"
-                    label="备注"
-                    width="100">
+            <el-table-column prop="remarks" label="备注" width="100">
+
             </el-table-column>
             <el-table-column label="操作" >
                 <template slot-scope="scope">
