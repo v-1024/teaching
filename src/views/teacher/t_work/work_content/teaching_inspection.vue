@@ -89,8 +89,7 @@
                 :before-remove="beforeRemove"
                 multiple
                 :limit="5"
-                :on-exceed="handleExceed"
-                :file-list="fileList">
+                :on-exceed="handleExceed">
             <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
             </div>
@@ -104,8 +103,7 @@
                     :before-remove="beforeRemove"
                     multiple
                     :limit="5"
-                    :on-exceed="handleExceed"
-                    :file-list="fileList">
+                    :on-exceed="handleExceed">
                 <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
             </div>
@@ -119,8 +117,7 @@
                     :before-remove="beforeRemove"
                     multiple
                     :limit="5"
-                    :on-exceed="handleExceed"
-                    :file-list="fileList">
+                    :on-exceed="handleExceed">
                 <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
             </div>
@@ -139,8 +136,7 @@
                     label: '2020-2021第一学期'
                 }],
                 tableData: [],
-                fileList: []
-            };
+            }
         },
         methods: {
             handleRemove(file, fileList) {
@@ -155,8 +151,7 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-            add_line()
-            {
+            add_line() {
                 this.tableData.push({
                     name:'' ,
                     subject:'',

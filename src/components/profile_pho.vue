@@ -79,7 +79,12 @@
             sessionStorage.setItem('flag' , '0')
             //请求t_id t_email t_tel t_pwd
             // request({
-            //     url: ""
+            //     url: "" ,
+            //     data: {
+            //         t_id: this.t_id
+            //     }
+            // }).then(res => {
+            //
             // })
         } ,
         methods: {

@@ -9,10 +9,10 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px" @click="add_line">添加行</el-button>
         <el-table  class="table"
-                   :data="tableData1"
-                   height=""
+                   :data="tableData"
+                   height="220px"
                    border
                    style="margin-bottom: 0;width:100%">
             <el-table-column
@@ -106,8 +106,7 @@
                         :before-remove="beforeRemove"
                         multiple
                         :limit="5"
-                        :on-exceed="handleExceed"
-                        :file-list="fileList">
+                        :on-exceed="handleExceed">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-upload>
             </div>
@@ -121,8 +120,7 @@
                         :before-remove="beforeRemove"
                         multiple
                         :limit="5"
-                        :on-exceed="handleExceed"
-                        :file-list="fileList">
+                        :on-exceed="handleExceed">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-upload>
             </div>
@@ -136,8 +134,7 @@
                         :before-remove="beforeRemove"
                         multiple
                         :limit="5"
-                        :on-exceed="handleExceed"
-                        :file-list="fileList">
+                        :on-exceed="handleExceed">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-upload>
             </div>
@@ -158,25 +155,8 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData1: [{
-                    name: '张三张三',
-                    teaching_plan: '是',
-                    txt: '是',
-                    plan_over: '是',
-                    attendance_times:'5次',
-                    attendance:'是',
-                    times:'5次',
-                    lesson_assessment: '5次',
-                    lesson_record: '是',
-                    assign_works_times: '7次',
-                    check_works_times: '是',
-                    test_times:'5次',
-                    test_report_times:'是',
-                    ele_paper:'电子'
-                }],
-
-                fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
-            };
+                tableData: [],
+            }
         },
         methods: {
             handleRemove(file, fileList) {
@@ -190,6 +170,25 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
+            } ,
+            add_line() {
+                this.tableData.push({
+                    name:'' ,
+                    teaching_plan:'',
+                    txt:'',
+                    plan_over:'',
+                    attendance_times:'',
+                    attendance:'',
+                    times:'',
+                    lesson_assessment:'',
+                    lesson_record:'',
+                    assign_works_times:'',
+                    check_works_times:'',
+                    test_times:'',
+                    test_report_times:'',
+                    ele_paper: '',
+                    show:true
+                })
             }
         }
     }
