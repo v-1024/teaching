@@ -43,6 +43,8 @@
             <div style="margin-left: 50px">
                 <span style="float: left;margin: 5px 10px">授课计划</span>
                 <el-upload
+                        ref="upload"
+                        :http-request="upFile"
                         class="upload-demo"
                         action=""
                         :on-preview="handlePreview"
@@ -50,13 +52,16 @@
                         :before-remove="beforeRemove"
                         multiple
                         :limit="5"
-                        :on-exceed="handleExceed">
+                        :on-exceed="handleExceed"
+                        :auto-upload="false">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-upload>
             </div>
             <div style="float: left;margin-left: 100px">
             <span style="float: left;margin: 5px 10px">课堂考勤</span>
             <el-upload
+                    ref="upload"
+                    :http-request="upFile"
                     class="upload-demo"
                     action=""
                     :on-preview="handlePreview"
@@ -64,7 +69,8 @@
                     :before-remove="beforeRemove"
                     multiple
                     :limit="5"
-                    :on-exceed="handleExceed">
+                    :on-exceed="handleExceed"
+                    :auto-upload="false">
                 <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
             </div>
@@ -121,38 +127,25 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-            // upFile(param) {
-            //     const file = param.file;
-            //     let formData = new FormData();
-            //     // formData.append("file" , file);
-            //     formData.append("table" , this.tableData);
-            //     request({
-            //         url: 'Teachingwork/TeachCheck_submit' ,
-            //         method: "post" ,
-            //         data: formData
-            //     }).then(res => {
-            //         console.log(res);
-            //     })
-            // } ,
-            submit() {
-                //this.$refs.upload.submit();
+            upFile(param) {
+                const file = param.file;
+                let formData = new FormData();
+                formData.append("file" , file);
+                formData.append("table" , this.tableData);
                 request({
                     url: 'Teachingwork/TeachCheck_submit' ,
                     method: "post" ,
-                    data: {
-                        t_name: '22' ,
-                        term:'2',
-                        course: '2',
-                        lessonplan:'2',
-                        teachplan:'2',
-                        attendancenum:'2',
-                        attendancerate:'2',
-                        correctinghomework:'2',
-                        answerscount:'2',
-                        onscheduleexperiment:'2',
-                        exitprogram:'2',
-                        remarks:'2',
-                    }
+                    data: formData
+                }).then(res => {
+                    console.log(res);
+                })
+            } ,
+            submit() {
+                // this.$refs.upload.submit();
+                request({
+                    url: 'Teachingwork/TeachCheck_submit' ,
+                    method: "post" ,
+                    data: this.tableData
                 }).then(res => {
                     console.log(res);
                 })
@@ -164,10 +157,10 @@
                     course: '2',
                     lessonplan:'2',
                     teachplan:'2',
-                    attendancenum:'2',
-                    attendancerate:'2',
-                    correctinghomework:'2',
-                    answerscount:'2',
+                    attendancenum: 2,
+                    attendancerate: 2,
+                    correctinghomework: 2,
+                    answerscount: 2,
                     onscheduleexperiment:'2',
                     exitprogram:'2',
                     remarks:'2',
