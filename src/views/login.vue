@@ -62,12 +62,10 @@
                 }
                  ,
                 rules: {
-                    t_id:
-                        [
+                    t_id: [
                             { required: true, message: '请输入员工号', trigger: 'blur' }
                         ] ,
-                    pwd:
-                        [
+                    pwd: [
                             { required: true, message: '请输入密码', trigger: 'blur' }
                         ]
                 }

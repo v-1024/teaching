@@ -84,14 +84,17 @@
             }
         } ,
         created() {
-            request({
-                url: 'HandOfDept/teachercommitspeed' ,
-                method: 'post'
-            }).then(res => {
-                this.tableData = res.data;
-            })
+            this.requestDate();
         } ,
         methods: {
+            requestDate() {
+                request({
+                    url: 'HandOfDept/teachercommitspeed' ,
+                    method: 'post'
+                }).then(res => {
+                    this.tableData = res.data;
+                })
+            } ,
             details (index , row) {
                 //转到该教师提交的材料的详情页
                 this.$message({
@@ -105,17 +108,16 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-
                     request({
                         url: 'HandOfDept/teachercommit' ,
                         method: 'post' ,
-                        data: {
+                        params: {
                             t_id: row.t_id ,
                             term: this.def_term
                         }
                     }).then(res => {
-                        if (res.msg === 'success') {
-                            this.created();
+                        if (res.data.msg === 'success') {
+                            this.requestDate();
                             this.$message({
                                 type: 'success',
                                 message: '操作成功!'

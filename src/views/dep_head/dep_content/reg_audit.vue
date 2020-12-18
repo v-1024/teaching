@@ -61,7 +61,6 @@
             request({
                 url: "HandOfDept/checkregister"
             }).then(res => {
-                console.log(res.data);
                 this.tableData = res.data;
             })
         } ,
