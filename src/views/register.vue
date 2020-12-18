@@ -110,52 +110,7 @@
                     t_address: '' ,
                     t_sex: '男' ,
                     ColDep: '' ,
-                    col_dep: [                       //学院系部信息从数据库中取出，暂存在col_dep中
-                        {
-                            value: '计算机科学与工程学院' ,
-                            label: '计算机科学与工程学院' ,
-                            children: [
-                                {
-                                    value:'网络工程' ,
-                                    label: '网络工程'
-                                } ,
-                                {
-                                    value:'软件工程'  ,
-                                    label: '软件工程'
-                                } ,
-                                {
-                                    value:'物联网工程' ,
-                                    label: '物联网工程'
-                                } ,
-                                {
-                                    value:'大数据' ,
-                                    label: '大数据'
-                                } ,
-                                {
-                                    value:'信息安全' ,
-                                    label: '信息安全'
-                                } ,
-                                {
-                                    value:'计算机科学与技术' ,
-                                    label: '计算机科学与技术'
-                                }
-                            ]
-                        } ,
-                        {
-                            value: '体育学院' ,
-                            label: '体育学院' ,
-                            children: [
-                                {
-                                    value: '社体'  ,
-                                    label: '社体'
-                                } ,
-                                {
-                                    value: '体教' ,
-                                    label: '体教'
-                                }
-                            ]
-                        }
-                    ]
+                    col_dep: []             //学院系部信息从数据库中取出，暂存在col_dep中
                 } ,
                 rules: {
                     t_id: [{required: true , message: '员工号不能为空' , trigger: 'blur'}] ,
@@ -168,13 +123,13 @@
                 }
             } ;
         } ,
-        // created() {                                     //从后端获取学院/系部信息
-        //     request({
-        //         url: '/api/register' ,
-        //     }).then(res => {
-        //         this.ruleForm.col_dep.push(res.data);
-        //     })
-        // } ,
+        created() {                                     //从后端获取学院/系部信息
+            request({
+                url: 'user/getCollege' ,
+            }).then(res => {
+                this.ruleForm.col_dep = res.data;
+            })
+        } ,
         methods: {
             register() {
                 this.ruleForm.col_name = this.ruleForm.ColDep[0];
@@ -186,24 +141,28 @@
                         this.$message.warning('两次输入的密码不一致，请重新输入');
                     else {
                         request({
-                            url: "register" ,
+                            url: "user/register" ,
+                            method: "post" ,
                             data: {
                                 t_id: this.ruleForm.t_id ,
-                                col_name: this.ruleForm.col_name ,
+                                college: this.ruleForm.col_name ,
                                 t_name: this.ruleForm.t_name ,
-                                dep_name: this.ruleForm.dep_name ,
+                                department: this.ruleForm.dep_name ,
                                 password: this.ruleForm.password ,
-                                t_tel: this.ruleForm.t_tel ,
-                                t_email: this.ruleForm.t_email ,
-                                t_address: this.ruleForm.t_address ,
-                                t_sex: this.ruleForm.t_sex ,
+                                tel: this.ruleForm.t_tel ,
+                                email: this.ruleForm.t_email ,
+                                address: this.ruleForm.t_address ,
+                                sex: this.ruleForm.t_sex ,
                             }
                         }).then(res => {
-                            console.log(res);
-                            this.$message.success('提交成功，请等待系主任审核后进入系统');
-                            setTimeout(() => {
-                                this.$router.push('/login')
-                            } , 500)
+                            if (res === 'success') {
+                                this.$message.success('提交成功，请等待系主任审核后进入系统');
+                                setTimeout(() => {
+                                    this.$router.push('/login')
+                                } , 500)
+                            }
+                            else
+                                this.$message.warning('该用户已注册，不能重复注册！')
                         })
                     }
                 }

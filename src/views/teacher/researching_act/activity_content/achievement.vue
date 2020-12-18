@@ -1,15 +1,20 @@
 <template>
     <div class="content">
-        <span style="margin-top: 30px; margin-left: 250px">年份选择</span>
-        <el-select class="select" v-model="value" placeholder="2020-2021第一学期">
-            <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-            </el-option>
-        </el-select>
-        <el-button slot="reference" style="margin-left: 100px" @click="add_line">添加行</el-button>
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="学年">
+                <!--v-model:默认选中当前学年-->
+                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                    <el-option :label="item" :value="item" v-for="item in formInline.term">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
+            </el-form-item>
+        </el-form>
         <el-table  class="table"
                    :data="tableData"
                    height="280"
@@ -58,7 +63,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <span style="font-weight: bold;margin-left:200px">添加附件</span>
+
         <el-upload
                 class="upload-demo"
                 action="https://jsonplaceholder.typicode.com/posts/"
@@ -80,10 +85,14 @@
         name: "achievement",
         data() {
             return {
-                options: [{
-                    value: '选项1',
-                    label: '2020-2021第一学期'
-                }],
+                formInline: {
+                    def_term: '2020-2021-1' ,  //当前学年（后端获取）：默认选中
+                    term:         //学年从后端获取
+                        [
+                            '2020-2021-1' ,
+                            '2019-2020-2'
+                        ]
+                } ,
                 tableData:[],
             };
         },
@@ -122,6 +131,8 @@
 
     .content {
         width: 100%;
+        text-align: center;
+        margin-top: 10px;
     }
     .select{
         margin:30px 30px;

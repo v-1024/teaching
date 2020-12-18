@@ -1,22 +1,27 @@
 <template>
     <div class="content">
-        <span style="margin-top: 30px; margin-left: 250px">年份选择</span>
-        <el-select class="select" v-model="value" placeholder="2020-2021第一学期">
-            <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-            </el-option>
-        </el-select>
-        <el-button slot="reference" style="margin-left: 100px" @click="add_line">添加行</el-button>
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="学年">
+                <!--v-model:默认选中当前学年-->
+                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                    <el-option :label="item" :value="item" v-for="item in formInline.term">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
+            </el-form-item>
+        </el-form>
         <el-table  class="table"
                    :data="tableData"
                    height="280"
                    border
                    style="width:1100px;">
             <el-table-column
-                    prop="teacher"
+                    prop="t_name"
                     label="教师姓名"
                     width="180">
                 <template slot-scope="scope">
@@ -25,7 +30,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="competition"
+                    prop="competitionname"
                     label="竞赛名称"
                     width="190">
                 <template slot-scope="scope">
@@ -68,15 +73,17 @@
             </el-table-column>
 
         </el-table>
-        <span style="font-weight: bold;margin-left:200px">添加附件</span>
         <el-upload
+                ref="upload"
                 class="upload-demo"
-                action="https://192.168.43.225:8085/StudentProject/StuProject_submit"
+                action=""
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
+                :http-request="upFile"
                 multiple
                 :limit="5"
+                :auto-upload="false"
                 :on-exceed="handleExceed">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -93,10 +100,14 @@
         name: "stu_competition",
         data() {
             return {
-                options: [{
-                    value: '选项1',
-                    label: '2020-2021第一学期'
-                }],
+                formInline: {
+                    def_term: '2020-2021-1' ,  //当前学年（后端获取）：默认选中
+                    term:         //学年从后端获取
+                        [
+                            '2020-2021-1' ,
+                            '2019-2020-2'
+                        ]
+                } ,
                 tableData: [],
             };
         },
@@ -115,27 +126,36 @@
             },
             add_line() {
                 this.tableData.push({
-                    teacher: '',
-                    competition: '',
+                    t_name: '',
+                    competitionname: '',
                     award: '',
                     level: '',
                     time: '',
                     show:true
                 })
             } ,
-            submit() {
+            upFile(param) {
+                const file = param.file;
+                let formData = new FormData();
+                formData.append("file" , file);
+                formData.append("t_name" , this.tableData.t_name);
+                formData.append("competitionname" , this.tableData.competitionname);
+                formData.append("award" , this.tableData.award);
+                formData.append("level" , this.tableData.level);
+                formData.append("time" , this.tableData.time);
                 request({
-                    url: "StudentProject/StuProject_submit" ,
+                    url: 'StudentProject/StuProject_submit' ,
                     method: "post" ,
-                    // data: {
-                    //     form: this.tableData
-                    // }
-                    data: {table:this.tableData}
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    } ,
+                    data: formData
                 }).then(res => {
                     console.log(res);
-                    if (res.message === 'success')
-                        this.$message.success('提交成功！');
                 })
+            } ,
+            submit() {
+                this.$refs.upload.submit();
             }
 
        }}
@@ -150,6 +170,8 @@
 
     .content {
         width: 100%;
+        text-align: center;
+        margin-top: 10px;
     }
     .select{
         margin:30px 30px;
