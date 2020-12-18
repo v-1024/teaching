@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+<<<<<<< HEAD
         <span style="margin-top: 30px; margin-left: 250px">年份选择</span>
         <el-select class="select" v-model="value" placeholder="2020-2021第一学期">
             <el-option
@@ -77,8 +78,59 @@
                     <el-input  v-show="scope.row.show" v-model="scope.row.times"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.times}}</span>
                 </template>
-            </el-table-column>
+=======
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="学年">
+                <!--v-model:默认选中当前学年-->
+                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                    <el-option :label="item" :value="item" v-for="item in formInline.term">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
+            </el-form-item>
+        </el-form>
 
+        <el-table  class="table"
+                   :data="tableData"
+                   height="220px"
+                   border
+                   style="margin-bottom: 0;width:100%">
+            <el-table-column prop="name" label="姓名" width="80">
+
+            </el-table-column>
+            <el-table-column prop="teaching_plan" label="是否是电子教案" width="80">
+
+            </el-table-column>
+            <el-table-column prop="txt" label="是否是文本文档" width="80">
+
+            </el-table-column>
+            <el-table-column prop="plan_over" label="教案是否完善" width="80">
+
+            </el-table-column>
+            <el-table-column prop="attendance_times" label="考勤次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="attendance" label="考情是否有记录" width="80">
+
+            </el-table-column>
+            <el-table-column prop="times" label="听课次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="lesson_assessment" label="评课次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="lesson_record" label="听课是否有记录" width="80">
+
+>>>>>>> 7077a86c99d48213fb7eaa429b7e5613918a518b
+            </el-table-column>
+            <el-table-column prop="assign_works_times" label="布置作业次数" width="80">
+
+<<<<<<< HEAD
         <el-table-column
                 prop="lesson_assessment"
                 label="评课次数"
@@ -142,6 +194,21 @@
                 <span v-show="!scope.row.show">{{scope.row.ele_paper}}</span>
             </template>
         </el-table-column>
+=======
+            </el-table-column>
+            <el-table-column prop="check_works_times" label="批改作业次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="test_times" label="实验次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="test_report_times" label="批改实验报告次数" width="80">
+
+            </el-table-column>
+            <el-table-column prop="ele_paper" label="电子作业/纸质作业" width="85">
+
+            </el-table-column>
+>>>>>>> 7077a86c99d48213fb7eaa429b7e5613918a518b
             <el-table-column label="操作" >
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true">编辑</el-button>
@@ -149,8 +216,7 @@
                 </template>
             </el-table-column>
     </el-table>
-        <span style="font-weight: bold;float: left;margin:30px 150px">添加附件
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div></span>
+
         <div class="upload_1">
             <div style="margin-left: 50px">
                 <span style="float: left;margin: 5px 10px">授课计划</span>
@@ -162,8 +228,7 @@
                         :before-remove="beforeRemove"
                         multiple
                         :limit="5"
-                        :on-exceed="handleExceed"
-                        :file-list="fileList">
+                        :on-exceed="handleExceed">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-upload>
             </div>
@@ -177,8 +242,7 @@
                         :before-remove="beforeRemove"
                         multiple
                         :limit="5"
-                        :on-exceed="handleExceed"
-                        :file-list="fileList">
+                        :on-exceed="handleExceed">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-upload>
             </div>
@@ -192,8 +256,7 @@
                         :before-remove="beforeRemove"
                         multiple
                         :limit="5"
-                        :on-exceed="handleExceed"
-                        :file-list="fileList">
+                        :on-exceed="handleExceed">
                     <el-button size="small" type="primary">点击上传</el-button>
                 </el-upload>
             </div>
@@ -210,6 +273,7 @@
         name: "plans_inspection",
         data() {
             return {
+<<<<<<< HEAD
                 options: [{
                     value: '选项1',
                     label: '2020-2021第一学期'
@@ -218,6 +282,18 @@
 
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
+=======
+                formInline: {
+                    def_term: '2020-2021-1' ,  //当前学年（后端获取）：默认选中
+                    term:         //学年从后端获取
+                        [
+                            '2020-2021-1' ,
+                            '2019-2020-2'
+                        ]
+                } ,
+                tableData: [],
+            }
+>>>>>>> 7077a86c99d48213fb7eaa429b7e5613918a518b
         },
         methods: {
             handleRemove(file, fileList) {
@@ -231,6 +307,7 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
+<<<<<<< HEAD
             },
             add_line(){
                 this.tableData.push({
@@ -251,6 +328,28 @@
                     show :true
                 })
             },
+=======
+            } ,
+            add_line() {
+                this.tableData.push({
+                    name:'' ,
+                    teaching_plan:'',
+                    txt:'',
+                    plan_over:'',
+                    attendance_times:'',
+                    attendance:'',
+                    times:'',
+                    lesson_assessment:'',
+                    lesson_record:'',
+                    assign_works_times:'',
+                    check_works_times:'',
+                    test_times:'',
+                    test_report_times:'',
+                    ele_paper: '',
+                    show:true
+                })
+            }
+>>>>>>> 7077a86c99d48213fb7eaa429b7e5613918a518b
         }
     }
 
@@ -265,6 +364,8 @@
 
     .content {
         width: 100%;
+        text-align: center;
+        margin-top: 10px;
     }
     .select{
         margin:30px 30px;
