@@ -55,7 +55,7 @@
                 if (sessionStorage.getItem('flag') == '0') {
                     sessionStorage.setItem('flag' , '1');
                     if (this.role_id == '1')
-                        this.$router.push('/dep_head');
+                        this.$router .push('/dep_head');
                     else
                         this.$router.push('/dean_academic');
                 }

@@ -19,21 +19,37 @@
                     prop="teacher"
                     label="教师姓名"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="thesis"
                     label="论文名称"
                     width="250">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.thesis"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.thesis}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="periodical"
                     label="刊物名称"
                     width="200">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.periodical"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.periodical}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="time"
                     label="发表时间"
                     width="180">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.time"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.time}}</span>
+                </template>
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">

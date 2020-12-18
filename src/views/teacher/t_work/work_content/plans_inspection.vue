@@ -9,9 +9,9 @@
                     :value="item.value">
             </el-option>
         </el-select>
-        <el-button slot="reference" style="margin-left: 100px">添加行</el-button>
+        <el-button slot="reference" style="margin-left: 100px" @click="add_line">添加行</el-button>
         <el-table  class="table"
-                   :data="tableData1"
+                   :data="tableData"
                    height=""
                    border
                    style="margin-bottom: 0;width:100%">
@@ -19,72 +19,128 @@
                     prop="name"
                     label="姓名"
                     width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.name}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="teaching_plan"
                     label="是否是电子教案"
                     width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.teaching_plan"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.teaching_plan}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="txt"
                     label="是否是文本文档"
                     width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.txt"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.txt}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="plan_over"
                     label="教案是否完善"
                     width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.plan_over"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.plan_over}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="attendance_times"
                     label="考勤次数"
                     width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance_times"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendance_times}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="attendance"
                     label="考情是否有记录"
                     width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendance}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="times"
                     label="听课次数"
                     width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.times"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.times}}</span>
+                </template>
             </el-table-column>
 
         <el-table-column
                 prop="lesson_assessment"
                 label="评课次数"
                 width="80">
+            <template slot-scope="scope">
+                <el-input  v-show="scope.row.show" v-model="scope.row.lesson_assessment"></el-input>
+                <span v-show="!scope.row.show">{{scope.row.lesson_assessment}}</span>
+            </template>
         </el-table-column>
         <el-table-column
                 prop="lesson_record"
                 label="听课是否有记录"
                 width="80">
+            <template slot-scope="scope">
+                <el-input  v-show="scope.row.show" v-model="scope.row.lesson_record"></el-input>
+                <span v-show="!scope.row.show">{{scope.row.lesson_record}}</span>
+            </template>
         </el-table-column>
         <el-table-column
                 prop="assign_works_times"
                 label="布置作业次数"
                 width="80">
+            <template slot-scope="scope">
+                <el-input  v-show="scope.row.show" v-model="scope.row.assign_works_times"></el-input>
+                <span v-show="!scope.row.show">{{scope.row.assign_works_times}}</span>
+            </template>
         </el-table-column>
         <el-table-column
                 prop="check_works_times"
                 label="批改作业次数"
                 width="80">
+            <template slot-scope="scope">
+                <el-input  v-show="scope.row.show" v-model="scope.row.check_works_times"></el-input>
+                <span v-show="!scope.row.show">{{scope.row.check_works_times}}</span>
+            </template>
         </el-table-column>
         <el-table-column
                 prop="test_times"
                 label="实验次数"
                 width="80">
+            <template slot-scope="scope">
+                <el-input  v-show="scope.row.show" v-model="scope.row.test_times"></el-input>
+                <span v-show="!scope.row.show">{{scope.row.test_times}}</span>
+            </template>
         </el-table-column>
         <el-table-column
                 prop="test_report_times"
                 label="批改实验报告次数"
                 width="80">
+            <template slot-scope="scope">
+                <el-input  v-show="scope.row.show" v-model="scope.row.test_report_times"></el-input>
+                <span v-show="!scope.row.show">{{scope.row.test_report_times}}</span>
+            </template>
         </el-table-column>
         <el-table-column
                 prop="ele_paper"
                 label="电子作业/纸质作业"
                 width="85">
+            <template slot-scope="scope">
+                <el-input  v-show="scope.row.show" v-model="scope.row.ele_paper"></el-input>
+                <span v-show="!scope.row.show">{{scope.row.ele_paper}}</span>
+            </template>
         </el-table-column>
             <el-table-column label="操作" >
                 <template slot-scope="scope">
@@ -158,22 +214,7 @@
                     value: '选项1',
                     label: '2020-2021第一学期'
                 }],
-                tableData1: [{
-                    name: '张三张三',
-                    teaching_plan: '是',
-                    txt: '是',
-                    plan_over: '是',
-                    attendance_times:'5次',
-                    attendance:'是',
-                    times:'5次',
-                    lesson_assessment: '5次',
-                    lesson_record: '是',
-                    assign_works_times: '7次',
-                    check_works_times: '是',
-                    test_times:'5次',
-                    test_report_times:'是',
-                    ele_paper:'电子'
-                }],
+                tableData: [],
 
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
             };
@@ -190,7 +231,26 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
-            }
+            },
+            add_line(){
+                this.tableData.push({
+                    name: '',
+                    teaching_plan: '',
+                    txt: '',
+                    plan_over: '',
+                    attendance_times:'',
+                    attendance:'',
+                    times:'',
+                    lesson_assessment: '',
+                    lesson_record: '',
+                    assign_works_times: '',
+                    check_works_times: '',
+                    test_times:'',
+                    test_report_times:'',
+                    ele_paper:'',
+                    show :true
+                })
+            },
         }
     }
 
