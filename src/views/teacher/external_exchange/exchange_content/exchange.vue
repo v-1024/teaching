@@ -68,7 +68,7 @@
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button @click="scope.row.show =true">编辑</el-button>
-                            <el-button @click="scope.row.show =false">保存</el-button>
+                            <el-button @click="keep">保存</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -90,6 +90,8 @@
 </template>
 
 <script>
+    import {request} from "../../../../network/request";
+
     export default {
         name: "exchange",
         data() {
@@ -126,6 +128,19 @@
                     remarks:'',
                     show :true
                 })
+            },
+            keep(){
+               request({
+                   url: "exchange",
+                   method: "post",
+                   data: {
+                       time: this.scope.row.time,
+                       content: this.scope.row.content,
+                       address: this.scope.row.address,
+                       teacher: this.scope.row.teacher,
+                       remarks: this.scope.row.remarks,
+                   },
+               })
             }
         }
     }

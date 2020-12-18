@@ -20,6 +20,107 @@
                    :data="tableData"
                    border
                    style="margin-bottom: 0">
+<<<<<<< HEAD
+            <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.name}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="subject"
+                    label="课程"
+                    width="160">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.subject"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.subject}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="content"
+                    label="授课计划"
+                    width="160">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.content"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.content}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="plan"
+                    label="教案(有或无）"
+                    width="70">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.plan"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.plan}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="attendance_times"
+                    label="课堂考勤(次)"
+                    width="80">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance_times"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendance_times}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="attendance"
+                    label="学生出勤率"
+                    width="70">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendance}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="work"
+                    label="作业批改(次)"
+                    width="70">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.work"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.work}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="coach"
+                    label="辅导答疑(次)"
+                    width="70">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.coach"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.coach}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="test"
+                    label="是否按计划设实验(随堂)"
+                    width="90">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.test"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.test}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="problem"
+                    label="教学中存在的问题"
+                    width="170">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.problem"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.problem}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="remarks"
+                    label="备注"
+                    width="90">
+                <template slot-scope="scope">
+                    <el-input  v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
+                </template>
+            </el-table-column>
+=======
             <el-table-column prop="t_name" label="姓名" width="80"></el-table-column>
             <el-table-column prop="course" label="课程" width="160"></el-table-column>
             <el-table-column prop="lessonplan" label="授课计划" width="160"></el-table-column>
@@ -31,9 +132,10 @@
             <el-table-column prop="onscheduleexperiment" label="是否按计划设实验(随堂)" width="120"></el-table-column>
             <el-table-column prop="exitprogram" label="教学中存在的问题" width="170"></el-table-column>
             <el-table-column prop="remarks" label="备注" width="100"></el-table-column>
+>>>>>>> 7077a86c99d48213fb7eaa429b7e5613918a518b
             <el-table-column label="操作" >
                 <template slot-scope="scope">
-                    <el-button @click="scope.row.show =true">编辑</el-button>
+                    <el-button @click="scope.row.show =true" >编辑</el-button>
                     <el-button @click="scope.row.show =false">保存</el-button>
                 </template>
             </el-table-column>
