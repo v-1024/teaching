@@ -6,61 +6,7 @@ export function request(config) {
         baseURL: '/api' ,
         timeout: 5000
 
-    })
+    });
 
-    // //2.axios拦截器的使用
-    // //2.1.请求时拦截
-    // instance.interceptors.request.use(config =>{
-    //     console.log(config);
-    //     //1.config中一些信息不符合服务器要求
-    //     //2.比如每次发送网络请求时，都希望在页面展示一个图标（正在加载的圆圈图标）
-    //     //3.某些网络请求（比如登录（token）），必须携带一些特殊信息
-    //     return config
-    // } , err => {
-    //     console.log(err);
-    // })
-    // //2.2.响应时拦截
-    // instance.interceptors.response.use(res => {
-    //     console.log(res);
-    //     return res.data
-    // } , err => {
-    //     console.log(err);
-    // })
-    //3.发送真正的网络请求
     return instance(config)          //instance返回一个Promise  相当于return Promise
 }
-
-// export function request(config) {
-//     return new Promise((resolve , reject) => {
-//         //创建axios实例
-//         const instance = axios.create({
-//             baseURL: 'http://123.207.32.32:8000' ,
-//             timeout: 5000
-//         })
-//     })
-//     //发送真正的网络请求
-//     instance(config)
-//         .then(res => {
-//             resolve(res)
-//         })
-//         .catch(err => {
-//             reject(err)
-//         })
-// }
-
-
-// export function request(config , success , failure) {
-//     //创建axios实例
-//     const instance = axios.create({              //  create内返回的就是一个promise
-//         baseURL: 'http://123.207.32.32:8000' ,
-//         timeout: 5000
-//     })
-//     //发送真正的网络请求
-//     instance(config)
-//         .then(res => {
-//             success(res)
-//         })
-//         .catch(err => {
-//             failure(err)
-//         })
-// }
