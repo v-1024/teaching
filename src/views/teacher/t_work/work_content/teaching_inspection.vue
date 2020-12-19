@@ -18,9 +18,10 @@
 
         <el-table  class="table"
                    :data="tableData"
+                   height="280px"
                    border
                    style="margin-bottom: 0">
-<<<<<<< HEAD
+
             <el-table-column
                     prop="name"
                     label="姓名"
@@ -120,19 +121,6 @@
                     <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                 </template>
             </el-table-column>
-=======
-            <el-table-column prop="t_name" label="姓名" width="80"></el-table-column>
-            <el-table-column prop="course" label="课程" width="160"></el-table-column>
-            <el-table-column prop="lessonplan" label="授课计划" width="160"></el-table-column>
-            <el-table-column prop="teachplan" label="教案(有或无）" width="80"></el-table-column>
-            <el-table-column prop="attendancenum" label="课堂考勤(次)" width="90"></el-table-column>
-            <el-table-column prop="attendancerate" label="学生出勤率" width="80"></el-table-column>
-            <el-table-column prop="correctinghomework" label="作业批改(次)" width=90"></el-table-column>
-            <el-table-column prop="answerscount" label="辅导答疑(次)" width="80"></el-table-column>
-            <el-table-column prop="onscheduleexperiment" label="是否按计划设实验(随堂)" width="120"></el-table-column>
-            <el-table-column prop="exitprogram" label="教学中存在的问题" width="170"></el-table-column>
-            <el-table-column prop="remarks" label="备注" width="100"></el-table-column>
->>>>>>> 7077a86c99d48213fb7eaa429b7e5613918a518b
             <el-table-column label="操作" >
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true" >编辑</el-button>
@@ -160,23 +148,23 @@
                 </el-upload>
             </div>
             <div style="float: left;margin-left: 100px">
-            <span style="float: left;margin: 5px 10px">课堂考勤</span>
-            <el-upload
-                    ref="upload"
-                    :http-request="upFile"
-                    class="upload-demo"
-                    action=""
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
-                    :before-remove="beforeRemove"
-                    multiple
-                    :limit="5"
-                    :on-exceed="handleExceed"
-                    :auto-upload="false">
-                <el-button size="small" type="primary">点击上传</el-button>
-            </el-upload>
+                <span style="float: left;margin: 5px 10px">课堂考勤</span>
+                <el-upload
+                        ref="upload"
+                        :http-request="upFile"
+                        class="upload-demo"
+                        action=""
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :before-remove="beforeRemove"
+                        multiple
+                        :limit="5"
+                        :on-exceed="handleExceed"
+                        :auto-upload="false">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
             </div>
-                <div style="float: left;margin-left: 100px">
+            <div style="float: left;margin-left: 100px">
                 <span style="float: left;margin: 5px 10px">辅导答疑</span>
                 <el-upload
                         ref="upload"
@@ -276,8 +264,8 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px auto;
-
+        margin: 0 auto 20px;
+        font-size:16px;
     }
 
     .content {

@@ -125,7 +125,7 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px auto;
+        margin: 0 auto 20px;
         font-size:16px;
     }
 

@@ -19,7 +19,7 @@
 
         <el-table  class="table"
                    :data="tableData"
-                   height="220px"
+                   height="280px"
                    border
                    style="margin-bottom: 0;width:100%">
             <el-table-column prop="name" label="姓名" width="80">
@@ -226,8 +226,8 @@
 <style scoped>
     .table{
         align: center;
-        margin: 20px auto;
-
+        margin: 0 auto 20px;
+        font-size:16px;
     }
 
     .content {
