@@ -37,17 +37,27 @@
 </template>
 
 <script>
+    import {request} from "../../../network/request";
+    import {queryTerm} from "../../../pubRequest/queryTerm";
+    import {queryTermLast} from "../../../pubRequest/queryTerm";
+    import {queryData} from "../../../pubRequest/queryData";
+
     export default {
         name: "collection" ,
         data() {
             return {
                 formInline: {
-                    def_term: '2020-2021-1' ,
-                    term:         //学年从后端获取
-                        [
-                            '2020-2021-1' ,
-                            '2019-2020-2'
-                        ]
+                    def_term: '' ,
+                    term: []        //学年从后端获取
+                } ,
+                created() {
+                    queryTerm().then(res => {
+                        for (let i = 0 ; i < res.data.length ; i ++)
+                            this.formInline.term.push(res.data[i].term);
+                    });
+                    queryTermLast().then(res =>{
+                        this.formInline.def_term = res.data[0].term;
+                    })
                 } ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,

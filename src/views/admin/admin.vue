@@ -14,7 +14,7 @@
                                 trigger="hover">
                         <div class="span">
                             <p>系统管理员</p> <el-divider></el-divider>
-                            <p class="hover">退出登录</p>
+                            <p class="hover" @click="quit">退出登录</p>
                         </div>
                         <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
                     </el-popover>
@@ -45,6 +45,10 @@
             } ,
             system() {
                 this.$router.push('/admin/system_admin')
+            } ,
+            quit() {
+                this.$router.push('/login');
+                this.$message.success('您已退出登录');
             }
         }
     }

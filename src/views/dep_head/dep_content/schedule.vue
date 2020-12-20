@@ -15,7 +15,7 @@
                 <el-input v-model="formInline.t_name" placeholder="教师" clearable></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="qurey">查询</el-button>
             </el-form-item>
         </el-form>
         <el-table
@@ -64,6 +64,9 @@
 
 <script>
     import {request} from "../../../network/request";
+    import {queryTerm} from "../../../pubRequest/queryTerm";
+    import {queryTermLast} from "../../../pubRequest/queryTerm";
+    import {queryData} from "../../../pubRequest/queryData";
 
     export default {
         name: "schedule" ,
@@ -73,18 +76,21 @@
                     t_id: '',
                     t_name: '' ,
                     confirm: '' ,
-                    def_term: '2020-2021-1' ,  //当前学年（后端获取）：默认选中
-                    term:         //学年从后端获取
-                        [
-                            '2020-2021-1' ,
-                            '2019-2020-2'
-                        ]
+                    def_term: '' ,  //当前学年（后端获取）：默认选中
+                    term: []       //学年从后端获取
                 } ,
                 tableData: []
             }
         } ,
         created() {
             this.requestDate();
+            queryTerm().then(res => {
+                for (let i = 0 ; i < res.data.length ; i ++)
+                    this.formInline.term.push(res.data[i].term);
+            });
+            queryTermLast().then(res =>{
+                this.formInline.def_term = res.data[0].term;
+            })
         } ,
         methods: {
             requestDate() {
@@ -103,6 +109,7 @@
                 });
             },
             reject(index , row) {
+                console.log(row);
                 this.$confirm('是否驳回该教师提交的材料？', '警告', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -113,11 +120,11 @@
                         method: 'post' ,
                         params: {
                             t_id: row.t_id ,
-                            term: this.def_term
+                            term: this.formInline.def_term
                         }
                     }).then(res => {
                         if (res.data.msg === 'success') {
-                            this.requestDate();
+                            this.qurey();
                             this.$message({
                                 type: 'success',
                                 message: '操作成功!'
@@ -131,6 +138,17 @@
                     });
                 });
             } ,
+            qurey() {
+                const url = 'HandOfDept/teachercommitspeed';
+                const data = {
+                    term: this.formInline.def_term ,
+                    t_id: this.formInline.t_id ,
+                    t_name: this.formInline.t_name
+                };
+                queryData(url , data).then(res =>{
+                    this.tableData = res.data;
+                })
+            }
         }
     }
 </script>

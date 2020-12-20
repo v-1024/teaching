@@ -9,7 +9,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
             <el-form-item>
                 <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
@@ -86,21 +86,32 @@
 </template>
 
 <script>
+    import {request} from "../../../../network/request";
+    import {queryTerm} from "../../../../pubRequest/queryTerm";
+    import {queryTermLast} from "../../../../pubRequest/queryTerm";
+    import {queryData} from "../../../../pubRequest/queryData";
+
     export default {
         name: "thesis",
         data() {
             return {
                 formInline: {
-                    def_term: '2020-2021-1' ,  //当前学年（后端获取）：默认选中
-                    term:         //学年从后端获取
-                        [
-                            '2020-2021-1' ,
-                            '2019-2020-2'
-                        ]
+                    def_term: '' ,  //当前学年（后端获取）：默认选中
+                    term: []        //学年从后端获取
+
                 } ,
                 tableData: [],
             };
         },
+        created() {
+            queryTerm().then(res => {
+                for (let i = 0 ; i < res.data.length ; i ++)
+                    this.formInline.term.push(res.data[i].term);
+            });
+            queryTermLast().then(res =>{
+                this.formInline.def_term = res.data[0].term;
+            })
+        } ,
         methods: {
             handleRemove(file, fileList) {
                 console.log(file, fileList);
@@ -116,11 +127,22 @@
             },
             add_line(){
                 this.tableData.push({
-                    teacher: '张三',
-                    thesis: '关于青年学生',
-                    periodical: '青年报',
-                    time:'2020/11/28',
+                    teacher: '',
+                    thesis: '',
+                    periodical: '',
+                    time:'',
                     show:true
+                })
+            } ,
+            query() {
+                const url = 'HandOfDept/teachercommitspeed';
+                const data = {
+                    term: this.formInline.def_term ,
+                    t_id: this.formInline.t_id ,
+                    t_name: this.formInline.t_name
+                };
+                queryData(url , data).then(res =>{
+                    this.tableData = res.data;
                 })
             }
         }

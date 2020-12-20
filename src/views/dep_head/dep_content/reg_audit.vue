@@ -70,11 +70,11 @@
                 request({
                     url: "HandOfDept/checkregisterupdate" ,
                     method: "post" ,
-                    data: {
+                    params: {
                         t_id: row.t_id
                     }
                 }).then(res => {
-                    if (res.message === 'success') {
+                    if (res.data.msg === 'success') {
                         this.$message({
                             type: 'success',
                             message: '操作成功!'
