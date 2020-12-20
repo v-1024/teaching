@@ -18,7 +18,7 @@
 
         <el-table  class="table"
                    :data="tableData"
-                   height="280px"
+                   height="350px"
                    border
                    style="margin-bottom: 0">
 
@@ -129,60 +129,54 @@
             </el-table-column>
         </el-table>
 
-        <div class="upload_1">
-            <div style="margin-left: 50px">
-                <span style="float: left;margin: 5px 10px">授课计划</span>
-                <el-upload
-                        ref="upload"
-                        :http-request="upFile"
-                        class="upload-demo"
-                        action=""
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :before-remove="beforeRemove"
-                        multiple
-                        :limit="5"
-                        :on-exceed="handleExceed"
-                        :auto-upload="false">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                </el-upload>
-            </div>
-            <div style="float: left;margin-left: 100px">
-                <span style="float: left;margin: 5px 10px">课堂考勤</span>
-                <el-upload
-                        ref="upload"
-                        :http-request="upFile"
-                        class="upload-demo"
-                        action=""
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :before-remove="beforeRemove"
-                        multiple
-                        :limit="5"
-                        :on-exceed="handleExceed"
-                        :auto-upload="false">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                </el-upload>
-            </div>
-            <div style="float: left;margin-left: 100px">
-                <span style="float: left;margin: 5px 10px">辅导答疑</span>
-                <el-upload
-                        ref="upload"
-                        class="upload-demo"
-                        action=""
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :before-remove="beforeRemove"
-                        :http-request="upFile"
-                        multiple
-                        :limit="5"
-                        :auto-upload="false"
-                        :on-exceed="handleExceed">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                </el-upload>
-            </div>
+        <div class="upload">
+            <el-upload
+                    ref="upload"
+                    action=""
+                    http-request="upFile"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    style="width: 15%">
+                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
+                <div slot="tip" class="el-upload__tip">上传评课记录</div>
+            </el-upload>
+            <el-upload
+                    ref="upload"
+                    action=""
+                    http-request="upFile"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    style="width: 15%">
+                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
+                <div slot="tip" class="el-upload__tip">上传课堂考勤</div>
+            </el-upload>
+            <el-upload
+                    ref="upload"
+                    action=""
+                    http-request="upFile"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    style="width: 15%">
+                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
+                <div slot="tip" class="el-upload__tip">上传辅导答疑</div>
+            </el-upload>
+            <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
         </div>
-        <el-button slot="reference" style="margin:40px 500px" @click="submit">提交</el-button>
     </div>
 </template>
 
@@ -231,14 +225,7 @@
                 })
             } ,
             submit() {
-                // this.$refs.upload.submit();
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: this.tableData
-                }).then(res => {
-                    console.log(res);
-                })
+                this.$refs.upload.submit();
             } ,
             add_line() {
                 this.tableData.push({
@@ -273,15 +260,16 @@
         text-align: center;
         margin-top: 10px;
     }
-    .select{
-        margin:30px 30px;
-        border: #333333;
+    .upload {
+        display: flex;
+        text-align: center;
+        margin: 10px;
     }
-    .upload_1{
-        margin: 110px 150px;
 
-    }
-    .upload-demo{
-        float: left;
+    .btn {
+        width: 150px;
+        height: 40px;
+        position: absolute;
+        right: 150px;
     }
 </style>

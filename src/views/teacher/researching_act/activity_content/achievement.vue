@@ -17,7 +17,7 @@
         </el-form>
         <el-table  class="table"
                    :data="tableData"
-                   height="280"
+                   height="350px"
                    border
                    style="width:1000px;">
             <el-table-column
@@ -64,19 +64,24 @@
             </el-table-column>
         </el-table>
 
-        <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                :before-remove="beforeRemove"
-                multiple
-                :limit="5"
-                :on-exceed="handleExceed">
-            <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-        </el-upload>
-        <el-button slot="reference" style="margin:20px 500px">提交</el-button>
+        <div class="upload">
+            <el-upload
+                    ref="upload"
+                    action=""
+                    http-request="upFile"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    style="width: 30%">
+                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
+                <div slot="tip" class="el-upload__tip">上传材料</div>
+            </el-upload>
+            <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
+        </div>
     </div>
 </template>
 
@@ -134,12 +139,16 @@
         text-align: center;
         margin-top: 10px;
     }
-    .select{
-        margin:30px 30px;
-        border: #333333;
+    .upload {
+        display: flex;
+        text-align: center;
+        margin: 10px;
     }
-    .upload-demo{
-        margin-left: 300px;
-        padding-right: 700px;
+
+    .btn {
+        width: 150px;
+        height: 40px;
+        position: absolute;
+        right: 150px;
     }
 </style>
