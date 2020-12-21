@@ -50,15 +50,6 @@
                     def_term: '' ,
                     term: []        //学年从后端获取
                 } ,
-                created() {
-                    queryTerm().then(res => {
-                        for (let i = 0 ; i < res.data.length ; i ++)
-                            this.formInline.term.push(res.data[i].term);
-                    });
-                    queryTermLast().then(res =>{
-                        this.formInline.def_term = res.data[0].term;
-                    })
-                } ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,
                     {name: '听课统计表' , state: false} ,
@@ -74,7 +65,18 @@
                     {name: '计划与总结' , state: false}
                 ]
             }
-        }
+        } ,
+        created() {
+            queryTerm().then(res => {
+                console.log(res);
+                for (let i = 0 ; i < res.data.length ; i ++)
+                    this.formInline.term.push(res.data[i].term);
+            });
+            queryTermLast().then(res =>{
+                console.log(res.data);
+                this.formInline.def_term = res.data[0].term;
+            })
+        } ,
     }
 </script>
 

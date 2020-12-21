@@ -50,22 +50,10 @@
             return {
                 formInline: {
                     def_term: '' ,
-                    def_dep: '软件工程' ,      //需查询其他系部时将该值传给后端
-                    dep_name: [     //后端获取
-                        '软件工程' ,
-                        '网络工程'
-                    ] ,
+                    def_dep: '' ,      //需查询其他系部时将该值传给后端
+                    dep_name: [] ,     //后端获取
                     term: []        //学年从后端获取
 
-                } ,
-                created() {
-                    queryTerm().then(res => {
-                        for (let i = 0 ; i < res.data.length ; i ++)
-                            this.formInline.term.push(res.data[i].term);
-                    });
-                    queryTermLast().then(res =>{
-                        this.formInline.def_term = res.data[0].term;
-                    })
                 } ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,
@@ -81,6 +69,30 @@
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
                 ]
+            }
+        } ,
+        created() {
+            queryTerm().then(res => {
+                for (let i = 0 ; i < res.data.length ; i ++)
+                    this.formInline.term.push(res.data[i].term);
+            });
+            queryTermLast().then(res =>{
+                this.formInline.def_term = res.data[0].term;
+            });
+            this.queryDep();
+        } ,
+        methods: {
+            queryDep() {
+                request({
+                    url: 'HandOfCollege/getdept' ,
+                    method: 'post' ,
+                    params: {
+                        college_name: '2' //院信息在登录时保存起来
+                    }
+                }).then(res => {
+                    this.formInline.dep_name = res.data;
+                    this.formInline.def_dep = res.data[0];
+                })
             }
         }
     }

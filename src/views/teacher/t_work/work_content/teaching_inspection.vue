@@ -133,7 +133,7 @@
             <el-upload
                     ref="upload"
                     action=""
-                    http-request="upFile"
+                    :http-request="upFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
@@ -148,7 +148,7 @@
             <el-upload
                     ref="upload"
                     action=""
-                    http-request="upFile"
+                    :http-request="upFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
@@ -163,7 +163,7 @@
             <el-upload
                     ref="upload"
                     action=""
-                    http-request="upFile"
+                    :http-request="upFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"

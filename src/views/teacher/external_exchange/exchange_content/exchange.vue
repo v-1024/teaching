@@ -77,7 +77,7 @@
             <el-upload
                     ref="upload"
                     action=""
-                    http-request="upFile"
+                    :http-request="upFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
@@ -154,6 +154,12 @@
                        remarks: this.scope.row.remarks,
                    },
                })
+            } ,
+            upFile(parem) {
+
+            } ,
+            submit() {
+                this.$refs.upload.submit();
             } ,
             query() {
                 const url = 'HandOfDept/teachercommitspeed';
