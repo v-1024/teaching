@@ -131,9 +131,9 @@
 
         <div class="upload">
             <el-upload
-                    ref="upload"
+                    ref="upload1"
                     action=""
-                    :http-request="upFile"
+                    :http-request="upFile1"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
@@ -146,9 +146,9 @@
                 <div slot="tip" class="el-upload__tip">上传评课记录</div>
             </el-upload>
             <el-upload
-                    ref="upload"
+                    ref="upload2"
                     action=""
-                    :http-request="upFile"
+                    :http-request="upFile2"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
@@ -161,9 +161,9 @@
                 <div slot="tip" class="el-upload__tip">上传课堂考勤</div>
             </el-upload>
             <el-upload
-                    ref="upload"
+                    ref="upload3"
                     action=""
-                    :http-request="upFile"
+                    :http-request="upFile3"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
@@ -193,7 +193,6 @@
                 formInline: {
                     def_term: '' ,  //当前学年（后端获取）：默认选中
                     term: []       //学年从后端获取
-
                 } ,
                 tableData: [],
             }
@@ -220,8 +219,37 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-            upFile(param) {
+            upFile1(param) {
                 const file = param.file;
+                console.log(file);
+                let formData = new FormData();
+                formData.append("file" , file);
+                formData.append("table" , this.tableData);
+                request({
+                    url: 'Teachingwork/TeachCheck_submit' ,
+                    method: "post" ,
+                    data: formData
+                }).then(res => {
+                    console.log(res);
+                })
+            } ,
+            upFile2(param) {
+                const file = param.file;
+                console.log(file);
+                let formData = new FormData();
+                formData.append("file" , file);
+                formData.append("table" , this.tableData);
+                request({
+                    url: 'Teachingwork/TeachCheck_submit' ,
+                    method: "post" ,
+                    data: formData
+                }).then(res => {
+                    console.log(res);
+                })
+            } ,
+            upFile3(param) {
+                const file = param.file;
+                console.log(file);
                 let formData = new FormData();
                 formData.append("file" , file);
                 formData.append("table" , this.tableData);
@@ -234,7 +262,9 @@
                 })
             } ,
             submit() {
-                this.$refs.upload.submit();
+                this.$refs.upload1.submit();
+                this.$refs.upload2.submit();
+                this.$refs.upload3.submit();
             } ,
             add_line() {
                 this.tableData.push({
