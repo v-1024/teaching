@@ -47,10 +47,33 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="操作">
-                    <el-button type="primary" size="mini">修改信息</el-button>
+                    <template slot-scope="scope">
+                        <el-button type="primary" size="mini" @click="edit(scope.row)">修改信息</el-button>
+                    </template>
                 </el-table-column>
             </el-table>
         </template>
+        <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible"
+                   :before-close="before_close" width="700px">
+            <el-form :inline="true" class="demo-form-inline">
+                <el-form-item label="学院" label-width="100px">
+                    <el-input v-model="formInline.col_name" style="width: 300px" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="系部" label-width="100px">
+                    <el-input v-model="formInline.dep_name" style="width: 300px" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="职位" label-width="100px">
+                    <el-input v-model="formInline.t_role" style="width: 300px" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="办公地点" label-width="100px">
+                    <el-input v-model="formInline.t_address" style="width: 300px" clearable></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="save">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -63,7 +86,12 @@
                     t_id: '',
                     t_name: '' ,
                     state: '' ,
+                    col_name: '' ,
+                    dep_name: '' ,
+                    t_role: '' ,
+                    t_address: '' ,
                 } ,
+                dialogFormVisible: false ,
                 tableData: [
                     {
                         t_id: '150222' ,
@@ -104,6 +132,29 @@
                 ]
             }
         } ,
+        methods: {
+            edit(row) {
+                this.formInline.col_name = row.t_col;
+                this.formInline.dep_name = row.t_dep;
+                this.formInline.t_role = row.t_role;
+                this.formInline.t_address = row.t_address;
+                this.dialogFormVisible = true;
+            } ,
+            before_close() {
+                this.formInline.col_name = '';
+                this.formInline.new_dep =  '';
+                this.dialogFormVisible = false;
+            } ,
+            save() {
+                this.$confirm('确认修改该用户的信息？')
+                    .then(_=> {
+                        //发送请求
+                        this.dialogFormVisible = false;
+                    })
+                    .catch(_ => {
+                    });
+            }
+        }
     }
 </script>
 

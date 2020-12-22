@@ -15,7 +15,7 @@
                             placeholder="输入学院"></el-autocomplete>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-plus" @click="col_add(1)">确认</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="col_add()">确认</el-button>
             </el-form-item>
         </el-form>
 
@@ -34,9 +34,15 @@
             </div>
         </el-dialog>
 
+        <!-- row-key：指定每行的key值-->
+        <!--@expand-change：当行展开或收起时触发-->
+        <!--expand-row-keys：展开行的key值，是一个数组类型-->
         <el-table
                 :data="tableData"
                 stripe
+                @expand-change="expandChange"
+                :expand-row-keys="expands"
+                :row-key='getRowKeys'
                 style="width: 100%">
 
             <!--系部信息、操作-->
@@ -106,6 +112,10 @@
             return {
                 flag: '0' ,
                 college: [],
+                expands: [],//只展开一行放入当前行col_name
+                getRowKeys(row){
+                    return row.col_name
+                },
                 formInline: {
                     term: '',
                     col_name: '',
@@ -150,6 +160,17 @@
             this.college = this.loadAll();
         } ,
         methods: {
+            expandChange(row , expandedRows) {     //row表示当前点击的行的信息   expandRows表示已展开的行的信息
+                //只展开一行
+                if (expandedRows.length) {//说明展开了
+                    this.expands = [];
+                    if (row) {
+                        this.expands.push(row.col_name)//只展开当前行的col_name
+                    }
+                } else {//说明收起了
+                    this.expands = []
+                }
+            } ,
             loadAll() {      //后端获取
                 return [
                     { "value": "计算机科学与工程学院"},
@@ -177,6 +198,7 @@
             } ,
             dep_editor(index , row) {
                 //获取父级（学院）的信息
+                this.formInline.col_name = this.expands[0];
                 this.formInline.new_dep = row.dep_name;
                 this.flag = '0';
                 this.dialogFormVisible = true;
@@ -194,7 +216,7 @@
                 this.dialogFormVisible = true;
                 this.flag = '1'
             } ,
-            save() {     //插入新数据或更新系部信息
+            save() {     //插入新数据或更新系部信息(修改后传给后端)
                 if (this.flag === '1')
                     console.log('新增学院和系部');
                 else

@@ -21,7 +21,7 @@
                         <td>
                             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                                 <el-form-item prop="pwd">
-                                    <el-input type="password" v-model="ruleForm.pwd"></el-input>
+                                    <el-input type="password" v-model="ruleForm.pwd" show-password></el-input>
                                 </el-form-item>
                             </el-form>
                         </td>
@@ -80,9 +80,9 @@
                 request({
                     url : "login" ,
                     method : "post",
-                    data:{
-                        t_id: this.ruleForm.t_id ,
-                        pwd: this.ruleForm.password
+                    params:{
+                        username: this.ruleForm.t_id ,
+                        password: this.ruleForm.password
                     },
                 }).then(res=>{
                     console.log(res);
