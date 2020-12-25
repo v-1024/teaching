@@ -106,6 +106,8 @@
 </template>
 
 <script>
+    import {request} from "../../../network/request";
+
     export default {
         name: "system_admin",
         data() {
@@ -206,11 +208,21 @@
             term_btn() {
                 if (this.formInline.term == '')
                     this.$message.warning('学期不能为空！');
-                else
-                    this.$message({
-                        message: '学期设置成功！',
-                        type: 'success'
-                    });
+                else {
+                    request({
+                        url: 'Manager/addTerm' ,
+                        method: 'post' ,
+                        params: {
+                            term: this.formInline.term
+                        }
+                    }).then (res => {
+                        if (res.data.msg == 'success')
+                            this.$message.success('修改成功');
+                        else
+                            this.$message.error('操作失败')
+                    })
+                }
+
             } ,
             col_add() {
                 this.dialogFormVisible = true;

@@ -23,7 +23,7 @@
                    style="margin-bottom: 0">
 
             <el-table-column
-                    prop="name"
+                    prop="t_name"
                     label="姓名"
                     width="80">
                 <template slot-scope="scope">
@@ -32,7 +32,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="subject"
+                    prop="course"
                     label="课程"
                     width="160">
                 <template slot-scope="scope">
@@ -41,7 +41,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="content"
+                    prop="lessonplan"
                     label="授课计划"
                     width="160">
                 <template slot-scope="scope">
@@ -50,7 +50,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="plan"
+                    prop="teachplan"
                     label="教案(有或无）"
                     width="70">
                 <template slot-scope="scope">
@@ -59,7 +59,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="attendance_times"
+                    prop="attendancenum"
                     label="课堂考勤(次)"
                     width="80">
                 <template slot-scope="scope">
@@ -68,7 +68,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="attendance"
+                    prop="attendancerate"
                     label="学生出勤率"
                     width="70">
                 <template slot-scope="scope">
@@ -77,7 +77,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="work"
+                    prop="correctinghomework"
                     label="作业批改(次)"
                     width="70">
                 <template slot-scope="scope">
@@ -86,7 +86,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="coach"
+                    prop="answerscount"
                     label="辅导答疑(次)"
                     width="70">
                 <template slot-scope="scope">
@@ -95,7 +95,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="test"
+                    prop="onscheduleexperiment"
                     label="是否按计划设实验(随堂)"
                     width="90">
                 <template slot-scope="scope">
@@ -104,7 +104,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="problem"
+                    prop="exitprogram"
                     label="教学中存在的问题"
                     width="170">
                 <template slot-scope="scope">
@@ -143,7 +143,7 @@
                     :on-exceed="handleExceed"
                     style="width: 15%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
-                <div slot="tip" class="el-upload__tip">上传评课记录</div>
+                <div slot="tip" class="el-upload__tip">上传授课计划</div>
             </el-upload>
             <el-upload
                     ref="upload2"
@@ -223,7 +223,7 @@
                 const file = param.file;
                 console.log(file);
                 let formData = new FormData();
-                formData.append("file" , file);
+                formData.append("lessonfile" , file);
                 formData.append("table" , this.tableData);
                 request({
                     url: 'Teachingwork/TeachCheck_submit' ,
@@ -237,7 +237,7 @@
                 const file = param.file;
                 console.log(file);
                 let formData = new FormData();
-                formData.append("file" , file);
+                formData.append("attendencefile" , file);
                 formData.append("table" , this.tableData);
                 request({
                     url: 'Teachingwork/TeachCheck_submit' ,
@@ -251,7 +251,7 @@
                 const file = param.file;
                 console.log(file);
                 let formData = new FormData();
-                formData.append("file" , file);
+                formData.append("answersfile" , file);
                 formData.append("table" , this.tableData);
                 request({
                     url: 'Teachingwork/TeachCheck_submit' ,

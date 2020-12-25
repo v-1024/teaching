@@ -35,17 +35,18 @@
 </template>
 
 <script>
+    import {request} from "../../../network/request";
+    import {queryTerm} from "../../../pubRequest/queryTerm";
+    import {queryTermLast} from "../../../pubRequest/queryTerm";
+
     export default {
         name: "dep_diagram" ,
         data() {
             return {
                 formInline: {
-                    def_term: '2020-2021-1' ,
-                    term:         //学年从后端获取
-                        [
-                            '2020-2021-1' ,
-                            '2019-2020-2'
-                        ]
+                    def_term: '' ,
+                    term: []        //学年从后端获取
+
                 } ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,
@@ -61,6 +62,41 @@
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
                 ]
+            }
+        } ,
+        created() {
+            queryTerm().then(res => {
+                for (let i = 0 ; i < res.data.length ; i ++)
+                    this.formInline.term.push(res.data[i].term);
+            });
+            queryTermLast().then(res =>{
+                this.formInline.def_term = res.data[0].term;
+            })
+        } ,
+        methods: {
+            check(index , row) {
+                switch (index) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        break;
+                }
             }
         }
     }

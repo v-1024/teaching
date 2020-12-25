@@ -21,88 +21,88 @@
                    height="350px"
                    border
                    style="margin-bottom: 0;width:100%">
-            <el-table-column prop="name" label="姓名" width="80">
+            <el-table-column prop="t_name" label="姓名" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.name"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.name}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="teaching_plan" label="是否是电子教案" width="80">
+            <el-table-column prop="elecplan" label="是否是电子教案" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.teaching_plan"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.teaching_plan}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.elecplan"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.elecplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="txt" label="是否是文本文档" width="80">
+            <el-table-column prop="textplan" label="是否是文本文档" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.txt"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.txt}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.textplan"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.textplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="plan_over" label="教案是否完善" width="80">
+            <el-table-column prop="planintegrated" label="教案是否完善" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.plan_over"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.plan_over}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.planintegrated"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.planintegrated}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendance_times" label="考勤次数" width="80">
+            <el-table-column prop="attendancenum" label="考勤次数" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance_times"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.attendance_times}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.attendancenum"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendancenum}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendance" label="考情是否有记录" width="80">
+            <el-table-column prop="attendancerecord" label="考情是否有记录" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.attendance}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.attendancerecord"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendancerecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="times" label="听课次数" width="80">
+            <el-table-column prop="hearclass" label="听课次数" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.times"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.times}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.hearclass"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.hearclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="lesson_assessment" label="评课次数" width="80">
+            <el-table-column prop="assessclass" label="评课次数" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.lesson_assessment"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.lesson_assessment}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.assessclass"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.assessclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="lesson_record" label="听课是否有记录" width="80">
+            <el-table-column prop="classrecord" label="听课是否有记录" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.lesson_record"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.lesson_record}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.classrecord"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.classrecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="assign_works_times" label="布置作业次数" width="80">
+            <el-table-column prop="arrangehomework" label="布置作业次数" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.assign_works_times"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.assign_works_times}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.arrangehomework"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.arrangehomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="check_works_times" label="批改作业次数" width="80">
+            <el-table-column prop="correctinghomework" label="批改作业次数" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.check_works_times"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.check_works_times}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.correctinghomework"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.correctinghomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="test_times" label="实验次数" width="80">
+            <el-table-column prop="experimentcount" label="实验次数" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.test_times"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.test_times}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.experimentcount"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.experimentcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="test_report_times" label="批改实验报告次数" width="80">
+            <el-table-column prop="correctreportcount" label="批改实验报告次数" width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.test_report_times"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.test_report_times}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.correctreportcount"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.correctreportcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="ele_paper" label="电子作业/纸质作业" width="85">
+            <el-table-column prop="homeworktype" label="电子作业/纸质作业" width="85">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.ele_paper"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.ele_paper}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.homeworktype"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.homeworktype}}</span>
                 </template>
             </el-table-column>
             <el-table-column label="操作" >
@@ -174,7 +174,7 @@
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
                 <div slot="tip" class="el-upload__tip">上传评课记录</div>
             </el-upload>
-            <el-button size="medium" type="primary" class="btn">提交</el-button>
+            <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
         </div>
     </div>
 
@@ -195,6 +195,11 @@
                     term: []        //学年从后端获取
                 } ,
                 tableData: [],
+                fileList: [],
+                formData() {
+                    let formData = new FormData();
+                    return formData;
+                }
             }
         },
         created() {
@@ -221,84 +226,104 @@
             },
             add_line() {
                 this.tableData.push({
-                    name:'' ,
-                    teaching_plan:'',
-                    txt:'',
-                    plan_over:'',
-                    attendance_times:'',
-                    attendance:'',
-                    times:'',
-                    lesson_assessment:'',
-                    lesson_record:'',
-                    assign_works_times:'',
-                    check_works_times:'',
-                    test_times:'',
-                    test_report_times:'',
-                    ele_paper: '',
-                    show:true
+                    t_name:'' ,
+                    elecplan:'',
+                    textplan:'',
+                    planintegrated:'',
+                    attendancenum:'',
+                    attendancerecord:'',
+                    hearclass:'',
+                    assessclass:'',
+                    classrecord:'',
+                    arrangehomework:'',
+                    correctinghomework:'',
+                    experimentcount:'',
+                    correctreportcount:'',
+                    homeworktype: '',
+                    show: true
                 })
             } ,
             upFile1(param) {
                 const file = param.file;
                 console.log(file);
-                let formData = new FormData();
-                formData.append("file" , file);
-                formData.append("table" , this.tableData);
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData
-                }).then(res => {
-                    console.log(res);
-                })
+                this.fileList.push(file)
+                // let formData = new FormData();
+                // delete this.tableData[0].show;
+                // formData.append("teachplancheck" , this.tableData[0]);
+                // request({
+                //     url: 'Teachingwork/TeachCheck_submit' ,
+                //     method: "post" ,
+                //     data: formData
+                // }).then(res => {
+                //     console.log(res);
+                // })
             } ,
             upFile2(param) {
                 const file = param.file;
                 console.log(file);
-                let formData = new FormData();
-                formData.append("file" , file);
-                formData.append("table" , this.tableData);
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData
-                }).then(res => {
-                    console.log(res);
-                })
+                this.fileList.push(file)
+                // let formData = new FormData();
+                // formData.append("file" , file);
+                // formData.append("table" , this.tableData);
+                // request({
+                //     url: 'Teachingwork/TeachCheck_submit' ,
+                //     method: "post" ,
+                //     data: formData
+                // }).then(res => {
+                //     console.log(res);
+                // })
             } ,
             upFile3(param) {
                 const file = param.file;
                 console.log(file);
-                let formData = new FormData();
-                formData.append("file" , file);
-                formData.append("table" , this.tableData);
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData
-                }).then(res => {
-                    console.log(res);
-                })
+                this.fileList.push(file)
+                // let formData = new FormData();
+                // formData.append("file" , file);
+                // formData.append("table" , this.tableData);
+                // request({
+                //     url: 'Teachingwork/TeachCheck_submit' ,
+                //     method: "post" ,
+                //     data: formData
+                // }).then(res => {
+                //     console.log(res);
+                // })
             } ,
             upFile4(param) {
                 const file = param.file;
                 console.log(file);
-                let formData = new FormData();
-                formData.append("file" , file);
-                formData.append("table" , this.tableData);
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData
-                }).then(res => {
-                    console.log(res);
-                })
+                this.fileList.push(file)
+                // let formData = new FormData();
+                // formData.append("file" , file);
+                // formData.append("table" , this.tableData);
+                // request({
+                //     url: 'Teachingwork/TeachCheck_submit' ,
+                //     method: "post" ,
+                //     data: formData
+                // }).then(res => {
+                //     console.log(res);
+                // })
             } ,
             submit() {
                 this.$refs.upload1.submit();
                 this.$refs.upload2.submit();
                 this.$refs.upload3.submit();
                 this.$refs.upload4.submit();
+                console.log('-------------------------------' + this.fileList);
+                let formData = new FormData();
+                formData.append("files" , this.fileList);
+                delete this.tableData[0].show;
+                formData.append("teachplancheck" , JSON.stringify(this.tableData[0]));
+                request({
+                    url: 'Teachingwork/TeachCheck_submit' ,
+                    method: "post" ,
+                    data: formData ,
+                    header: {
+                        'Content-Type': 'multipart/form-data'
+                    } ,
+                }).then(res => {
+                    console.log(res);
+                });
+                this.fileList.splice(0,this.fileList.length)
             } ,
             query() {
                 const url = 'HandOfDept/teachercommitspeed';

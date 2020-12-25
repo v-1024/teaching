@@ -21,21 +21,21 @@
                    border
                    style="width:1000px;">
             <el-table-column
-                    prop="teacher"
+                    prop="t_name"
                     label="教师姓名"
                     width="180">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="achievement"
+                    prop="achievementname"
                     label="成果名称"
                     width="250">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.achievement"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.achievement}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.achievementname"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.achievementname}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -48,12 +48,12 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="department"
+                    prop="examination"
                     label="审批部门"
                     width="200">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.department"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.department}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.examination"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.examination}}</span>
                 </template>
             </el-table-column>
             <el-table-column label="操作">
@@ -98,7 +98,6 @@
                 formInline: {
                     def_term: '' ,  //当前学年（后端获取）：默认选中
                     term: []        //学年从后端获取
-
                 } ,
                 tableData:[],
             };
@@ -127,15 +126,31 @@
             },
             add_line() {
                 this.tableData.push({
-                    teacher: '张三',
-                    achievement: '教学礼拜项目',
-                    level: '一等奖',
-                    department: '湖南科技大学',
-                    show:true
+                    t_name: '1',
+                    achievementname: '1',
+                    level: '1',
+                    examination: '1',
+                    show: true
                 })
             } ,
-            upFile(parem) {
-
+            upFile(parem) {   //success
+                const file = parem.file;
+                let formData = new FormData();
+                formData.append("file" , file);
+                //上传时删除数据中的show属性
+                delete this.tableData[0].show;
+                formData.append("achievement" , JSON.stringify(this.tableData[0]));
+                console.log(formData.get("table"));
+                request({
+                    url: 'Researchactivity/Achievement_submit' ,
+                    method: 'post' ,
+                    header: {
+                        'Content-Type': 'multipart/form-data'
+                    } ,
+                    data: formData,
+                }).then(res => {
+                    console.log(res);
+                })
             } ,
             submit() {
                 this.$refs.upload.submit();

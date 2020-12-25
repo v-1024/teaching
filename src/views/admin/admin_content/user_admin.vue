@@ -1,20 +1,17 @@
 <template>
     <div class="box">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="员工号">
-                <el-input v-model="formInline.t_id" placeholder="员工号" clearable></el-input>
-            </el-form-item>
             <el-form-item label="教师">
                 <el-input v-model="formInline.t_name" placeholder="教师" clearable></el-input>
             </el-form-item>
             <el-form-item label="教师状态">
-                <el-select v-model="formInline.t_state" placeholder="教师状态" clearable>
+                <el-select v-model="formInline.state" placeholder="教师状态" clearable>
                     <el-option label="是" value="1"></el-option>
                     <el-option label="否" value="0"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="职位">
-                <el-select v-model="formInline.t_role" placeholder="职位" clearable>
+                <el-select v-model="formInline.role" placeholder="职位" clearable>
                     <el-option label="教师" value="教师"></el-option>
                     <el-option label="系主任" value="系主任"></el-option>
                     <el-option label="教务办" value="教务办"></el-option>
@@ -33,17 +30,17 @@
                     style="width: 100%">
                 <el-table-column prop="t_id" label="员工号" width="100px"></el-table-column>
                 <el-table-column prop="t_name" label="姓名" width="100px"></el-table-column>
-                <el-table-column prop="t_sex" label="性别" width="80px"></el-table-column>
-                <el-table-column prop="t_col" label="学院" width="200px"></el-table-column>
-                <el-table-column prop="t_dep" label="系部"></el-table-column>
-                <el-table-column prop="t_role" label="职位" width="100px"></el-table-column>
-                <el-table-column prop="t_tel" label="电话号码"></el-table-column>
-                <el-table-column prop="t_address" label="办公地点"></el-table-column>
-                <el-table-column prop="t_email" label="Email"></el-table-column>
+                <el-table-column prop="sex" label="性别" width="80px"></el-table-column>
+                <el-table-column prop="college" label="学院" width="200px"></el-table-column>
+                <el-table-column prop="department" label="系部"></el-table-column>
+                <el-table-column prop="role" label="职位" width="100px"></el-table-column>
+                <el-table-column prop="tel" label="电话号码"></el-table-column>
+                <el-table-column prop="address" label="办公地点"></el-table-column>
+                <el-table-column prop="email" label="Email"></el-table-column>
                 <el-table-column label="状态" width="90px">
                     <!--作用域插槽-->
                     <template slot-scope="scope">
-                        <el-switch v-model="scope.row.t_state"></el-switch>
+                        <el-switch v-model="scope.row.state" @change="switch_change(scope.row , $event)"></el-switch>
                     </template>
                 </el-table-column>
                 <el-table-column label="操作">
@@ -57,16 +54,16 @@
                    :before-close="before_close" width="700px">
             <el-form :inline="true" class="demo-form-inline">
                 <el-form-item label="学院" label-width="100px">
-                    <el-input v-model="formInline.col_name" style="width: 300px" clearable></el-input>
+                    <el-input v-model="dialogForm.college" style="width: 300px" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="系部" label-width="100px">
-                    <el-input v-model="formInline.dep_name" style="width: 300px" clearable></el-input>
+                    <el-input v-model="dialogForm.department" style="width: 300px" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="职位" label-width="100px">
-                    <el-input v-model="formInline.t_role" style="width: 300px" clearable></el-input>
+                    <el-input v-model="dialogForm.role" style="width: 300px" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="办公地点" label-width="100px">
-                    <el-input v-model="formInline.t_address" style="width: 300px" clearable></el-input>
+                    <el-input v-model="dialogForm.address" style="width: 300px" clearable></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -78,6 +75,8 @@
 </template>
 
 <script>
+    import {request} from "../../../network/request";
+
     export default {
         name: "user_admin" ,
         data() {
@@ -86,73 +85,82 @@
                     t_id: '',
                     t_name: '' ,
                     state: '' ,
-                    col_name: '' ,
-                    dep_name: '' ,
-                    t_role: '' ,
-                    t_address: '' ,
+                    role: '' ,
                 } ,
                 dialogFormVisible: false ,
-                tableData: [
-                    {
-                        t_id: '150222' ,
-                        t_name: '张三',
-                        t_sex: '男',
-                        t_col: '计算机科学与工程学院',
-                        t_dep: '网络工程系',
-                        t_role: '教师' ,
-                        t_tel: '12345678911' ,
-                        t_address: '逸夫楼203' ,
-                        t_email: '123456@qq.com' ,
-                        t_state: true
-                    }
-                    ,{
-                        t_id: '150221' ,
-                        t_name: '李四',
-                        t_sex: '女',
-                        t_col: '计算机科学与工程学院',
-                        t_dep: '网络工程系',
-                        t_role: '院长' ,
-                        t_tel: '12345678910' ,
-                        t_address: '逸夫楼204' ,
-                        t_email: '1234564@qq.com' ,
-                        t_state: false
-                    }
-                    ,{
-                        t_id: '150220' ,
-                        t_name: '王五',
-                        t_sex: '男',
-                        t_col: '计算机科学与工程学院',
-                        t_dep: '网络工程系',
-                        t_role: '系主任' ,
-                        t_tel: '12345678912' ,
-                        t_address: '逸夫楼205' ,
-                        t_email: '1234567@qq.com' ,
-                        t_state: true
-                    } ,
-                ]
+                tableData: [] ,
+                dialogForm: {
+                    t_id: '' ,
+                    college: '' ,
+                    department: '' ,
+                    role: '' ,
+                    address: ''
+                }
             }
         } ,
+        created() {
+            this.requestDate();
+        } ,
         methods: {
+            requestDate() {
+               request({
+                   url: 'Manager/UserManager' ,
+                   method: 'get'
+               }).then(res => {
+                   this.tableData = res.data;
+               })
+            } ,
             edit(row) {
-                this.formInline.col_name = row.t_col;
-                this.formInline.dep_name = row.t_dep;
-                this.formInline.t_role = row.t_role;
-                this.formInline.t_address = row.t_address;
+                this.dialogForm.college = row.college;
+                this.dialogForm.department = row.department;
+                this.dialogForm.role = row.role;
+                this.dialogForm.address = row.address;
+                this.dialogForm.t_id = row.t_id;
                 this.dialogFormVisible = true;
             } ,
             before_close() {
-                this.formInline.col_name = '';
-                this.formInline.new_dep =  '';
+                this.dialogForm.college = '';
+                this.dialogForm.department =  '';
                 this.dialogFormVisible = false;
             } ,
             save() {
                 this.$confirm('确认修改该用户的信息？')
                     .then(_=> {
-                        //发送请求
+                        request({
+                            url: 'Manager/update' ,
+                            params: {
+                                t_id: this.dialogForm.t_id ,
+                                college: this.dialogForm.college ,
+                                department: this.dialogForm.department ,
+                                role: this.dialogForm.role ,
+                                address: this.dialogForm.address ,
+                            } ,
+                            method: 'put'
+                        }).then(res => {
+                            if (res.data.msg == 'success')
+                                this.$message.success('修改成功');
+                            else
+                                this.$message.error('操作失败')
+                        });
                         this.dialogFormVisible = false;
                     })
                     .catch(_ => {
                     });
+            } ,
+            switch_change(row , event) {     //event为switch当前的状态
+                request({
+                    url: 'Manager/updateState' ,
+                    method: 'put' ,
+                    params: {
+                        t_id: row.t_id ,
+                        state: event
+                    }
+                }).then(res => {
+                    if (res.data.msg == 'success')
+                        this.$message.success('修改成功');
+                    else
+                        this.$message.error('操作失败')
+                })
             }
         }
     }
