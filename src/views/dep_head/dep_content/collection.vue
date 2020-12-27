@@ -9,7 +9,7 @@
                 <el-table-column prop="name" label="名称" align="center"></el-table-column>
                 <el-table-column label="确认情况" align="center">
                     <template slot-scope="scope">
-                        <el-switch v-model="scope.row.state"></el-switch>
+                        <el-switch v-model="scope.row.state" @change="switch_change(scope.$index , $event)"></el-switch>
                     </template>
                 </el-table-column>
                 <el-table-column label="详情" align="center">
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+    import {request} from "../../../network/request";
+
     export default {
         name: "collection" ,
         data() {
@@ -80,6 +82,24 @@
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${ file.name }？`);
+            } ,
+            switch_change(index , event) {
+                let state = '0';
+                if (event === true)
+                    state = '1';
+                request({
+                    url: 'HandOfDept/deptsummarystate' ,
+                    method: 'post' ,
+                    params: {
+                        info: index+1 ,
+                        t_id: '1' ,
+                        term: '2' ,
+                        num: state
+                    }
+                }).then(res => {
+                    if (res.data.msg === 'success')
+                        this.$message.success('操作成功')
+                })
             }
         }
     }
