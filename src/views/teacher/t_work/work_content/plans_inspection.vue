@@ -122,6 +122,7 @@
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
                 :auto-upload="false"
+                enctype="multipart/form-data"
                 multiple
                 :limit="3"
                 :on-exceed="handleExceed"
@@ -137,6 +138,7 @@
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :auto-upload="false"
+                    enctype="multipart/form-data"
                     multiple
                     :limit="3"
                     :on-exceed="handleExceed"
@@ -152,6 +154,7 @@
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :auto-upload="false"
+                    enctype="multipart/form-data"
                     multiple
                     :limit="3"
                     :on-exceed="handleExceed"
@@ -167,6 +170,7 @@
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :auto-upload="false"
+                    enctype="multipart/form-data"
                     multiple
                     :limit="3"
                     :on-exceed="handleExceed"
@@ -245,29 +249,37 @@
             } ,
             upFile1(param) {
                 const file = param.file;
-                console.log(file);
                 this.fileList.push(file)
+                console.log(this.fileList);
                 // let formData = new FormData();
                 // delete this.tableData[0].show;
-                // formData.append("teachplancheck" , this.tableData[0]);
+                // formData.append("teachplancheck" , JSON.stringify(this.tableData[0]));
+                // formData.append('planfile' , file);
                 // request({
-                //     url: 'Teachingwork/TeachCheck_submit' ,
+                //     url: 'Teachingwork/TeachPlanCheck_submit' ,
                 //     method: "post" ,
-                //     data: formData
+                //     header: {
+                //         'Content-Type': 'application/json'
+                //     } ,
+                //     data: formData ,
                 // }).then(res => {
                 //     console.log(res);
                 // })
             } ,
             upFile2(param) {
                 const file = param.file;
-                console.log(file);
-                this.fileList.push(file)
+                this.fileList.add(file)
+                //console.log(this.fileList);
+                // this.fileList.push(file);
                 // let formData = new FormData();
                 // formData.append("file" , file);
                 // formData.append("table" , this.tableData);
                 // request({
                 //     url: 'Teachingwork/TeachCheck_submit' ,
                 //     method: "post" ,
+                //     header: {
+                //                 'Content-Type': 'multipart/form-data'
+                //             } ,
                 //     data: formData
                 // }).then(res => {
                 //     console.log(res);
@@ -275,8 +287,8 @@
             } ,
             upFile3(param) {
                 const file = param.file;
-                console.log(file);
-                this.fileList.push(file)
+                //console.log(file);
+                // this.fileList.push(file)
                 // let formData = new FormData();
                 // formData.append("file" , file);
                 // formData.append("table" , this.tableData);
@@ -290,8 +302,8 @@
             } ,
             upFile4(param) {
                 const file = param.file;
-                console.log(file);
-                this.fileList.push(file)
+                //console.log(file);
+                // this.fileList.push(file)
                 // let formData = new FormData();
                 // formData.append("file" , file);
                 // formData.append("table" , this.tableData);
@@ -308,22 +320,22 @@
                 this.$refs.upload2.submit();
                 this.$refs.upload3.submit();
                 this.$refs.upload4.submit();
-                console.log('-------------------------------' + this.fileList);
-                let formData = new FormData();
-                formData.append("files" , this.fileList);
-                delete this.tableData[0].show;
-                formData.append("teachplancheck" , JSON.stringify(this.tableData[0]));
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData ,
-                    header: {
-                        'Content-Type': 'multipart/form-data'
-                    } ,
-                }).then(res => {
-                    console.log(res);
-                });
-                this.fileList.splice(0,this.fileList.length)
+                // console.log('-------------------------------' + this.fileList);
+                // let formData = new FormData();
+                // formData.append("files" , this.fileList);
+                // delete this.tableData[0].show;
+                // formData.append("teachplancheck" , this.tableData[0]);
+                // request({
+                //     url: 'Teachingwork/TeachPlanCheck_submit' ,
+                //     method: "post" ,
+                //     data: formData ,
+                //     header: {
+                //         'Content-Type': 'multipart/form-data'
+                //     } ,
+                // }).then(res => {
+                //     console.log(res);
+                // });
+                // this.fileList.splice(0,this.fileList.length)
             } ,
             query() {
                 const url = 'HandOfDept/teachercommitspeed';

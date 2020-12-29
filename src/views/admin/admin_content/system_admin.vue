@@ -124,44 +124,28 @@
                     new_dep: ''
                 },
                 dialogFormVisible: false ,
-                tableData: [
-                    {
-                        col_name: '计算机科学与工程学院',
-                        col_state: true,
-                        col_edit: true,
-                        col_btn: true,
-                        dep:
-                            [
-                                {
-                                    dep_name: '网络工程系',
-                                    dep_state: true,
-                                },
-                                {
-                                    dep_name: '软件工程系',
-                                    dep_state: false,
-                                }
-                            ]
-                    },
-                    {
-                        col_name: '体育学院',
-                        col_state: true,
-                        col_edit: true,
-                        col_btn: true,
-                        dep:
-                            [
-                                {
-                                    dep_name: '体育教育系',
-                                    dep_state: true,
-                                }
-                            ]
-                    }
-                ]
+                tableData: []
             }
         } ,
-        mounted() {
-            this.college = this.loadAll();
+        created() {
+            this.requestData();
         } ,
         methods: {
+            requestData() {
+                let college = [];
+                request({
+                    url: 'Manager/showCollege' ,
+                    method: 'get'
+                }).then(res => {
+                    this.tableData = res.data;
+                    for (let i in res.data) {            //新增学院输入框的提示内容
+                        college.push({
+                            "value" : res.data[i].col_name
+                        })
+                    }
+                    this.college = college;
+                })
+            } ,
             expandChange(row , expandedRows) {     //row表示当前点击的行的信息   expandRows表示已展开的行的信息
                 //只展开一行
                 if (expandedRows.length) {//说明展开了
@@ -173,12 +157,6 @@
                     this.expands = []
                 }
             } ,
-            loadAll() {      //后端获取
-                return [
-                    { "value": "计算机科学与工程学院"},
-                    { "value": "体育学院"}
-                ];
-            },
             querySearch(queryString, cb) {
                 const col = this.college;
                 const results = queryString ? col.filter(this.createFilter(queryString)) : col;

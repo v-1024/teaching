@@ -84,7 +84,7 @@
                         username: this.ruleForm.t_id ,
                         password: this.ruleForm.password
                     },
-                }).then(res=>{
+                }).then(res=>{     //在这里要获取个人信息，存储在Vuex中
                     console.log(res);
                     if (res.data.message === 'success')
                         this.$router.push('/teacher');

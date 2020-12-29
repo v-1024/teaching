@@ -19,7 +19,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
         </el-form>
         <template>
@@ -76,6 +76,7 @@
 
 <script>
     import {request} from "../../../network/request";
+    import {queryData} from "../../../pubRequest/queryData";
 
     export default {
         name: "user_admin" ,
@@ -137,8 +138,10 @@
                             } ,
                             method: 'put'
                         }).then(res => {
-                            if (res.data.msg == 'success')
+                            if (res.data.msg == 'success') {
                                 this.$message.success('修改成功');
+                                this.requestDate();
+                            }
                             else
                                 this.$message.error('操作失败')
                         });
@@ -160,6 +163,17 @@
                         this.$message.success('修改成功');
                     else
                         this.$message.error('操作失败')
+                })
+            } ,
+            query() {
+                let url = 'Manager/findByItem';
+                let data = {
+                    t_name: this.formInline.t_name ,
+                    state: this.formInline.state ,
+                    role: this.formInline.role
+                };
+                queryData(url , data).then(res => {
+                    this.tableData = res.data
                 })
             }
         }
