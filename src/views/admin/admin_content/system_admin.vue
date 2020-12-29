@@ -151,7 +151,10 @@
                 if (expandedRows.length) {//说明展开了
                     this.expands = [];
                     if (row) {
-                        this.expands.push(row.col_name)//只展开当前行的col_name
+                        this.expands.push({             //只展开当前行的col_name
+                            "col_name" : row.col_name ,
+                            "col_id" : row.c_id
+                        })
                     }
                 } else {//说明收起了
                     this.expands = []
@@ -178,7 +181,7 @@
             } ,
             dep_editor(index , row) {
                 //获取父级（学院）的信息
-                this.formInline.col_name = this.expands[0];
+                this.formInline.col_name = this.expands[0].col_name;
                 this.formInline.new_dep = row.dep_name;
                 this.flag = '0';
                 this.dialogFormVisible = true;
