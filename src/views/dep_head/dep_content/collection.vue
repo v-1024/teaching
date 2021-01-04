@@ -38,16 +38,28 @@
             </el-upload>
             <el-button size="medium" type="primary" class="btn">提交</el-button>
         </div>
+
+        <el-drawer
+                :visible.sync="drawer"
+                direction="rtl"
+                :show-close="false"
+                size="70%">
+            <tab_collection :index="cindex"></tab_collection>
+        </el-drawer>
     </div>
 </template>
 
 <script>
     import {request} from "../../../network/request";
+    import Tab_collection from "../../../components/tab_collection";
 
     export default {
         name: "collection" ,
+        components: {Tab_collection},
         data() {
             return {
+                drawer: false ,
+                cindex: '' ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,
                     {name: '听课统计表' , state: false} ,
@@ -66,7 +78,8 @@
         } ,
         methods: {
             check(index , row) {
-                console.log(index, row);
+                this.drawer = true;
+                this.cindex = index;
             } ,
             submitUpload() {
                 this.$refs.upload.submit();

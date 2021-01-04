@@ -31,8 +31,15 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-
         </el-table>
+
+        <el-drawer
+                :visible.sync="drawer"
+                direction="rtl"
+                :show-close="false"
+                size="70%">
+            <tab_collection :index="cindex"></tab_collection>
+        </el-drawer>
     </div>
 </template>
 
@@ -41,11 +48,15 @@
     import {queryTerm} from "../../../pubRequest/queryTerm";
     import {queryTermLast} from "../../../pubRequest/queryTerm";
     import {queryData} from "../../../pubRequest/queryData";
+    import Tab_collection from "../../../components/tab_collection";
 
     export default {
         name: "collection" ,
+        components: {Tab_collection},
         data() {
             return {
+                drawer: false ,
+                cindex: '' ,
                 formInline: {
                     def_term: '' ,
                     term: []        //学年从后端获取
@@ -77,6 +88,12 @@
                 this.formInline.def_term = res.data[0].term;
             })
         } ,
+        methods: {
+            check(index , row) {
+                this.drawer = true;
+                this.cindex = index;
+            }
+        }
     }
 </script>
 

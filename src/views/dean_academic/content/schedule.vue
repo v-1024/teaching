@@ -36,6 +36,14 @@
                 </template>
             </el-table-column>
         </el-table>
+
+        <el-drawer
+                :visible.sync="drawer"
+                direction="rtl"
+                :show-close="false"
+                size="70%">
+            <tab_collection :index="cindex"></tab_collection>
+        </el-drawer>
     </div>
 </template>
 
@@ -44,16 +52,19 @@
     import {queryTerm} from "../../../pubRequest/queryTerm";
     import {queryTermLast} from "../../../pubRequest/queryTerm";
     import {queryData} from "../../../pubRequest/queryData";
+    import Tab_collection from "../../../components/tab_collection";
     export default {
         name: "schedule",
+        components: {Tab_collection},
         data() {
             return {
+                drawer: false ,
+                cindex: '' ,
                 formInline: {
                     def_term: '' ,
                     def_dep: '' ,      //需查询其他系部时将该值传给后端
                     dep_name: [] ,     //后端获取
                     term: []        //学年从后端获取
-
                 } ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,
@@ -93,6 +104,10 @@
                     this.formInline.dep_name = res.data;
                     this.formInline.def_dep = res.data[0];
                 })
+            } ,
+            check(index , row) {
+                this.drawer = true;
+                this.cindex = index;
             }
         }
     }
