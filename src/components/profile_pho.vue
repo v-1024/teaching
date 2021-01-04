@@ -6,7 +6,7 @@
             <div class="span">
                 <p>{{head}}</p> <el-divider></el-divider>
                 <p class="hover" @click="profile">个人中心</p>
-                <p class="hover" v-show="role_id != '0'" @click="change_role">切换角色</p>
+                <p class="hover" v-show="role_id !== '0'" @click="change_role">切换角色</p>
                 <p class="hover" @click="quit">退出登录</p>
             </div>
             <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>

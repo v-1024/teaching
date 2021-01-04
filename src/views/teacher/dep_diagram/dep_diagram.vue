@@ -26,11 +26,18 @@
                         <el-button
                                 size="small"
                                 type="primary"
-                                @click="check(scope.$index, scope.row)">查看</el-button>  <!--查看做成dialog形式-->
+                                @click="check(scope.$index, scope.row)">查看</el-button>
                     </template>
                 </el-table-column>
-
         </el-table>
+
+        <el-drawer
+                :visible.sync="drawer"
+                direction="rtl"
+                :show-close="false"
+                size="70%">
+            <tab_collection :index="cindex"></tab_collection>
+        </el-drawer>
     </div>
 </template>
 
@@ -38,15 +45,18 @@
     import {request} from "../../../network/request";
     import {queryTerm} from "../../../pubRequest/queryTerm";
     import {queryTermLast} from "../../../pubRequest/queryTerm";
+    import Tab_collection from "../../../components/tab_collection";
 
     export default {
         name: "dep_diagram" ,
+        components: {Tab_collection},
         data() {
             return {
+                drawer: false ,
+                cindex: '' ,
                 formInline: {
                     def_term: '' ,
                     term: []        //学年从后端获取
-
                 } ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,
@@ -54,7 +64,7 @@
                     {name: '教师教学检查表' , state: false} ,
                     {name: '期中教学检查基本数据统计表' , state: false} ,
                     {name: '系部教案检查登记表' , state: false} ,
-                    {name: '系部考察统计表' , state: false} ,
+                    {name: '系部考勤统计表' , state: false} ,
                     {name: '系部实验报告检查登记表' , state: false} ,
                     {name: '系部作业检查登记表' , state: false} ,
                     {name: '教师对外交流情况一览表' , state: false} ,
@@ -75,28 +85,8 @@
         } ,
         methods: {
             check(index , row) {
-                switch (index) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        break;
-                    case 7:
-                        break;
-                    case 8:
-                        break;
-                    case 9:
-                        break;
-                }
+                this.drawer = true;
+                this.cindex = index;
             }
         }
     }
