@@ -74,7 +74,7 @@
                     :before-remove="beforeRemove"
                     :auto-upload="false"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
                     style="width: 30%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
@@ -119,7 +119,7 @@
                 console.log(file);
             },
             handleExceed(files, fileList) {
-                this.$message.warning(`当前限制选择 5 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+                this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
@@ -133,23 +133,32 @@
                     show: true
                 })
             } ,
-            upFile(parem) {   //success
+            upFile(parem) {
                 const file = parem.file;
-                let formData = new FormData();
-                formData.append("file" , file);
+                let fileForm = new FormData();
+                fileForm.append('file' , file);
                 //上传时删除数据中的show属性
                 delete this.tableData[0].show;
-                formData.append("achievement" , JSON.stringify(this.tableData[0]));
-                console.log(formData.get("table"));
                 request({
                     url: 'Researchactivity/Achievement_submit' ,
                     method: 'post' ,
-                    header: {
-                        'Content-Type': 'multipart/form-data'
-                    } ,
-                    data: formData,
+                    data: this.tableData[0]
                 }).then(res => {
-                    console.log(res);
+                    if (res.data.msg === 'success') {
+                        request({
+                            url: 'FilePath/Achievement_file' ,
+                            method: 'post' ,
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            } ,
+                            data: fileForm,
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.$message.success('文件与表单上传成功');
+                                fileForm = new FormData();
+                            }
+                        })
+                    }
                 })
             } ,
             submit() {

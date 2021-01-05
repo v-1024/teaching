@@ -48,12 +48,12 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="teacher"
+                            prop="teachername"
                             label="教师"
                             width="150">
                         <template slot-scope="scope">
-                            <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
-                            <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
+                            <el-input  v-show="scope.row.show" v-model="scope.row.teachername"></el-input>
+                            <span v-show="!scope.row.show">{{scope.row.teachername}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -137,7 +137,7 @@
                 this.tableData.push({
                     time: '',
                     content: '',
-                    teacher: '',
+                    teachername: '',
                     remarks:'',
                     show :true
                 })
@@ -156,7 +156,32 @@
                })
             } ,
             upFile(parem) {
-
+                const file = parem.file;
+                let fileForm = new FormData();
+                fileForm.append('file' , file);
+                //上传时删除数据中的show属性
+                delete this.tableData[0].show;
+                request({
+                    url: 'Comminucation/Comminucation_submit' ,
+                    method: 'post' ,
+                    data: this.tableData[0]
+                }).then(res => {
+                    if (res.data.msg === 'success') {
+                        request({
+                            url: 'FilePath/Comminucation_file' ,
+                            method: 'post' ,
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            } ,
+                            data: fileForm,
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.$message.success('文件与表单上传成功');
+                                fileForm = new FormData();
+                            }
+                        })
+                    }
+                })
             } ,
             submit() {
                 this.$refs.upload.submit();

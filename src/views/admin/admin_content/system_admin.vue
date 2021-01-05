@@ -42,7 +42,7 @@
                 stripe
                 @expand-change="expandChange"
                 :expand-row-keys="expands"
-                :row-key='getRowKeys'
+                :row-key="getRowKeys"
                 style="width: 100%">
 
             <!--系部信息、操作-->
@@ -56,14 +56,14 @@
                                 <el-switch v-model="scope.row.dep_state"></el-switch>
                             </template>
                         </el-table-column>
-                        <el-table-column label="操作" align="center">
+                        <!--<el-table-column label="操作" align="center">
                             <template slot-scope="scope">
                                 <el-button
                                         size="medium"
                                         type="primary"
                                         @click="dep_editor(scope.$index, scope.row)">编辑</el-button>
                             </template>
-                        </el-table-column>
+                        </el-table-column>-->
                     </el-table>
                 </template>
             </el-table-column>
@@ -71,20 +71,20 @@
 
             <!--学院信息、操作-->
             <el-table-column label="学院" prop="col_name" align="center">
-                <template scope="scope">
+                <!--<template slot-scope="scope">
                     <div style="height: 42px ; line-height: 42px">
-                        <el-input v-model="scope.row.col_name" v-show="!scope.row.col_edit" class="input"></el-input>
-                        <span v-show="scope.row.col_edit">{{scope.row.col_name}}</span>
+                        &lt;!&ndash;<el-input v-model="scope.row.col_name" v-show="!scope.row.col_edit" class="input"></el-input>&ndash;&gt;
+                        <span>{{scope.row.col_name}}</span>
                     </div>
-                </template>
+                </template>-->
             </el-table-column>
             <el-table-column label="状态" prop="col_state" align="center">
                 <!--作用域插槽-->
                 <template slot-scope="scope">
-                    <el-switch v-model="scope.row.col_state"></el-switch>
+                    <el-switch v-model="scope.row.col_state" @change="col_switch(scope.row , $event)"></el-switch>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <!--<el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <div class="div">
                         <el-button
@@ -100,7 +100,7 @@
                             @click="col_saver(scope.$index, scope.row)">保存</el-button>
                     </div>
                 </template>
-            </el-table-column>
+            </el-table-column>-->
         </el-table>
     </div>
 </template>
@@ -114,8 +114,8 @@
             return {
                 flag: '0' ,
                 college: [],
-                expands: [],//只展开一行放入当前行col_name
-                getRowKeys(row){
+                expands: [],		//只展开一行放入当前行col_name
+                getRowKeys(row){     //返回该行的key值
                     return row.col_name
                 },
                 formInline: {
@@ -124,7 +124,41 @@
                     new_dep: ''
                 },
                 dialogFormVisible: false ,
-                tableData: []
+                tableData:
+                    [
+                        {
+                            col_name: '12345' ,
+                            col_state: true ,
+                            col_btn: true ,
+                            dep:
+                                [
+                                    {
+                                        dep_name: '111' ,
+                                        dep_state: true
+                                    } ,
+                                    {
+                                        dep_name: '222' ,
+                                        dep_state: false
+                                    } ,
+                                ]
+                        } ,
+                        {
+                            col_name: '23456' ,
+                            col_state: true ,
+                            col_btn: true ,
+                            dep:
+                                [
+                                    {
+                                        dep_name: '111' ,
+                                        dep_state: true
+                                    } ,
+                                    {
+                                        dep_name: '222' ,
+                                        dep_state: false
+                                    } ,
+                                ]
+                        } ,
+                    ]
             }
         } ,
         created() {
@@ -137,6 +171,7 @@
                     url: 'Manager/showCollege' ,
                     method: 'get'
                 }).then(res => {
+                    console.log(res.data);
                     this.tableData = res.data;
                     for (let i in res.data) {            //新增学院输入框的提示内容
                         college.push({
@@ -146,15 +181,13 @@
                     this.college = college;
                 })
             } ,
-            expandChange(row , expandedRows) {     //row表示当前点击的行的信息   expandRows表示已展开的行的信息
+            //row表示当前点击的行的信息   expandRows表示已展开的行的信息
+            expandChange(row , expandedRows) {
                 //只展开一行
                 if (expandedRows.length) {//说明展开了
                     this.expands = [];
                     if (row) {
-                        this.expands.push({             //只展开当前行的col_name
-                            "col_name" : row.col_name ,
-                            "col_id" : row.c_id
-                        })
+                        this.expands.push(row.col_name)//只展开当前行的col_name
                     }
                 } else {//说明收起了
                     this.expands = []
@@ -171,7 +204,7 @@
                     return (college.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
                 };
             },
-            col_editor(index , row) {
+            /*col_editor(index , row) {
                 this.tableData[index].col_edit = false;
                 this.tableData[index].col_btn = false
             } ,
@@ -185,9 +218,9 @@
                 this.formInline.new_dep = row.dep_name;
                 this.flag = '0';
                 this.dialogFormVisible = true;
-            } ,
+            } ,*/
             term_btn() {
-                if (this.formInline.term == '')
+                if (this.formInline.term === '')
                     this.$message.warning('学期不能为空！');
                 else {
                     request({
@@ -197,7 +230,7 @@
                             term: this.formInline.term
                         }
                     }).then (res => {
-                        if (res.data.msg == 'success')
+                        if (res.data.msg === 'success')
                             this.$message.success('修改成功');
                         else
                             this.$message.error('操作失败')
@@ -221,6 +254,19 @@
                 this.formInline.new_dep =  '';
                 this.dialogFormVisible = false;
             } ,
+            col_switch(row , event) {
+                request({
+                    url: 'Manager/updateCollegeState' ,
+                    method: 'put' ,
+                    params: {
+                        c_id: row.c_id ,
+                        state: event
+                    }
+                }).then(res => {
+                    if (res.data.msg === 'success')
+                        this.$message.success('修改学院状态成功');
+                })
+            }
         }
     }
 </script>

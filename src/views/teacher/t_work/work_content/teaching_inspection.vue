@@ -12,23 +12,23 @@
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
+                <el-button icon="el-icon-plus" @click="add_line">添加行</el-button>
             </el-form-item>
         </el-form>
 
-        <el-table  class="table"
-                   :data="tableData"
-                   height="350px"
-                   border
-                   style="margin-bottom: 0">
+        <el-table class="table"
+                  :data="tableData"
+                  height="350px"
+                  border
+                  style="margin-bottom: 0">
 
             <el-table-column
                     prop="t_name"
                     label="姓名"
                     width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.name"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.name}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -36,8 +36,8 @@
                     label="课程"
                     width="160">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.subject"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.subject}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.course"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.course}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -45,8 +45,8 @@
                     label="授课计划"
                     width="160">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.content"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.content}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.lessonplan"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.lessonplan}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -54,8 +54,8 @@
                     label="教案(有或无）"
                     width="70">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.plan"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.plan}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.teachplan"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.teachplan}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -63,8 +63,8 @@
                     label="课堂考勤(次)"
                     width="80">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance_times"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.attendance_times}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.attendancenum"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendancenum}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -72,8 +72,8 @@
                     label="学生出勤率"
                     width="70">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.attendance"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.attendance}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.attendancerate"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.attendancerate}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -81,8 +81,8 @@
                     label="作业批改(次)"
                     width="70">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.work"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.work}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.correctinghomework"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.correctinghomework}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -90,8 +90,8 @@
                     label="辅导答疑(次)"
                     width="70">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.coach"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.coach}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.answerscount"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.answerscount}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -99,8 +99,8 @@
                     label="是否按计划设实验(随堂)"
                     width="90">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.test"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.test}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.onscheduleexperiment"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.onscheduleexperiment}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -108,8 +108,8 @@
                     label="教学中存在的问题"
                     width="170">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.problem"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.problem}}</span>
+                    <el-input v-show="scope.row.show" v-model="scope.row.exitprogram"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.exitprogram}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -117,13 +117,13 @@
                     label="备注"
                     width="90">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
+                    <el-input v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" >
+            <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button @click="scope.row.show =true" >编辑</el-button>
+                    <el-button @click="scope.row.show =true">编辑</el-button>
                     <el-button @click="scope.row.show =false">保存</el-button>
                 </template>
             </el-table-column>
@@ -139,7 +139,7 @@
                     :before-remove="beforeRemove"
                     :auto-upload="false"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
                     style="width: 15%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
@@ -154,7 +154,7 @@
                     :before-remove="beforeRemove"
                     :auto-upload="false"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
                     style="width: 15%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
@@ -169,7 +169,7 @@
                     :before-remove="beforeRemove"
                     :auto-upload="false"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
                     style="width: 15%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
@@ -185,27 +185,32 @@
     import {queryTerm} from "../../../../pubRequest/queryTerm";
     import {queryTermLast} from "../../../../pubRequest/queryTerm";
     import {queryData} from "../../../../pubRequest/queryData";
-
     export default {
         name: "teaching_inspection",
         data() {
             return {
                 formInline: {
-                    def_term: '' ,  //当前学年（后端获取）：默认选中
+                    def_term: '',  //当前学年（后端获取）：默认选中
                     term: []       //学年从后端获取
-                } ,
+                },
                 tableData: [],
+                file: {
+                    lessonplan: '',
+                    classattendance: '',
+                    answer: ''
+                },
+                fileForm: new FormData()
             }
         },
         created() {
             queryTerm().then(res => {
-                for (let i = 0 ; i < res.data.length ; i ++)
+                for (let i = 0; i < res.data.length; i++)
                     this.formInline.term.push(res.data[i].term);
             });
-            queryTermLast().then(res =>{
+            queryTermLast().then(res => {
                 this.formInline.def_term = res.data[0].term;
             })
-        } ,
+        },
         methods: {
             handleRemove(file, fileList) {
                 console.log(file, fileList);
@@ -214,7 +219,7 @@
                 console.log(file);
             },
             handleExceed(files, fileList) {
-                this.$message.warning(`当前限制选择 5 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+                this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
@@ -222,75 +227,73 @@
             upFile1(param) {
                 const file = param.file;
                 console.log(file);
-                let formData = new FormData();
-                formData.append("lessonfile" , file);
-                formData.append("table" , this.tableData);
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData
-                }).then(res => {
-                    console.log(res);
-                })
-            } ,
+                this.fileForm.append('lessonplan' , file);
+            },
             upFile2(param) {
                 const file = param.file;
                 console.log(file);
-                let formData = new FormData();
-                formData.append("attendencefile" , file);
-                formData.append("table" , this.tableData);
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData
-                }).then(res => {
-                    console.log(res);
-                })
-            } ,
+                this.fileForm.append('classattendance' , file);
+            },
             upFile3(param) {
                 const file = param.file;
                 console.log(file);
-                let formData = new FormData();
-                formData.append("answersfile" , file);
-                formData.append("table" , this.tableData);
-                request({
-                    url: 'Teachingwork/TeachCheck_submit' ,
-                    method: "post" ,
-                    data: formData
-                }).then(res => {
-                    console.log(res);
-                })
-            } ,
+                this.fileForm.append('answer' , file);
+            },
             submit() {
-                this.$refs.upload1.submit();
-                this.$refs.upload2.submit();
-                this.$refs.upload3.submit();
-            } ,
+                if (this.fileForm.lessonplan !== '')
+                    this.$refs.upload1.submit();
+                else if (this.fileForm.classattendance !== '')
+                    this.$refs.upload2.submit();
+                else if (this.fileForm.answer !== '')
+                    this.$refs.upload3.submit();
+                delete this.tableData[0].show;
+                request({
+                    url: 'Teachingwork/TeachCheck_submit',
+                    method: 'post',
+                    data: this.tableData[0]
+                }).then(res => {
+                    if (res.data.msg === 'success') {
+                        request({
+                            url: 'FilePath/normalFile',
+                            method: 'post',
+                            data: this.fileForm,
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.$message.success('文件与表单上传成功');
+                                this.fileForm = new FormData();
+                            }
+                        });
+                    }
+                });
+            },
             add_line() {
                 this.tableData.push({
-                    t_name: '22' ,
-                    term:'2',
+                    t_name: '22',
+                    term: '2',
                     course: '2',
-                    lessonplan:'2',
-                    teachplan:'2',
+                    lessonplan: '2',
+                    teachplan: '2',
                     attendancenum: 2,
                     attendancerate: 2,
                     correctinghomework: 2,
                     answerscount: 2,
-                    onscheduleexperiment:'2',
-                    exitprogram:'2',
-                    remarks:'2',
-                    show:true
+                    onscheduleexperiment: '2',
+                    exitprogram: '2',
+                    remarks: '2',
+                    show: true
                 })
-            } ,
+            },
             query() {
                 const url = 'HandOfDept/teachercommitspeed';
                 const data = {
-                    term: this.formInline.def_term ,
-                    t_id: this.formInline.t_id ,
+                    term: this.formInline.def_term,
+                    t_id: this.formInline.t_id,
                     t_name: this.formInline.t_name
                 };
-                queryData(url , data).then(res =>{
+                queryData(url, data).then(res => {
                     this.tableData = res.data;
                 })
             }
@@ -299,10 +302,10 @@
 </script>
 
 <style scoped>
-    .table{
+    .table {
         align: center;
         margin: 0 auto 20px;
-        font-size:16px;
+        font-size: 16px;
     }
 
     .content {
@@ -310,6 +313,7 @@
         text-align: center;
         margin-top: 10px;
     }
+
     .upload {
         display: flex;
         text-align: center;
