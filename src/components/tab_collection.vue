@@ -17,10 +17,10 @@
                         border
                         height="550px"
                         style="width: 100%">
-                    <el-table-column prop="name" label="姓名"></el-table-column>
-                    <el-table-column prop="listen_times" label="听课次数"></el-table-column>
-                    <el-table-column prop="assessment_times" label="评课次数"></el-table-column>
-                    <el-table-column prop="lesson_record" label="是否有记录"></el-table-column>
+                    <el-table-column prop="t_name" label="姓名"></el-table-column>
+                    <el-table-column prop="hearclass" label="听课次数"></el-table-column>
+                    <el-table-column prop="assessclass" label="评课次数"></el-table-column>
+                    <el-table-column prop="classrecord" label="是否有记录"></el-table-column>
                     <el-table-column prop="remarks" label="备注"></el-table-column>
                 </el-table>
             </div>
@@ -45,17 +45,17 @@
                             border
                             height="550px"
                             style="width: 100%">
-                        <el-table-column prop="date" label="姓名"></el-table-column>
-                        <el-table-column prop="name" label="课程"></el-table-column>
-                        <el-table-column prop="address" label="授课计划"></el-table-column>
-                        <el-table-column prop="date" label="教案"></el-table-column>
-                        <el-table-column prop="name" label="课堂考勤"></el-table-column>
-                        <el-table-column prop="address" label="学生出勤率"></el-table-column>
-                        <el-table-column prop="date" label="作业批改"></el-table-column>
-                        <el-table-column prop="name" label="辅导答疑"></el-table-column>
-                        <el-table-column prop="address" label="是否按计划设实验（随堂）"></el-table-column>
-                        <el-table-column prop="address" label="教学过程中存在的问题"></el-table-column>
-                        <el-table-column prop="address" label="备注"></el-table-column>
+                        <el-table-column prop="t_name" label="姓名"></el-table-column>
+                        <el-table-column prop="course" label="课程"></el-table-column>
+                        <el-table-column prop="lessonplan" label="授课计划"></el-table-column>
+                        <el-table-column prop="teachplan" label="教案"></el-table-column>
+                        <el-table-column prop="attendancenum" label="课堂考勤"></el-table-column>
+                        <el-table-column prop="attendancerate" label="学生出勤率"></el-table-column>
+                        <el-table-column prop="correctinghomework" label="作业批改"></el-table-column>
+                        <el-table-column prop="answerscount" label="辅导答疑"></el-table-column>
+                        <el-table-column prop="onscheduleexperiment" label="是否按计划设实验（随堂）"></el-table-column>
+                        <el-table-column prop="exitprogram" label="教学过程中存在的问题"></el-table-column>
+                        <el-table-column prop="remarks" label="备注"></el-table-column>
                     </el-table>
                 </div>
 
@@ -80,10 +80,10 @@
                         border
                         height="550px"
                         style="width: 100%">
-                    <el-table-column prop="name" label="姓名"></el-table-column>
-                    <el-table-column prop="plan" label="是否是电子教案"></el-table-column>
-                    <el-table-column prop="word" label="是否是文本文档"></el-table-column>
-                    <el-table-column prop="complete" label="教案是否完整"></el-table-column>
+                    <el-table-column prop="t_name" label="姓名"></el-table-column>
+                    <el-table-column prop="elecplan" label="是否是电子教案"></el-table-column>
+                    <el-table-column prop="textplan" label="是否是文本文档"></el-table-column>
+                    <el-table-column prop="planintegrated" label="教案是否完整"></el-table-column>
                 </el-table>
             </div>
 
@@ -106,10 +106,10 @@
                         border
                         height="550px"
                         style="width: 100%">
-                    <el-table-column prop="name" label="姓名"></el-table-column>
-                    <el-table-column prop="times" label="考勤次数"></el-table-column>
-                    <el-table-column prop="record" label="是否有记录"></el-table-column>
-                    <el-table-column prop="remark" label="备注"></el-table-column>
+                    <el-table-column prop="t_name" label="姓名"></el-table-column>
+                    <el-table-column prop="attendancenum" label="考勤次数"></el-table-column>
+                    <el-table-column prop="attendancerecord" label="是否有记录"></el-table-column>
+                    <el-table-column prop="remarks" label="备注"></el-table-column>
                 </el-table>
             </div>
 
@@ -132,10 +132,10 @@
                         border
                         height="550px"
                         style="width: 100%">
-                    <el-table-column prop="name" label="姓名"></el-table-column>
-                    <el-table-column prop="test_times" label="实验次数"></el-table-column>
-                    <el-table-column prop="correct_times" label="批改报告次数"></el-table-column>
-                    <el-table-column prop="type" label="电子作业/纸质作业"></el-table-column>
+                    <el-table-column prop="t_name" label="姓名"></el-table-column>
+                    <el-table-column prop="experimentcount" label="实验次数"></el-table-column>
+                    <el-table-column prop="correctreportcount" label="批改报告次数"></el-table-column>
+                    <el-table-column prop="experimenttype" label="电子作业/纸质作业"></el-table-column>
                 </el-table>
             </div>
 
@@ -158,10 +158,10 @@
                         border
                         height="550px"
                         style="width: 100%">
-                    <el-table-column prop="name" label="姓名"></el-table-column>
-                    <el-table-column prop="work_times" label="布置作业次数"></el-table-column>
-                    <el-table-column prop="correct_times" label="批改作业次数"></el-table-column>
-                    <el-table-column prop="type" label="电子作业/纸质作业"></el-table-column>
+                    <el-table-column prop="t_name" label="姓名"></el-table-column>
+                    <el-table-column prop="arrangehomework" label="布置作业次数"></el-table-column>
+                    <el-table-column prop="correctinghomework" label="批改作业次数"></el-table-column>
+                    <el-table-column prop="homeworktype" label="电子作业/纸质作业"></el-table-column>
                 </el-table>
             </div>
 
@@ -185,9 +185,9 @@
                         height="550px"
                         style="width: 100%">
                     <el-table-column prop="time" label="时间"></el-table-column>
-                    <el-table-column prop="meeting" label="教学交流主题或会议名称"></el-table-column>
-                    <el-table-column prop="place" label="地点"></el-table-column>
-                    <el-table-column prop="attendant" label="参加人员"></el-table-column>
+                    <el-table-column prop="content" label="教学交流主题或会议名称"></el-table-column>
+                    <el-table-column prop="address" label="地点"></el-table-column>
+                    <el-table-column prop="teachername" label="参加人员"></el-table-column>
                     <el-table-column prop="remarks" label="备注"></el-table-column>
                 </el-table>
             </div>
@@ -211,10 +211,10 @@
                         border
                         height="550px"
                         style="width: 100%">
-                    <el-table-column prop="name" label="姓名"></el-table-column>
-                    <el-table-column prop="meeting" label="奖励名称"></el-table-column>
-                    <el-table-column prop="place" label="级别"></el-table-column>
-                    <el-table-column prop="attendant" label="时间"></el-table-column>
+                    <el-table-column prop="t_name" label="姓名"></el-table-column>
+                    <el-table-column prop="awardname" label="奖励名称"></el-table-column>
+                    <el-table-column prop="level" label="级别"></el-table-column>
+                    <el-table-column prop="time" label="时间"></el-table-column>
                 </el-table>
             </div>
 
@@ -237,11 +237,11 @@
                         border
                         height="550px"
                         style="width: 100%">
-                    <el-table-column prop="name" label="项目负责人"></el-table-column>
-                    <el-table-column prop="meeting" label="项目名称"></el-table-column>
-                    <el-table-column prop="place" label="项目级别"></el-table-column>
-                    <el-table-column prop="attendant" label="立项经费"></el-table-column>
-                    <el-table-column prop="attendant" label="起止时间"></el-table-column>
+                    <el-table-column prop="t_name" label="项目负责人"></el-table-column>
+                    <el-table-column prop="projectname" label="项目名称"></el-table-column>
+                    <el-table-column prop="level" label="项目级别"></el-table-column>
+                    <el-table-column prop="projectfunds" label="立项经费"></el-table-column>
+                    <el-table-column prop="projecttime" label="起止时间"></el-table-column>
                 </el-table>
             </div>
 
@@ -264,51 +264,14 @@
                 term: '2019-2020-2' ,
                 time: '2020.5.20' ,
                 dep_head: '张三' ,
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }]
             }
         } ,
         props: {
-            index: ''
+            index: '' ,
+            tableData: {
+                default: [] ,
+                type: Array
+            }
         }
     }
 </script>

@@ -31,12 +31,13 @@
                     :auto-upload="false"
                     multiple
                     :limit="3"
+                    :http-request="upFile"
                     :on-exceed="handleExceed"
                     style="width: 30%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
                 <div slot="tip" class="el-upload__tip">上传计划与总结</div>
             </el-upload>
-            <el-button size="medium" type="primary" class="btn">提交</el-button>
+            <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
         </div>
 
         <el-drawer
@@ -44,7 +45,7 @@
                 direction="rtl"
                 :show-close="false"
                 size="70%">
-            <tab_collection :index="cindex"></tab_collection>
+            <tab_collection :index="cindex" :tableData="contentData"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -66,20 +67,72 @@
                     {name: '教师教学检查表' , state: false} ,
                     {name: '期中教学检查基本数据统计表' , state: false} ,
                     {name: '系部教案检查登记表' , state: false} ,
-                    {name: '系部考察统计表' , state: false} ,
+                    {name: '系部考勤统计表' , state: false} ,
                     {name: '系部实验报告检查登记表' , state: false} ,
                     {name: '系部作业检查登记表' , state: false} ,
                     {name: '教师对外交流情况一览表' , state: false} ,
                     {name: '教师奖励一览表' , state: false} ,
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
-                ]
+                ] ,
+                contentData: []
             }
         } ,
         methods: {
             check(index , row) {
                 this.drawer = true;
                 this.cindex = index;
+                switch (index) {
+                    case 0:
+                        this.requestContent('');
+                        break;
+                    case 1:
+                        this.requestContent('HandOfDept/listenlesson');
+                        break;
+                    case 2:
+                        this.requestContent('HandOfDept/teachcheck');
+                        break;
+                    case 3:
+                        this.requestContent('');
+                        break;
+                    case 4:
+                        this.requestContent('HandOfDept/teachplancheck');
+                        break;
+                    case 5:
+                        this.requestContent('HandOfDept/attendance');
+                        break;
+                    case 6:
+                        this.requestContent('HandOfDept/experimentcheck');
+                        break;
+                    case 7:
+                        this.requestContent('HandOfDept/homeworkcheck');
+                        break;
+                    case 8:
+                        this.requestContent('HandOfDept/communication');
+                        break;
+                    case 9:
+                        this.requestContent('HandOfDept/teachaward');
+                        break;
+                    case 10:
+                        this.requestContent('HandOfDept/teachproject');
+                        break;
+                    case 11:
+                        this.requestContent('HandOfDept/departmentsummary');
+                        break;
+                }
+            } ,
+            requestContent(url) {
+                request({
+                    url: url ,
+                    method: 'post' ,
+                    params: {                  //登录后获取
+                        term: '2' ,
+                        college: '1' ,
+                        department: '1'
+                    }
+                }).then(res => {
+                    this.contentData = res.data;
+                })
             } ,
             submitUpload() {
                 this.$refs.upload.submit();
@@ -113,6 +166,14 @@
                     if (res.data.msg === 'success')
                         this.$message.success('操作成功')
                 })
+            } ,
+            upFile(param) {
+                const file = param.file;
+                let fileForm = new FormData();
+                fileForm.append()
+            } ,
+            submit() {
+                this.$refs.uplode.submit();
             }
         }
     }

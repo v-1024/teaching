@@ -40,7 +40,7 @@
                 <el-table-column prop="studentcompetition_state" label="学生竞赛"></el-table-column>
             </el-table-column>
             <el-table-column label="对外交流">
-                <el-table-column prop="comminucation_state" label="交流考察"></el-table-column>
+                <el-table-column prop="communication_state" label="交流考察"></el-table-column>
             </el-table-column>
             <el-table-column prop="teachercommit_state" label="状态"></el-table-column>
             <el-table-column label="是否通过" width="190px">
@@ -96,7 +96,11 @@
             requestDate() {
                 request({
                     url: 'HandOfDept/teachercommitspeed' ,
-                    method: 'post'
+                    method: 'post' ,
+                    params: {                  //登录信息中获得
+                        college: '1' ,
+                        department: '1'
+                    }
                 }).then(res => {
                     this.tableData = res.data;
                 })
@@ -143,7 +147,9 @@
                 const data = {
                     term: this.formInline.def_term ,
                     t_id: this.formInline.t_id ,
-                    t_name: this.formInline.t_name
+                    t_name: this.formInline.t_name ,
+                    college: '1' ,                  //登录信息中获得
+                    department: '1'
                 };
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;

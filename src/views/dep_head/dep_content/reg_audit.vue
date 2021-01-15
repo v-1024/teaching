@@ -10,7 +10,7 @@
             <el-table-column prop="registertime" label="申请日期" sortable></el-table-column>
             <el-table-column prop="t_id" label="员工号"></el-table-column>
             <el-table-column prop="t_name" label="姓名"></el-table-column>
-            <el-table-column prop="college_name" label="学院"></el-table-column>
+            <el-table-column prop="college" label="学院"></el-table-column>
             <el-table-column prop="department" label="系部"></el-table-column>
             <el-table-column prop="tel" label="电话号码"></el-table-column>
             <el-table-column label="是否通过">
@@ -59,7 +59,12 @@
         } ,
         created() {
             request({
-                url: "HandOfDept/checkregister"
+                url: "HandOfDept/checkregister" ,
+                method: 'post' ,
+                params: {                  //登录信息中获得
+                    college: '1' ,
+                    department: '1'
+                }
             }).then(res => {
                 this.tableData = res.data;
             })
