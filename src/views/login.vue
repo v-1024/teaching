@@ -87,7 +87,7 @@
                 }).then(res=>{     //在这里要获取个人信息，存储在Vuex中
                     console.log(res);
                     sessionStorage.setItem('Authorization' , res.data);
-                    if (res.data.message === 'success')
+                    if (res.status === 200)
                         this.$router.push('/teacher');
                 })
             }
