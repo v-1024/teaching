@@ -87,8 +87,19 @@
                 }).then(res=>{     //在这里要获取个人信息，存储在Vuex中
                     console.log(res);
                     sessionStorage.setItem('Authorization' , res.data);
-                    if (res.status === 200)
+                    if (res.status === 200) {
+                        request({
+                            url: 'InfoById' ,
+                            method: 'post' ,
+                            params: {
+                                t_id: this.ruleForm.t_id
+                            }
+                        }).then(res => {
+                            console.log(res);
+                        });
                         this.$router.push('/teacher');
+                    }
+
                 })
             }
         }
