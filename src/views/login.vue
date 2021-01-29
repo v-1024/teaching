@@ -81,7 +81,7 @@
                     url : "login" ,
                     method : "post",
                     params:{
-                        username: this.ruleForm.t_id ,
+                        t_id: this.ruleForm.t_id ,
                         password: this.ruleForm.password
                     },
                 }).then(res=>{     //在这里要获取个人信息，存储在Vuex中
