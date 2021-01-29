@@ -89,7 +89,7 @@
                     sessionStorage.setItem('Authorization' , res.data);
                     if (res.status === 200) {
                         request({
-                            url: 'InfoById' ,
+                            url: 'PersonCenter/info_show' ,
                             method: 'post' ,
                             params: {
                                 t_id: this.ruleForm.t_id
