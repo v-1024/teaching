@@ -39,9 +39,9 @@
                                 <td v-show="show">{{t_tel}}</td>
                                 <td><el-input type="text" v-show="!show" v-model="t_tel"></el-input></td>
                             </tr>
-                            <tr><td class="td">密码：</td>
-                                <td v-show="show">{{pwd}}</td>
-                                <td><el-input type="text" v-show="!show" v-model="pwd"></el-input></td>
+                            <tr><td class="td">办公地点：</td>
+                                <td v-show="show">{{address}}</td>
+                                <td><el-input type="text" v-show="!show" v-model="address"></el-input></td>
                             </tr>
                         </table>
                     </div>
@@ -63,10 +63,10 @@
                 drawer: false ,
                 head: '' ,
                 show: true ,
-                t_id: '011522' ,
-                t_email: '123@qq.com' ,
-                t_tel: '12345678911' ,
-                pwd: '123456'
+                t_id: sessionStorage.getItem('t_id') ,
+                t_email: sessionStorage.getItem('email') ,
+                t_tel: sessionStorage.getItem('tel') ,
+                address: sessionStorage.getItem('address')
             }
         } ,
         props: {

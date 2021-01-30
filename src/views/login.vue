@@ -95,7 +95,14 @@
                                 t_id: this.ruleForm.t_id
                             }
                         }).then(res => {
-                            console.log(res);
+                            sessionStorage.setItem('t_id' , res.data.t_id);
+                            sessionStorage.setItem('t_name' , res.data.t_name);
+                            sessionStorage.setItem('college' , res.data.college);
+                            sessionStorage.setItem('department' , res.data.department);
+                            sessionStorage.setItem('address' , res.data.address);
+                            sessionStorage.setItem('tel' , res.data.tel);
+                            sessionStorage.setItem('role' , res.data.role);
+                            sessionStorage.setItem('email' , res.data.email);
                         });
                         this.$router.push('/teacher');
                     }
