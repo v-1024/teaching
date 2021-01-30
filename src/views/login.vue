@@ -86,8 +86,8 @@
                     },
                 }).then(res=>{     //在这里要获取个人信息，存储在Vuex中
                     console.log(res);
-                    sessionStorage.setItem('Authorization' , res.data);
                     if (res.status === 200) {
+                        sessionStorage.setItem('Authorization' , res.data);
                         request({
                             url: 'PersonCenter/info_show' ,
                             method: 'post' ,
