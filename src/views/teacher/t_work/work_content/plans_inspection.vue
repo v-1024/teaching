@@ -199,7 +199,12 @@
                     term: []        //学年从后端获取
                 } ,
                 tableData: [],
-                fileList: [],
+                file: {
+                    teachplan: '' ,
+                    homework: '' ,
+                    experiment: '' ,
+                    evaluationrecords: ''
+                },
                 fileForm: new FormData()
             }
         },
@@ -265,11 +270,13 @@
                 this.fileForm.append('evaluationrecords' , file);
             } ,
             submit() {
-                if (this.fileForm.lessonplan !== '')
+                if (this.fileForm.teachplan !== '')
                     this.$refs.upload1.submit();
-                else if (this.fileForm.classattendance !== '')
+                else if (this.fileForm.homework !== '')
                     this.$refs.upload2.submit();
-                else if (this.fileForm.answer !== '')
+                else if (this.fileForm.experiment !== '')
+                    this.$refs.upload3.submit();
+                else if (this.fileForm.evaluationrecords !== '')
                     this.$refs.upload3.submit();
                 delete this.tableData[0].show;
                 this.tableData[0].term = this.formInline.def_term;
