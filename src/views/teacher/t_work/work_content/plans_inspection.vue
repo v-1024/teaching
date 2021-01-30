@@ -200,10 +200,7 @@
                 } ,
                 tableData: [],
                 fileList: [],
-                formData() {
-                    let formData = new FormData();
-                    return formData;
-                }
+                fileForm: new FormData()
             }
         },
         created() {
@@ -249,93 +246,56 @@
             } ,
             upFile1(param) {
                 const file = param.file;
-                this.fileList.push(file)
-                console.log(this.fileList);
-                // let formData = new FormData();
-                // delete this.tableData[0].show;
-                // formData.append("teachplancheck" , JSON.stringify(this.tableData[0]));
-                // formData.append('planfile' , file);
-                // request({
-                //     url: 'Teachingwork/TeachPlanCheck_submit' ,
-                //     method: "post" ,
-                //     header: {
-                //         'Content-Type': 'application/json'
-                //     } ,
-                //     data: formData ,
-                // }).then(res => {
-                //     console.log(res);
-                // })
+                console.log(file);
+                this.fileForm.append('teachplan' , file);
             } ,
             upFile2(param) {
                 const file = param.file;
-                this.fileList.add(file)
-                //console.log(this.fileList);
-                // this.fileList.push(file);
-                // let formData = new FormData();
-                // formData.append("file" , file);
-                // formData.append("table" , this.tableData);
-                // request({
-                //     url: 'Teachingwork/TeachCheck_submit' ,
-                //     method: "post" ,
-                //     header: {
-                //                 'Content-Type': 'multipart/form-data'
-                //             } ,
-                //     data: formData
-                // }).then(res => {
-                //     console.log(res);
-                // })
+                console.log(file);
+                this.fileForm.append('homework' , file);
             } ,
             upFile3(param) {
                 const file = param.file;
-                //console.log(file);
-                // this.fileList.push(file)
-                // let formData = new FormData();
-                // formData.append("file" , file);
-                // formData.append("table" , this.tableData);
-                // request({
-                //     url: 'Teachingwork/TeachCheck_submit' ,
-                //     method: "post" ,
-                //     data: formData
-                // }).then(res => {
-                //     console.log(res);
-                // })
+                console.log(file);
+                this.fileForm.append('experiment' , file);
             } ,
             upFile4(param) {
                 const file = param.file;
-                //console.log(file);
-                // this.fileList.push(file)
-                // let formData = new FormData();
-                // formData.append("file" , file);
-                // formData.append("table" , this.tableData);
-                // request({
-                //     url: 'Teachingwork/TeachCheck_submit' ,
-                //     method: "post" ,
-                //     data: formData
-                // }).then(res => {
-                //     console.log(res);
-                // })
+                console.log(file);
+                this.fileForm.append('evaluationrecords' , file);
             } ,
             submit() {
-                this.$refs.upload1.submit();
-                this.$refs.upload2.submit();
-                this.$refs.upload3.submit();
-                this.$refs.upload4.submit();
-                // console.log('-------------------------------' + this.fileList);
-                // let formData = new FormData();
-                // formData.append("files" , this.fileList);
-                // delete this.tableData[0].show;
-                // formData.append("teachplancheck" , this.tableData[0]);
-                // request({
-                //     url: 'Teachingwork/TeachPlanCheck_submit' ,
-                //     method: "post" ,
-                //     data: formData ,
-                //     header: {
-                //         'Content-Type': 'multipart/form-data'
-                //     } ,
-                // }).then(res => {
-                //     console.log(res);
-                // });
-                // this.fileList.splice(0,this.fileList.length)
+                if (this.fileForm.lessonplan !== '')
+                    this.$refs.upload1.submit();
+                else if (this.fileForm.classattendance !== '')
+                    this.$refs.upload2.submit();
+                else if (this.fileForm.answer !== '')
+                    this.$refs.upload3.submit();
+                delete this.tableData[0].show;
+                this.tableData[0].term = this.formInline.def_term;
+                this.tableData[0].t_id = sessionStorage.getItem('t_id');
+                console.log(this.tableData[0]);
+                request({
+                    url: 'Teachingwork/TeachPlanCheck_submit',
+                    method: 'post',
+                    data: this.tableData[0]
+                }).then(res => {
+                    if (res.data.msg === 'success') {
+                        request({
+                            url: 'FilePath/normalFile_plan',
+                            method: 'post',
+                            data: this.fileForm,
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.$message.success('文件与表单上传成功');
+                                this.fileForm = new FormData();
+                            }
+                        });
+                    }
+                });
             } ,
             query() {
                 const url = 'HandOfDept/teachercommitspeed';

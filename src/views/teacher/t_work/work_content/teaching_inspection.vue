@@ -190,7 +190,7 @@
         data() {
             return {
                 formInline: {
-                    def_term: '',  //当前学年（后端获取）：默认选中
+                    def_term: '1',  //当前学年（后端获取）：默认选中
                     term: []       //学年从后端获取
                 },
                 tableData: [],
@@ -247,6 +247,9 @@
                 else if (this.fileForm.answer !== '')
                     this.$refs.upload3.submit();
                 delete this.tableData[0].show;
+                this.tableData[0].term = this.formInline.def_term;
+                this.tableData[0].t_id = sessionStorage.getItem('t_id');
+                console.log(this.tableData[0]);
                 request({
                     url: 'Teachingwork/TeachCheck_submit',
                     method: 'post',
@@ -254,7 +257,7 @@
                 }).then(res => {
                     if (res.data.msg === 'success') {
                         request({
-                            url: 'FilePath/normalFile',
+                            url: 'FilePath/normalFile_teach',
                             method: 'post',
                             data: this.fileForm,
                             headers: {
