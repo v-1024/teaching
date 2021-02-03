@@ -133,16 +133,56 @@
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
             add_line(){
-                this.tableData.push({
-                    teacher: '',
-                    thesis: '',
-                    periodical: '',
-                    time:'',
-                    show:true
-                })
+                if (this.tableData.length === 0) {
+                    this.tableData.push({
+                        teacher: '',
+                        thesis: '',
+                        periodical: '',
+                        time:'',
+                        show:true ,
+                        state: '0'
+                    })
+                }
+                else
+                    this.$message.warning('请先提交表格中的内容后再添加新的一行');
             } ,
-            upFile(parem) {
-
+            upFile(param) {
+                const file = param.file;
+                let fileForm = new FormData();
+                fileForm.append('file' , file);
+                //上传时删除数据中的show属性
+                this.tableData[0].term = this.formInline.def_term;
+                this.tableData[0].t_id = sessionStorage.getItem('t_id');
+                this.tableData[0].college = sessionStorage.getItem('college');
+                this.tableData[0].department = sessionStorage.getItem('department');
+                request({
+                    url: 'Researchactivity/Thesis_submit' ,
+                    method: 'post' ,
+                    data: this.tableData[0]
+                }).then(res => {
+                    if (res.data.msg === 'success') {
+                        request({
+                            url: 'FilePath/Thesis_file' ,
+                            method: 'post' ,
+                            params: {
+                                t_id: sessionStorage.getItem('t_id') ,
+                                college: sessionStorage.getItem('college') ,
+                                department: sessionStorage.getItem('department') ,
+                                t_name: sessionStorage.getItem('t_name') ,
+                                term: this.formInline.def_term
+                            } ,
+                            data: fileForm ,
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.$message.success('文件与表单上传成功');
+                                fileForm = new FormData();
+                            }
+                        })
+                    }
+                })
             } ,
             submit() {
                 this.$refs.upload.submit();

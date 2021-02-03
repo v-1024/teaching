@@ -245,24 +245,28 @@
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
             add_line() {
-                this.tableData.push({
-                    t_name:'' ,
-                    elecplan:'',
-                    textplan:'',
-                    planintegrated:'',
-                    attendancenum:'',
-                    attendancerecord:'',
-                    hearclass:'',
-                    assessclass:'',
-                    classrecord:'',
-                    arrangehomework:'',
-                    correctinghomework:'',
-                    experimentcount:'',
-                    correctreportcount:'',
-                    homeworktype: '',
-                    experimenttype: '' ,
-                    show: true
-                })
+                if (this.tableData.length === 0) {
+                    this.tableData.push({
+                        t_name:'' ,
+                        elecplan:'',
+                        textplan:'',
+                        planintegrated:'',
+                        attendancenum:'',
+                        attendancerecord:'',
+                        hearclass:'',
+                        assessclass:'',
+                        classrecord:'',
+                        arrangehomework:'',
+                        correctinghomework:'',
+                        experimentcount:'',
+                        correctreportcount:'',
+                        homeworktype: '',
+                        experimenttype: '' ,
+                        show: true
+                    })
+                }
+                else
+                    this.$message.warning('请先提交表格中的内容后再添加新的一行');
             } ,
             upFile1(param) {
                 const file = param.file;
@@ -292,10 +296,11 @@
                 if (this.fileForm.experiment !== '')
                     this.$refs.upload3.submit();
                 if (this.fileForm.evaluationrecords !== '')
-                    this.$refs.upload3.submit();
-                delete this.tableData[0].show;
+                    this.$refs.upload4.submit();
                 this.tableData[0].term = this.formInline.def_term;
                 this.tableData[0].t_id = sessionStorage.getItem('t_id');
+                this.tableData[0].college = sessionStorage.getItem('college');
+                this.tableData[0].department = sessionStorage.getItem('department');
                 console.log(this.tableData[0]);
                 request({
                     url: 'Teachingwork/TeachPlanCheck_submit',
@@ -309,10 +314,10 @@
                             data: this.fileForm ,
                             params: {
                                 t_id: sessionStorage.getItem('t_id') ,
-                                college: sessionStorage.getItem('t_id') ,
+                                college: sessionStorage.getItem('college') ,
                                 department: sessionStorage.getItem('department') ,
                                 t_name: sessionStorage.getItem('t_name') ,
-                                term: this.fileForm.def_term
+                                term: this.formInline.def_term
                             } ,
                             headers: {
                                 'Content-Type': 'multipart/form-data'

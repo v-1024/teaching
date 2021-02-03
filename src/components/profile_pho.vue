@@ -6,7 +6,7 @@
             <div class="span">
                 <p>{{head}}</p> <el-divider></el-divider>
                 <p class="hover" @click="profile">个人中心</p>
-                <p class="hover" v-show="role_id !== '0'" @click="change_role">切换角色</p>
+                <p class="hover" v-show="role_id !== '1'" @click="change_role">切换角色</p>
                 <p class="hover" @click="quit">退出登录</p>
             </div>
             <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
@@ -46,10 +46,26 @@
                         </table>
                     </div>
                 </el-card>
-                <el-button type="primary" v-show="show" @click="edit">编辑</el-button>
-                <el-button type="primary" v-show="!show" @click="save">保存</el-button>
+                    <el-button class="pwd_btn" type="primary" @click="pwd_alert()">修改密码</el-button>
+                    <el-button class="drawer_btn" type="primary" v-show="show" @click="edit">编辑</el-button>
+                    <el-button class="drawer_btn" type="primary" v-show="!show" @click="save">保存</el-button>
             </div>
         </el-drawer>
+
+        <el-dialog title="修改密码" :visible.sync="dialogFormVisible" :before-close="before_close">
+            <el-form>
+                <el-form-item label="新密码" label-width="120px">
+                    <el-input v-model="formInline.pwd" style="width: 400px" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" label-width="120px">
+                    <el-input v-model="formInline.pwd_verify" style="width: 400px" clearable></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="pwd_save">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -60,6 +76,11 @@
         name: "profile_pho" ,
         data() {
             return {
+                formInline: {
+                    pwd: '' ,
+                    pwd_verify: ''
+                } ,
+                dialogFormVisible: false ,
                 drawer: false ,
                 head: '' ,
                 show: true ,
@@ -77,21 +98,12 @@
         created() {
             return this.head =  this.role_name + '：'+ this.t_name;
             sessionStorage.setItem('flag' , '0')
-            //请求t_id t_email t_tel t_pwd
-            // request({
-            //     url: "" ,
-            //     data: {
-            //         t_id: this.t_id
-            //     }
-            // }).then(res => {
-            //
-            // })
         } ,
         methods: {
             change_role() {
-                if (sessionStorage.getItem('flag') == '0') {
+                if (sessionStorage.getItem('flag') === '0') {
                     sessionStorage.setItem('flag' , '1');
-                    if (this.role_id == '1')
+                    if (this.role_id === '2')
                         this.$router .push('/dep_head');
                     else
                         this.$router.push('/dean_academic');
@@ -116,9 +128,15 @@
                 this.show = true;
             } ,
             handleClose(done) {
-                if (this.show == false)
+                if (this.show === false)
                     this.show = true;
                 done();
+            } ,
+            pwd_alert() {
+                this.dialogFormVisible = true
+            } ,
+            pwd_save() {
+                this.dialogFormVisible = false
             }
         }
     }
@@ -185,10 +203,17 @@
         text-align: center;
     }
 
-    .el-button {
+    .drawer_btn {
         width: 150px;
         position: absolute;
         right: 40px;
+        margin-top: 20px;
+    }
+
+    .pwd_btn {
+        width: 150px;
+        position: absolute;
+        right: 200px;
         margin-top: 20px;
     }
 </style>

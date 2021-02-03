@@ -27,14 +27,10 @@
         components: {Profile_pho, Navigation} ,
         data() {
             return {
-                role_id:'' ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
+                role_id: sessionStorage.getItem('role') ,  //教师的用户角色：1：普通教师 2：系主任 3：院长 4：教务办(后端获取)
                 role_name: '系主任' ,   //该页面是系主任的专属页面
-                t_name: ''
+                t_name: sessionStorage.getItem('t_name')
             }
-        } ,
-        created() {   //请求后端的数据
-            this.role_id = '1';
-            this.t_name = '张三';
         } ,
         methods: {
             schedule() {

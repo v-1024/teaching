@@ -120,7 +120,7 @@
             <el-table-column label="操作" width="100px">
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>
-                    <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
+                    <el-button @click="scope.row.show =false ; save()" v-if="scope.row.show">保存</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -191,6 +191,7 @@
                     submit_state: '0'
                 },
                 tableData: [],
+                // show: true ,
                 file: {
                     lessonplan: '',
                     classattendance: '',
@@ -243,7 +244,6 @@
                     this.$refs.upload2.submit();
                 if (this.fileForm.answer !== '')
                     this.$refs.upload3.submit();
-                delete this.tableData[0].show;
                 this.tableData[0].term = this.formInline.def_term;
                 this.tableData[0].t_id = sessionStorage.getItem('t_id');
                 this.tableData[0].college = sessionStorage.getItem('college');
@@ -261,10 +261,10 @@
                             data: this.fileForm ,
                             params: {
                                 t_id: sessionStorage.getItem('t_id') ,
-                                college: sessionStorage.getItem('t_id') ,
+                                college: sessionStorage.getItem('college') ,
                                 department: sessionStorage.getItem('department') ,
                                 t_name: sessionStorage.getItem('t_name') ,
-                                term: this.fileForm.def_term
+                                term: this.formInline.def_term
                             } ,
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -279,21 +279,25 @@
                 });
             },
             add_line() {
-                this.tableData.push({
-                    t_name: '22',
-                    term: '2',
-                    course: '2',
-                    lessonplan: '2',
-                    teachplan: '2',
-                    attendancenum: 2,
-                    attendancerate: 2,
-                    correctinghomework: 2,
-                    answerscount: 2,
-                    onscheduleexperiment: '2',
-                    exitprogram: '2',
-                    remarks: '2',
-                    show: true
-                })
+                if (this.tableData.length === 0) {
+                    this.tableData.push({
+                        t_name: '22',
+                        term: '2',
+                        course: '2',
+                        lessonplan: '2',
+                        teachplan: '2',
+                        attendancenum: 2,
+                        attendancerate: 2,
+                        correctinghomework: 2,
+                        answerscount: 2,
+                        onscheduleexperiment: '2',
+                        exitprogram: '2',
+                        remarks: '2',
+                        show: true
+                    })
+                }
+                else
+                    this.$message.warning('请先提交表格中的内容后再添加新的一行');
             },
             query() {
                 const url = 'HandOfDept/teachercommitspeed';
@@ -305,6 +309,9 @@
                 queryData(url, data).then(res => {
                     this.tableData = res.data;
                 })
+            } ,
+            save() {
+                console.log('---------------');
             }
         }
     }
