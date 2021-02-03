@@ -8,6 +8,13 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="提交状态">
+                <!--v-model:默认选中未提交-->
+                <el-select placeholder="提交状态" v-model="formInline.submit_state" clearable>
+                    <el-option label="未提交" value="0"></el-option>
+                    <el-option label="已提交" value="1"></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
@@ -97,7 +104,8 @@
             return {
                 formInline: {
                     def_term: '' ,  //当前学年（后端获取）：默认选中
-                    term: []        //学年从后端获取
+                    term: [] ,       //学年从后端获取
+                    submit_state: '0'
                 } ,
                 tableData:[],
             };

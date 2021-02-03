@@ -9,6 +9,13 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="提交状态">
+                <!--v-model:默认选中未提交-->
+                <el-select placeholder="提交状态" v-model="formInline.submit_state" clearable>
+                    <el-option label="未提交" value="0"></el-option>
+                    <el-option label="已提交" value="1"></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
@@ -21,94 +28,100 @@
                    height="350px"
                    border
                    style="margin-bottom: 0;width:100%">
-            <el-table-column prop="t_name" label="姓名" width="80">
+            <el-table-column prop="t_name" label="姓名">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="elecplan" label="是否是电子教案" width="80">
+            <el-table-column prop="elecplan" label="是否是电子教案">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.elecplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.elecplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="textplan" label="是否是文本文档" width="80">
+            <el-table-column prop="textplan" label="是否是文本文档">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.textplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.textplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="planintegrated" label="教案是否完善" width="80">
+            <el-table-column prop="planintegrated" label="教案是否完善">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.planintegrated"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.planintegrated}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendancenum" label="考勤次数" width="80">
+            <el-table-column prop="attendancenum" label="考勤次数">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.attendancenum"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancenum}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendancerecord" label="考情是否有记录" width="80">
+            <el-table-column prop="attendancerecord" label="考情是否有记录">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.attendancerecord"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancerecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="hearclass" label="听课次数" width="80">
+            <el-table-column prop="hearclass" label="听课次数">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.hearclass"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.hearclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="assessclass" label="评课次数" width="80">
+            <el-table-column prop="assessclass" label="评课次数">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.assessclass"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.assessclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="classrecord" label="听课是否有记录" width="80">
+            <el-table-column prop="classrecord" label="听课是否有记录">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.classrecord"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.classrecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="arrangehomework" label="布置作业次数" width="80">
+            <el-table-column prop="arrangehomework" label="布置作业次数">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.arrangehomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.arrangehomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="correctinghomework" label="批改作业次数" width="80">
+            <el-table-column prop="correctinghomework" label="批改作业次数">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.correctinghomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctinghomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="experimentcount" label="实验次数" width="80">
+            <el-table-column prop="experimentcount" label="实验次数">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.experimentcount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.experimentcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="correctreportcount" label="批改实验报告次数" width="80">
+            <el-table-column prop="correctreportcount" label="批改实验报告次数">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.correctreportcount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctreportcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="homeworktype" label="电子作业/纸质作业" width="85">
+            <el-table-column prop="homeworktype" label="电子作业/纸质作业">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.homeworktype"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.homeworktype}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" >
+            <el-table-column prop="experimenttype" label="实验类型">
                 <template slot-scope="scope">
-                    <el-button @click="scope.row.show =true">编辑</el-button>
-                    <el-button @click="scope.row.show =false">保存</el-button>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.experimenttype"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.experimenttype}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" width="100px">
+                <template slot-scope="scope">
+                    <el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>
+                    <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
                 </template>
             </el-table-column>
     </el-table>
@@ -196,7 +209,8 @@
             return {
                 formInline: {
                     def_term: '' ,  //当前学年（后端获取）：默认选中
-                    term: []        //学年从后端获取
+                    term: [] ,        //学年从后端获取
+                    submit_state: '0'
                 } ,
                 tableData: [],
                 file: {
@@ -246,6 +260,7 @@
                     experimentcount:'',
                     correctreportcount:'',
                     homeworktype: '',
+                    experimenttype: '' ,
                     show: true
                 })
             } ,
@@ -272,11 +287,11 @@
             submit() {
                 if (this.fileForm.teachplan !== '')
                     this.$refs.upload1.submit();
-                else if (this.fileForm.homework !== '')
+                if (this.fileForm.homework !== '')
                     this.$refs.upload2.submit();
-                else if (this.fileForm.experiment !== '')
+                if (this.fileForm.experiment !== '')
                     this.$refs.upload3.submit();
-                else if (this.fileForm.evaluationrecords !== '')
+                if (this.fileForm.evaluationrecords !== '')
                     this.$refs.upload3.submit();
                 delete this.tableData[0].show;
                 this.tableData[0].term = this.formInline.def_term;
@@ -291,7 +306,14 @@
                         request({
                             url: 'FilePath/normalFile_plan',
                             method: 'post',
-                            data: this.fileForm,
+                            data: this.fileForm ,
+                            params: {
+                                t_id: sessionStorage.getItem('t_id') ,
+                                college: sessionStorage.getItem('t_id') ,
+                                department: sessionStorage.getItem('department') ,
+                                t_name: sessionStorage.getItem('t_name') ,
+                                term: this.fileForm.def_term
+                            } ,
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }

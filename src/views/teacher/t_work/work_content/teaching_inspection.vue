@@ -8,6 +8,13 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="提交状态">
+                <!--v-model:默认选中未提交-->
+                <el-select placeholder="提交状态" v-model="formInline.submit_state" clearable>
+                    <el-option label="未提交" value="0"></el-option>
+                    <el-option label="已提交" value="1"></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
@@ -24,8 +31,7 @@
 
             <el-table-column
                     prop="t_name"
-                    label="姓名"
-                    width="80">
+                    label="姓名">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
@@ -33,8 +39,7 @@
             </el-table-column>
             <el-table-column
                     prop="course"
-                    label="课程"
-                    width="160">
+                    label="课程">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.course"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.course}}</span>
@@ -42,8 +47,7 @@
             </el-table-column>
             <el-table-column
                     prop="lessonplan"
-                    label="授课计划"
-                    width="160">
+                    label="授课计划">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.lessonplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.lessonplan}}</span>
@@ -51,8 +55,7 @@
             </el-table-column>
             <el-table-column
                     prop="teachplan"
-                    label="教案(有或无）"
-                    width="70">
+                    label="教案(有或无）">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.teachplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.teachplan}}</span>
@@ -60,8 +63,7 @@
             </el-table-column>
             <el-table-column
                     prop="attendancenum"
-                    label="课堂考勤(次)"
-                    width="80">
+                    label="课堂考勤(次)">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.attendancenum"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancenum}}</span>
@@ -69,8 +71,7 @@
             </el-table-column>
             <el-table-column
                     prop="attendancerate"
-                    label="学生出勤率"
-                    width="70">
+                    label="学生出勤率">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.attendancerate"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancerate}}</span>
@@ -78,8 +79,7 @@
             </el-table-column>
             <el-table-column
                     prop="correctinghomework"
-                    label="作业批改(次)"
-                    width="70">
+                    label="作业批改(次)">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.correctinghomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctinghomework}}</span>
@@ -87,8 +87,7 @@
             </el-table-column>
             <el-table-column
                     prop="answerscount"
-                    label="辅导答疑(次)"
-                    width="70">
+                    label="辅导答疑(次)">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.answerscount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.answerscount}}</span>
@@ -96,8 +95,7 @@
             </el-table-column>
             <el-table-column
                     prop="onscheduleexperiment"
-                    label="是否按计划设实验(随堂)"
-                    width="90">
+                    label="是否按计划设实验(随堂)">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.onscheduleexperiment"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.onscheduleexperiment}}</span>
@@ -105,8 +103,7 @@
             </el-table-column>
             <el-table-column
                     prop="exitprogram"
-                    label="教学中存在的问题"
-                    width="170">
+                    label="教学中存在的问题">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.exitprogram"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.exitprogram}}</span>
@@ -114,17 +111,16 @@
             </el-table-column>
             <el-table-column
                     prop="remarks"
-                    label="备注"
-                    width="90">
+                    label="备注">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" width="100px">
                 <template slot-scope="scope">
-                    <el-button @click="scope.row.show =true">编辑</el-button>
-                    <el-button @click="scope.row.show =false">保存</el-button>
+                    <el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>
+                    <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -190,8 +186,9 @@
         data() {
             return {
                 formInline: {
-                    def_term: '1',  //当前学年（后端获取）：默认选中
-                    term: []       //学年从后端获取
+                    def_term: '',  //当前学年（后端获取）：默认选中
+                    term: [] ,    //学年从后端获取
+                    submit_state: '0'
                 },
                 tableData: [],
                 file: {
@@ -242,13 +239,15 @@
             submit() {
                 if (this.fileForm.lessonplan !== '')
                     this.$refs.upload1.submit();
-                else if (this.fileForm.classattendance !== '')
+                if (this.fileForm.classattendance !== '')
                     this.$refs.upload2.submit();
-                else if (this.fileForm.answer !== '')
+                if (this.fileForm.answer !== '')
                     this.$refs.upload3.submit();
                 delete this.tableData[0].show;
                 this.tableData[0].term = this.formInline.def_term;
                 this.tableData[0].t_id = sessionStorage.getItem('t_id');
+                this.tableData[0].college = sessionStorage.getItem('college');
+                this.tableData[0].department = sessionStorage.getItem('department');
                 console.log(this.tableData[0]);
                 request({
                     url: 'Teachingwork/TeachCheck_submit',
@@ -259,7 +258,14 @@
                         request({
                             url: 'FilePath/normalFile_teach',
                             method: 'post',
-                            data: this.fileForm,
+                            data: this.fileForm ,
+                            params: {
+                                t_id: sessionStorage.getItem('t_id') ,
+                                college: sessionStorage.getItem('t_id') ,
+                                department: sessionStorage.getItem('department') ,
+                                t_name: sessionStorage.getItem('t_name') ,
+                                term: this.fileForm.def_term
+                            } ,
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
