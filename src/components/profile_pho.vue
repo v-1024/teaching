@@ -53,12 +53,14 @@
         </el-drawer>
 
         <el-dialog title="修改密码" :visible.sync="dialogFormVisible" :before-close="before_close">
-            <el-form>
-                <el-form-item label="新密码" label-width="120px">
-                    <el-input v-model="formInline.pwd" style="width: 400px" clearable></el-input>
+            <el-form :model="formInline" :rules="rules">
+                <el-form-item label="新密码" label-width="120px" prop="pwd">
+                    <el-input type="password" v-model="formInline.pwd" style="width: 400px"
+                              show-password clearable></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码" label-width="120px">
-                    <el-input v-model="formInline.pwd_verify" style="width: 400px" clearable></el-input>
+                <el-form-item label="确认密码" label-width="120px" prop="pwd_verify">
+                    <el-input type="password" v-model="formInline.pwd_verify" style="width: 400px"
+                              show-password clearable></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -79,6 +81,10 @@
                 formInline: {
                     pwd: '' ,
                     pwd_verify: ''
+                } ,
+                rules: {
+                    pwd: [{ required: true, message: '请输入新密码', trigger: 'blur' }] ,
+                    pwd_verify: [{ required: true, message: '请再次输入密码', trigger: 'blur' }]
                 } ,
                 dialogFormVisible: false ,
                 drawer: false ,
@@ -105,7 +111,7 @@
                     sessionStorage.setItem('flag' , '1');
                     if (this.role_id === '2')
                         this.$router .push('/dep_head');
-                    else
+                    else if (this.role_id === '3')
                         this.$router.push('/dean_academic');
                 }
                 else {
@@ -125,7 +131,26 @@
                 this.show = false;
             } ,
             save() {
-                this.show = true;
+                this.$confirm('确认修改以上信息？')
+                    .then(_ => {
+                        request({
+                            url: 'PersonCenter/info_update' ,
+                            method: 'put' ,
+                            params: {
+                                t_id: this.t_id ,
+                                tel: this.t_tel ,
+                                email: this.t_email,
+                                address: this.address
+                            }
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.$message.success('修改个人信息成功');
+                                this.show = true;
+                            }
+                        });
+                    })
+                    .catch(_ =>{
+                    });
             } ,
             handleClose(done) {
                 if (this.show === false)
@@ -136,8 +161,29 @@
                 this.dialogFormVisible = true
             } ,
             pwd_save() {
-                this.dialogFormVisible = false
-            }
+                if (this.formInline.pwd === '' || this.formInline.pwd_verify === '' || this.formInline.pwd !== this.formInline.pwd_verify)
+                    this.$message.warning('密码与确认密码不一致，请重新输入');
+                else {
+                    request({
+                        url: 'PersonCenter/updatepwd' ,
+                        method: 'put' ,
+                        params: {
+                            t_id: this.t_id ,
+                            password: this.formInline.pwd
+                        }
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.$message.success('密码修改成功');
+                            this.dialogFormVisible = false
+                        }
+                    });
+                }
+            } ,
+            before_close() {
+                this.formInline.pwd = '';
+                this.formInline.pwd_verify =  '';
+                this.dialogFormVisible = false;
+            } ,
         }
     }
 </script>

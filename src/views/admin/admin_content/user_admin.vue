@@ -67,6 +67,7 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
+                <el-button type="warning" @click="reset_pwd()">重置密码</el-button>
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
                 <el-button type="primary" @click="save">确 定</el-button>
             </div>
@@ -119,6 +120,24 @@
                 this.dialogForm.t_id = row.t_id;
                 this.dialogFormVisible = true;
             } ,
+            reset_pwd() {
+                this.$confirm('确认重置该用户的密码？')
+                    .then(_ => {
+                        request({
+                            url: 'Manager/resetpwd' ,
+                            method: 'put' ,
+                            params: {
+                                t_id: this.dialogForm.t_id ,
+                                password: this.dialogForm.t_id
+                            }
+                        }).then(res => {
+                            if (res.data.msg === 'success')
+                                this.$message.success('重置密码成功')
+                        })
+                    })
+                    .catch(_ =>{
+                    });
+            } ,
             before_close() {
                 this.dialogForm.college = '';
                 this.dialogForm.department =  '';
@@ -138,7 +157,7 @@
                             } ,
                             method: 'put'
                         }).then(res => {
-                            if (res.data.msg == 'success') {
+                            if (res.data.msg === 'success') {
                                 this.$message.success('修改成功');
                                 this.requestDate();
                             }
@@ -159,7 +178,7 @@
                         state: event
                     }
                 }).then(res => {
-                    if (res.data.msg == 'success')
+                    if (res.data.msg === 'success')
                         this.$message.success('修改成功');
                     else
                         this.$message.error('操作失败')

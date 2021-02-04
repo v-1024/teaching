@@ -19,7 +19,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button icon="el-icon-plus" @click="add_line">添加行</el-button>
+                <el-button icon="el-icon-plus" @click="add_line" v-if="btn_show">添加行</el-button>
             </el-form-item>
         </el-form>
 
@@ -117,15 +117,15 @@
                     <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="100px">
+            <el-table-column label="操作" width="100px" v-if="btn_show">
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>
-                    <el-button @click="scope.row.show =false ; save()" v-if="scope.row.show">保存</el-button>
+                    <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
                 </template>
             </el-table-column>
         </el-table>
 
-        <div class="upload">
+        <div class="upload" v-if="btn_show">
             <el-upload
                     ref="upload1"
                     action=""
@@ -188,10 +188,10 @@
                 formInline: {
                     def_term: '',  //当前学年（后端获取）：默认选中
                     term: [] ,    //学年从后端获取
-                    submit_state: '0'
+                    submit_state: '0' ,
                 },
                 tableData: [],
-                // show: true ,
+                btn_show: true ,
                 file: {
                     lessonplan: '',
                     classattendance: '',
@@ -293,25 +293,27 @@
                         onscheduleexperiment: '2',
                         exitprogram: '2',
                         remarks: '2',
-                        show: true
+                        show: true ,
+                        state: '0'
                     })
                 }
                 else
                     this.$message.warning('请先提交表格中的内容后再添加新的一行');
             },
             query() {
-                const url = 'HandOfDept/teachercommitspeed';
+                if (this.formInline.submit_state === '1')
+                    this.btn_show = false;
+                else
+                    this.btn_show = true;
+                const url = 'Teachingwork/TeachCheck_show';
                 const data = {
-                    term: this.formInline.def_term,
-                    t_id: this.formInline.t_id,
-                    t_name: this.formInline.t_name
+                    term: this.formInline.def_term ,
+                    t_id: sessionStorage.getItem('t_id') ,
+                    state: this.formInline.submit_state
                 };
-                queryData(url, data).then(res => {
+                queryData(url , data).then(res =>{
                     this.tableData = res.data;
                 })
-            } ,
-            save() {
-                console.log('---------------');
             }
         }
     }

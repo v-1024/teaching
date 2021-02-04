@@ -25,13 +25,10 @@
         components: {Profile_pho, Navigation} ,
         data() {
             return {
-                role_id: sessionStorage.getItem('role') ,  //教师的用户角色：1：普通教师 2：系主任 3：院长 4：教务办(后端获取)
-                role_name: '' ,   //该页面是院长/教务办的专属页面（但需知道具体的角色）
+                role_id: sessionStorage.getItem('role') ,  //教师的用户角色：1：普通教师 2：系主任 3：院长/教务办 4：管理员(后端获取)
+                role_name: '院长/教务办' ,   //该页面是院长/教务办的专属页面（但需知道具体的角色）
                 t_name: sessionStorage.getItem('t_name')
             }
-        } ,
-        created() {   //请求后端的数据
-            this.role_name = this.role_id === '3' ? '院长' : '系主任';
         } ,
         methods: {
             schedule() {

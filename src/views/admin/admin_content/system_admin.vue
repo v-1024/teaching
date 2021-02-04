@@ -124,41 +124,7 @@
                     new_dep: ''
                 },
                 dialogFormVisible: false ,
-                tableData:
-                    [
-                        {
-                            col_name: '12345' ,
-                            col_state: true ,
-                            col_btn: true ,
-                            dep:
-                                [
-                                    {
-                                        dep_name: '111' ,
-                                        dep_state: true
-                                    } ,
-                                    {
-                                        dep_name: '222' ,
-                                        dep_state: false
-                                    } ,
-                                ]
-                        } ,
-                        {
-                            col_name: '23456' ,
-                            col_state: true ,
-                            col_btn: true ,
-                            dep:
-                                [
-                                    {
-                                        dep_name: '111' ,
-                                        dep_state: true
-                                    } ,
-                                    {
-                                        dep_name: '222' ,
-                                        dep_state: false
-                                    } ,
-                                ]
-                        } ,
-                    ]
+                tableData: []
             }
         } ,
         created() {

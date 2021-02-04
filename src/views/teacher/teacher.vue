@@ -31,7 +31,7 @@
         components: {Profile_pho, Teaching_work, Navigation} ,
         data() {
             return {
-                role_id: sessionStorage.getItem('role') ,  //教师的用户角色：0：普通教师 1：系主任 2：院长 3：教务办(后端获取)
+                role_id: sessionStorage.getItem('role') ,  //教师的用户角色：1：普通教师 2：系主任 3：院长/教务办 4：管理员(后端获取)
                 role_name: '教师' ,   //该页面是教师的专属页面
                 t_name: sessionStorage.getItem('t_name')
             }

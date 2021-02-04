@@ -19,7 +19,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
+                <el-button  icon="el-icon-plus" @click="add_line" v-if="btn_show">添加行</el-button>
             </el-form-item>
         </el-form>
         <el-table  class="table"
@@ -72,7 +72,7 @@
                             <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作">
+                    <el-table-column label="操作" v-if="btn_show">
                         <template slot-scope="scope">
                             <el-button @click="scope.row.show =true">编辑</el-button>
                             <el-button @click="scope.row.show =false">保存</el-button>
@@ -80,7 +80,7 @@
                     </el-table-column>
                 </el-table>
 
-        <div class="upload">
+        <div class="upload" v-if="btn_show">
             <el-upload
                     ref="upload"
                     action=""
@@ -117,6 +117,7 @@
                     submit_state: '0'
                 } ,
                 tableData: [],
+                btn_show: true ,
             };
         },
         created() {
@@ -155,19 +156,6 @@
                 else
                     this.$message.warning('请先提交表格中的内容后再添加新的一行');
             },
-            // keep(){
-            //    request({
-            //        url: "exchange",
-            //        method: "post",
-            //        data: {
-            //            time: this.scope.row.time,
-            //            content: this.scope.row.content,
-            //            address: this.scope.row.address,
-            //            teacher: this.scope.row.teacher,
-            //            remarks: this.scope.row.remarks,
-            //        },
-            //    })
-            // } ,
             upFile(param) {
                 const file = param.file;
                 let fileForm = new FormData();
@@ -210,11 +198,15 @@
                 this.$refs.upload.submit();
             } ,
             query() {
-                const url = 'HandOfDept/teachercommitspeed';
+                if (this.formInline.submit_state === '1')
+                    this.btn_show = false;
+                else
+                    this.btn_show = true;
+                const url = 'Communication/Communication_show';
                 const data = {
                     term: this.formInline.def_term ,
-                    t_id: this.formInline.t_id ,
-                    t_name: this.formInline.t_name
+                    t_id: sessionStorage.getItem('t_id') ,
+                    state: this.formInline.submit_state
                 };
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;

@@ -19,7 +19,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
+                <el-button  icon="el-icon-plus" @click="add_line" v-if="btn_show">添加行</el-button>
             </el-form-item>
         </el-form>
         <el-table  class="table"
@@ -32,8 +32,8 @@
                     label="教师姓名"
                     width="180">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.teacher"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.teacher}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -41,8 +41,8 @@
                     label="项目名称"
                     width="210">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.subject"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.subject}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.projectname"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.projectname}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -59,8 +59,8 @@
                     label="立项经费"
                     width="180">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.funds"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.funds}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.projectfunds"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.projectfunds}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -68,11 +68,11 @@
                     label="立项时间"
                     width="180">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.time"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.time}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.projecttime"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.projecttime}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" v-if="btn_show">
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true">编辑</el-button>
                     <el-button @click="scope.row.show =false">保存</el-button>
@@ -80,7 +80,7 @@
             </el-table-column>
         </el-table>
 
-        <div class="upload">
+        <div class="upload" v-if="btn_show">
             <el-upload
                     ref="upload"
                     action=""
@@ -117,6 +117,7 @@
                     submit_state: '0'
                 } ,
                 tableData: [],
+                btn_show: true ,
             };
         },
         created() {
@@ -144,11 +145,11 @@
             add_line(){
                 if (this.tableData.length === 0) {
                     this.tableData.push({
-                        teacher: '',
-                        subject: '',
+                        t_name: '',
+                        projectname: '',
                         level: '',
-                        funds: '',
-                        time:'',
+                        projectfunds: '',
+                        projecttime:'',
                         show:true ,
                         state: '0'
                     })
@@ -162,6 +163,7 @@
                 fileForm.append('file' , file);
                 //上传时删除数据中的show属性
                 this.tableData[0].term = this.formInline.def_term;
+                this.tableData[0].state = '1';
                 this.tableData[0].t_id = sessionStorage.getItem('t_id');
                 this.tableData[0].college = sessionStorage.getItem('college');
                 this.tableData[0].department = sessionStorage.getItem('department');
@@ -198,11 +200,15 @@
                 this.$refs.upload.submit();
             } ,
             query() {
-                const url = 'HandOfDept/teachercommitspeed';
+                if (this.formInline.submit_state === '1')
+                    this.btn_show = false;
+                else
+                    this.btn_show = true;
+                const url = 'Researchactivity/Project_show ';
                 const data = {
                     term: this.formInline.def_term ,
-                    t_id: this.formInline.t_id ,
-                    t_name: this.formInline.t_name
+                    t_id: sessionStorage.getItem('t_id') ,
+                    state: this.formInline.submit_state
                 };
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;

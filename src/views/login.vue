@@ -86,7 +86,9 @@
                     },
                 }).then(res=>{     //在这里要获取个人信息，存储在Vuex中
                     console.log(res);
-                    if (res.status === 200) {
+                    if (res.data === 'NotFound this userName' || res.data === 'Invalid username/password')
+                        this.$message.error('用户名或密码错误,请重新输入');
+                    else {
                         sessionStorage.setItem('Authorization' , res.data);
                         request({
                             url: 'PersonCenter/info_show' ,
@@ -103,10 +105,12 @@
                             sessionStorage.setItem('tel' , res.data.tel);
                             sessionStorage.setItem('role' , res.data.role);
                             sessionStorage.setItem('email' , res.data.email);
+                            if(sessionStorage.getItem('role') === '4')
+                                this.$router.push('/admin');
+                            else
+                                this.$router.push('/teacher');
                         });
-                        this.$router.push('/teacher');
                     }
-
                 })
             }
         }

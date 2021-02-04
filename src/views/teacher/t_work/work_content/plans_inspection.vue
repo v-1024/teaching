@@ -20,7 +20,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button  icon="el-icon-plus" @click="add_line">添加行</el-button>
+                <el-button  icon="el-icon-plus" @click="add_line" v-if="btn_show">添加行</el-button>
             </el-form-item>
         </el-form>
         <el-table  class="table"
@@ -118,7 +118,7 @@
                     <span v-show="!scope.row.show">{{scope.row.experimenttype}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="100px">
+            <el-table-column label="操作" width="100px" v-if="btn_show">
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>
                     <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
@@ -126,7 +126,7 @@
             </el-table-column>
     </el-table>
 
-        <div class="upload">
+        <div class="upload" v-if="btn_show">
             <el-upload
                 ref="upload1"
                 action=""
@@ -213,6 +213,7 @@
                     submit_state: '0'
                 } ,
                 tableData: [],
+                btn_show: true ,
                 file: {
                     teachplan: '' ,
                     homework: '' ,
@@ -262,7 +263,8 @@
                         correctreportcount:'',
                         homeworktype: '',
                         experimenttype: '' ,
-                        show: true
+                        show: true ,
+                        state: '0'
                     })
                 }
                 else
@@ -298,6 +300,7 @@
                 if (this.fileForm.evaluationrecords !== '')
                     this.$refs.upload4.submit();
                 this.tableData[0].term = this.formInline.def_term;
+                this.tableData[0].state = '1';
                 this.tableData[0].t_id = sessionStorage.getItem('t_id');
                 this.tableData[0].college = sessionStorage.getItem('college');
                 this.tableData[0].department = sessionStorage.getItem('department');
@@ -332,11 +335,15 @@
                 });
             } ,
             query() {
-                const url = 'HandOfDept/teachercommitspeed';
+                if (this.formInline.submit_state === '1')
+                    this.btn_show = false;
+                else
+                    this.btn_show = true;
+                const url = 'Teachingwork/TeachPlan_show';
                 const data = {
                     term: this.formInline.def_term ,
-                    t_id: this.formInline.t_id ,
-                    t_name: this.formInline.t_name
+                    t_id: sessionStorage.getItem('t_id') ,
+                    state: this.formInline.submit_state
                 };
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;
