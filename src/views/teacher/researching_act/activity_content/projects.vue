@@ -65,8 +65,7 @@
             </el-table-column>
             <el-table-column
                     prop="time"
-                    label="立项时间"
-                    width="180">
+                    label="立项时间">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.projecttime"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.projecttime}}</span>
@@ -76,6 +75,15 @@
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true">编辑</el-button>
                     <el-button @click="scope.row.show =false">保存</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column label="下载" v-if="!btn_show">
+                <template slot-scope="scope">
+                    <el-dropdown >
+                        <span class="el-dropdown-link" @click="downLoad(scope.row.projectpath)">
+                            文件下载
+                        </span>
+                    </el-dropdown>
                 </template>
             </el-table-column>
         </el-table>
@@ -173,6 +181,7 @@
                     data: this.tableData[0]
                 }).then(res => {
                     if (res.data.msg === 'success') {
+                        this.tableData.splice(0,1);
                         request({
                             url: 'FilePath/Project_file' ,
                             method: 'post' ,
@@ -213,6 +222,18 @@
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;
                 })
+            } ,
+            downLoad(command) {
+                console.log(command);
+                if (command) {
+                    let a = document.createElement("a");
+                    a.href = '/api/file/down?url=' + command;
+                    document.body.appendChild(a);
+                    a.click()
+                }
+                else {
+                    this.$message.error('文件下载失败，可能原因是未上传该文件')
+                }
             }
         }
     }
@@ -241,5 +262,10 @@
         height: 40px;
         position: absolute;
         right: 150px;
+    }
+
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
     }
 </style>

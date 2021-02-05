@@ -123,6 +123,20 @@
                     <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
                 </template>
             </el-table-column>
+            <el-table-column label="下载" width="100px" v-if="!btn_show">
+                <template slot-scope="scope">
+                    <el-dropdown @command="handleCommand">
+                          <span class="el-dropdown-link">
+                            文件下载<i class="el-icon-arrow-down el-icon--right"></i>
+                          </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item :command=scope.row.lessonplanpath>授课计划</el-dropdown-item>
+                            <el-dropdown-item :command=scope.row.classattendancepath>课堂考勤</el-dropdown-item>
+                            <el-dropdown-item :command=scope.row.answerpath>辅导答疑</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </template>
+            </el-table-column>
         </el-table>
 
         <div class="upload" v-if="btn_show">
@@ -181,6 +195,8 @@
     import {queryTerm} from "../../../../pubRequest/queryTerm";
     import {queryTermLast} from "../../../../pubRequest/queryTerm";
     import {queryData} from "../../../../pubRequest/queryData";
+    import {fileDownLoad} from "../../../../pubRequest/downLoad";
+
     export default {
         name: "teaching_inspection",
         data() {
@@ -245,6 +261,7 @@
                 if (this.fileForm.answer !== '')
                     this.$refs.upload3.submit();
                 this.tableData[0].term = this.formInline.def_term;
+                this.tableData[0].state = '1';
                 this.tableData[0].t_id = sessionStorage.getItem('t_id');
                 this.tableData[0].college = sessionStorage.getItem('college');
                 this.tableData[0].department = sessionStorage.getItem('department');
@@ -255,6 +272,7 @@
                     data: this.tableData[0]
                 }).then(res => {
                     if (res.data.msg === 'success') {
+                        this.tableData.splice(0,1);
                         request({
                             url: 'FilePath/normalFile_teach',
                             method: 'post',
@@ -294,7 +312,7 @@
                         exitprogram: '2',
                         remarks: '2',
                         show: true ,
-                        state: '0'
+                        state: '0' ,
                     })
                 }
                 else
@@ -314,6 +332,17 @@
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;
                 })
+            } ,
+            handleCommand(command) {
+                if (command) {
+                    let a = document.createElement("a");
+                    a.href = '/api/file/down?url=' + command;
+                    document.body.appendChild(a);
+                    a.click()
+                }
+                else {
+                    this.$message.error('文件下载失败，可能原因是未上传该文件')
+                }
             }
         }
     }
@@ -343,5 +372,10 @@
         height: 40px;
         position: absolute;
         right: 150px;
+    }
+
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
     }
 </style>

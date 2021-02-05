@@ -124,6 +124,21 @@
                     <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
                 </template>
             </el-table-column>
+            <el-table-column label="下载" width="100px" v-if="!btn_show">
+                <template slot-scope="scope">
+                    <el-dropdown @command="handleCommand">
+                          <span class="el-dropdown-link">
+                            文件下载<i class="el-icon-arrow-down el-icon--right"></i>
+                          </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item :command=scope.row.teachplanpath>教案</el-dropdown-item>
+                            <el-dropdown-item :command=scope.row.homeworkpath>作业批改</el-dropdown-item>
+                            <el-dropdown-item :command=scope.row.experimentpath>实验计划</el-dropdown-item>
+                            <el-dropdown-item :command=scope.row.evaluationrecordspath>评课记录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </template>
+            </el-table-column>
     </el-table>
 
         <div class="upload" v-if="btn_show">
@@ -173,7 +188,7 @@
                     :on-exceed="handleExceed"
                     style="width: 15%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
-                <div slot="tip" class="el-upload__tip">上传计划实验</div>
+                <div slot="tip" class="el-upload__tip">上传实验计划</div>
             </el-upload>
             <el-upload
                     ref="upload4"
@@ -311,6 +326,7 @@
                     data: this.tableData[0]
                 }).then(res => {
                     if (res.data.msg === 'success') {
+                        this.tableData.splice(0,1);
                         request({
                             url: 'FilePath/normalFile_plan',
                             method: 'post',
@@ -348,6 +364,17 @@
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;
                 })
+            } ,
+            handleCommand(command) {
+                if (command) {
+                    let a = document.createElement("a");
+                    a.href = '/api/file/down?url=' + command;
+                    document.body.appendChild(a);
+                    a.click()
+                }
+                else {
+                    this.$message.error('文件下载失败，可能原因是未上传该文件')
+                }
             }
         }
     }
@@ -380,4 +407,8 @@
         right: 150px;
     }
 
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
+    }
 </style>

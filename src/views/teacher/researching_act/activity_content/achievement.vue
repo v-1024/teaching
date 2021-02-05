@@ -32,8 +32,8 @@
                     label="教师姓名"
                     width="180">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.name}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -56,8 +56,7 @@
             </el-table-column>
             <el-table-column
                     prop="examination"
-                    label="审批部门"
-                    width="200">
+                    label="审批部门">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.examination"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.examination}}</span>
@@ -67,6 +66,15 @@
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true">编辑</el-button>
                     <el-button @click="scope.row.show =false">保存</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column label="下载" v-if="!btn_show">
+                <template slot-scope="scope">
+                    <el-dropdown >
+                        <span class="el-dropdown-link" @click="downLoad(scope.row.achieveprovepath)">
+                            文件下载
+                        </span>
+                    </el-dropdown>
                 </template>
             </el-table-column>
         </el-table>
@@ -136,7 +144,7 @@
             add_line() {
                 if (this.tableData.length === 0) {
                     this.tableData.push({
-                        t_name: '1',
+                        name: '1',
                         achievementname: '1',
                         level: '1',
                         examination: '1',
@@ -153,6 +161,7 @@
                 fileForm.append('file' , file);
                 //上传时删除数据中的show属性
                 this.tableData[0].term = this.formInline.def_term;
+                this.tableData[0].state = '1';
                 this.tableData[0].t_id = sessionStorage.getItem('t_id');
                 this.tableData[0].college = sessionStorage.getItem('college');
                 this.tableData[0].department = sessionStorage.getItem('department');
@@ -162,6 +171,7 @@
                     data: this.tableData[0]
                 }).then(res => {
                     if (res.data.msg === 'success') {
+                        this.tableData.splice(0,1);
                         request({
                             url: 'FilePath/Achievement_file' ,
                             method: 'post' ,
@@ -202,6 +212,18 @@
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;
                 })
+            } ,
+            downLoad(command) {
+                console.log(command);
+                if (command) {
+                    let a = document.createElement("a");
+                    a.href = '/api/file/down?url=' + command;
+                    document.body.appendChild(a);
+                    a.click()
+                }
+                else {
+                    this.$message.error('文件下载失败，可能原因是未上传该文件')
+                }
             }
         }
     }
@@ -230,5 +252,10 @@
         height: 40px;
         position: absolute;
         right: 150px;
+    }
+
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
     }
 </style>
