@@ -8,11 +8,11 @@
                 <el-button type="primary" icon="el-icon-date" @click="term_btn">确认</el-button>
             </el-form-item>
             <el-form-item label="新增学院/系部">
-                    <el-autocomplete
-                            clearable
-                            v-model="formInline.col_name"
-                            :fetch-suggestions="querySearch"
-                            placeholder="输入学院"></el-autocomplete>
+                <el-autocomplete
+                        clearable
+                        v-model="formInline.col_name"
+                        :fetch-suggestions="querySearch"
+                        placeholder="输入学院"></el-autocomplete>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-plus" @click="col_add()">确认</el-button>
@@ -21,10 +21,16 @@
 
         <el-dialog title="编辑学院/系部信息" :visible.sync="dialogFormVisible" :before-close="before_close">
             <el-form>
-                <el-form-item label="学院" label-width="120px">
+                <el-form-item label="学院id" label-width="120px">
+                    <el-input v-model="formInline.col_id" style="width: 400px" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="学院名称" label-width="120px">
                     <el-input v-model="formInline.col_name" style="width: 400px" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="系部" label-width="120px">
+                <el-form-item label="系部id" label-width="120px">
+                    <el-input v-model="formInline.dep_id" style="width: 400px" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="系部名称" label-width="120px">
                     <el-input v-model="formInline.new_dep" style="width: 400px" clearable></el-input>
                 </el-form-item>
             </el-form>
@@ -53,7 +59,7 @@
                         <el-table-column label="状态" prop="dep_state" align="center">
                             <!--作用域插槽-->
                             <template slot-scope="scope">
-                                <el-switch v-model="scope.row.dep_state"></el-switch>
+                                <el-switch @change="dep_switch(scope.row , $event)" v-model="scope.row.dep_state" ></el-switch>
                             </template>
                         </el-table-column>
                         <!--<el-table-column label="操作" align="center">
@@ -112,7 +118,7 @@
         name: "system_admin",
         data() {
             return {
-                flag: '0' ,
+                flag: '1' ,
                 college: [],
                 expands: [],		//只展开一行放入当前行col_name
                 getRowKeys(row){     //返回该行的key值
@@ -121,7 +127,9 @@
                 formInline: {
                     term: '',
                     col_name: '',
-                    new_dep: ''
+                    col_id: '' ,
+                    new_dep: '' ,
+                    dep_id: ''
                 },
                 dialogFormVisible: false ,
                 tableData: []
@@ -205,19 +213,57 @@
 
             } ,
             col_add() {
+                for (let i in this.tableData) {
+                    if (this.tableData[i].col_name === this.formInline.col_name) {
+                        this.formInline.col_id = this.tableData[i].c_id;
+                        this.flag = '0'
+                    }
+                }
                 this.dialogFormVisible = true;
-                this.flag = '1'
             } ,
             save() {     //插入新数据或更新系部信息(修改后传给后端)
-                if (this.flag === '1')
-                    console.log('新增学院和系部');
-                else
-                    console.log('修改系部');
+                if (this.flag === '1') {
+                    request({
+                        url: 'Manager/College' ,
+                        method: 'post' ,
+                        params: {
+                            c_id: this.formInline.col_id,
+                            college: this.formInline.col_name,
+                            d_id: this.formInline.dep_id,
+                            d_name: this.formInline.new_dep
+                        }
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.requestData();
+                            this.$message.success('新增学院和系部成功');
+                        }
+                    });
+                }
+                else {
+                    request({
+                        url: 'Manager/raeseDept' ,
+                        method: 'post' ,
+                        params: {
+                            c_id: this.formInline.col_id,
+                            college: this.formInline.col_name,
+                            d_id: this.formInline.dep_id,
+                            d_name: this.formInline.new_dep
+                        }
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.requestData();
+                            this.$message.success('新增系部成功');
+                            this.flag = '1'
+                        }
+                    });
+                }
                 this.before_close();
             } ,
             before_close() {
                 this.formInline.col_name = '';
                 this.formInline.new_dep =  '';
+                this.formInline.col_id =  '';
+                this.formInline.dep_id =  '';
                 this.dialogFormVisible = false;
             } ,
             col_switch(row , event) {
@@ -231,6 +277,28 @@
                 }).then(res => {
                     if (res.data.msg === 'success')
                         this.$message.success('修改学院状态成功');
+                })
+            } ,
+
+            //------------------------------------------------------------有问题
+            dep_switch(row , event) {
+                let c_id;
+                for (let i in this.tableData) {
+                    if (this.tableData[i].col_name === this.expands.col_name) {
+                        c_id = this.tableData[i].c_id;
+                    }
+                }
+                request({
+                    url: 'Manager/updateDeptState' ,
+                    method: 'put' ,
+                    params: {
+                        c_id: c_id ,
+                        d_id: row.d_id ,
+                        state: event
+                    }
+                }).then(res => {
+                    if (res.data.msg === 'success')
+                        this.$message.success('修改系部状态成功');
                 })
             }
         }

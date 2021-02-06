@@ -116,6 +116,8 @@
                     submit_state: '0'
                 } ,
                 tableData:[],
+                fileForm: new FormData() ,
+                fileList: [] ,
                 btn_show: true ,
             };
         },
@@ -157,46 +159,55 @@
             } ,
             upFile(param) {
                 const file = param.file;
-                let fileForm = new FormData();
-                fileForm.append('file' , file);
-                //上传时删除数据中的show属性
-                this.tableData[0].term = this.formInline.def_term;
-                this.tableData[0].state = '1';
-                this.tableData[0].t_id = sessionStorage.getItem('t_id');
-                this.tableData[0].college = sessionStorage.getItem('college');
-                this.tableData[0].department = sessionStorage.getItem('department');
-                request({
-                    url: 'Researchactivity/Achievement_submit' ,
-                    method: 'post' ,
-                    data: this.tableData[0]
-                }).then(res => {
-                    if (res.data.msg === 'success') {
-                        this.tableData.splice(0,1);
-                        request({
-                            url: 'FilePath/Achievement_file' ,
-                            method: 'post' ,
-                            params: {
-                                t_id: sessionStorage.getItem('t_id') ,
-                                college: sessionStorage.getItem('college') ,
-                                department: sessionStorage.getItem('department') ,
-                                t_name: sessionStorage.getItem('t_name') ,
-                                term: this.formInline.def_term
-                            } ,
-                            data: fileForm ,
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }).then(res => {
-                            if (res.data.msg === 'success') {
-                                this.$message.success('文件与表单上传成功');
-                                fileForm = new FormData();
-                            }
-                        })
-                    }
-                })
+                this.fileList.push({
+                    name: file.name ,
+                });
+                this.fileForm.append('file' , file);
             } ,
             submit() {
-                this.$refs.upload.submit();
+                this.$confirm('提交后不能修改，请确保表格信息以及文件上传无误', '提示', {
+                    type: 'warning'
+                }).then(() => {
+                    if (this.fileForm.file !== '')
+                        this.$refs.upload.submit();
+                    this.tableData[0].term = this.formInline.def_term;
+                    this.tableData[0].state = '1';
+                    this.tableData[0].t_id = sessionStorage.getItem('t_id');
+                    this.tableData[0].college = sessionStorage.getItem('college');
+                    this.tableData[0].department = sessionStorage.getItem('department');
+                    request({
+                        url: 'Researchactivity/Achievement_submit' ,
+                        method: 'post' ,
+                        data: this.tableData[0]
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.$message.success('表单上传成功');
+                            this.tableData.splice(0,1);
+                            request({
+                                url: 'FilePath/Achievement_file' ,
+                                method: 'post' ,
+                                params: {
+                                    t_id: sessionStorage.getItem('t_id') ,
+                                    college: sessionStorage.getItem('college') ,
+                                    department: sessionStorage.getItem('department') ,
+                                    t_name: sessionStorage.getItem('t_name') ,
+                                    term: this.formInline.def_term
+                                } ,
+                                data: this.fileForm ,
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            }).then(res => {
+                                if (res.data.msg === 'success') {
+                                    this.$message.success('文件上传成功');
+                                    this.fileForm = new FormData();
+                                    this.fileList.splice(0,1);
+                                }
+                            })
+                        }
+                    })
+                }).catch(() => {
+                });
             } ,
             query() {
                 if (this.formInline.submit_state === '1')
@@ -251,7 +262,7 @@
         width: 150px;
         height: 40px;
         position: absolute;
-        right: 150px;
+        left: 1200px;
     }
 
     .el-dropdown-link {

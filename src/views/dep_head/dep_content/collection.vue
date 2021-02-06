@@ -126,9 +126,9 @@
                     url: url ,
                     method: 'post' ,
                     params: {                  //登录后获取
-                        term: '2' ,
-                        college: '1' ,
-                        department: '1'
+                        term: sessionStorage.getItem('term') ,
+                        college: sessionStorage.getItem('college') ,
+                        department: sessionStorage.getItem('department')
                     }
                 }).then(res => {
                     this.contentData = res.data;

@@ -235,7 +235,11 @@
                     experiment: '' ,
                     evaluationrecords: ''
                 },
-                fileForm: new FormData()
+                fileForm: new FormData() ,
+                fileList1: [] ,
+                fileList2: [] ,
+                fileList3: [] ,
+                fileList4: [] ,
             }
         },
         created() {
@@ -289,65 +293,87 @@
                 const file = param.file;
                 console.log(file);
                 this.fileForm.append('teachplan' , file);
+                this.fileList1.push({
+                    name: file.name ,
+                });
             } ,
             upFile2(param) {
                 const file = param.file;
                 console.log(file);
                 this.fileForm.append('homework' , file);
+                this.fileList2.push({
+                    name: file.name ,
+                });
             } ,
             upFile3(param) {
                 const file = param.file;
                 console.log(file);
                 this.fileForm.append('experiment' , file);
+                this.fileList3.push({
+                    name: file.name ,
+                });
             } ,
             upFile4(param) {
                 const file = param.file;
                 console.log(file);
                 this.fileForm.append('evaluationrecords' , file);
+                this.fileList4.push({
+                    name: file.name ,
+                });
             } ,
             submit() {
-                if (this.fileForm.teachplan !== '')
-                    this.$refs.upload1.submit();
-                if (this.fileForm.homework !== '')
-                    this.$refs.upload2.submit();
-                if (this.fileForm.experiment !== '')
-                    this.$refs.upload3.submit();
-                if (this.fileForm.evaluationrecords !== '')
-                    this.$refs.upload4.submit();
-                this.tableData[0].term = this.formInline.def_term;
-                this.tableData[0].state = '1';
-                this.tableData[0].t_id = sessionStorage.getItem('t_id');
-                this.tableData[0].college = sessionStorage.getItem('college');
-                this.tableData[0].department = sessionStorage.getItem('department');
-                console.log(this.tableData[0]);
-                request({
-                    url: 'Teachingwork/TeachPlanCheck_submit',
-                    method: 'post',
-                    data: this.tableData[0]
-                }).then(res => {
-                    if (res.data.msg === 'success') {
-                        this.tableData.splice(0,1);
-                        request({
-                            url: 'FilePath/normalFile_plan',
-                            method: 'post',
-                            data: this.fileForm ,
-                            params: {
-                                t_id: sessionStorage.getItem('t_id') ,
-                                college: sessionStorage.getItem('college') ,
-                                department: sessionStorage.getItem('department') ,
-                                t_name: sessionStorage.getItem('t_name') ,
-                                term: this.formInline.def_term
-                            } ,
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }).then(res => {
-                            if (res.data.msg === 'success') {
-                                this.$message.success('文件与表单上传成功');
-                                this.fileForm = new FormData();
-                            }
-                        });
-                    }
+                this.$confirm('提交后不能修改，请确保表格信息以及文件上传无误', '提示', {
+                    type: 'warning'
+                }).then(() => {
+                    if (this.fileForm.teachplan !== '')
+                        this.$refs.upload1.submit();
+                    if (this.fileForm.homework !== '')
+                        this.$refs.upload2.submit();
+                    if (this.fileForm.experiment !== '')
+                        this.$refs.upload3.submit();
+                    if (this.fileForm.evaluationrecords !== '')
+                        this.$refs.upload4.submit();
+                    this.tableData[0].term = this.formInline.def_term;
+                    this.tableData[0].state = '1';
+                    this.tableData[0].t_id = sessionStorage.getItem('t_id');
+                    this.tableData[0].college = sessionStorage.getItem('college');
+                    this.tableData[0].department = sessionStorage.getItem('department');
+                    console.log(this.tableData[0]);
+                    request({
+                        url: 'Teachingwork/TeachPlanCheck_submit',
+                        method: 'post',
+                        data: this.tableData[0]
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.$message.success('表单上传成功');
+                            this.tableData.splice(0,1);
+                            request({
+                                url: 'FilePath/normalFile_plan',
+                                method: 'post',
+                                data: this.fileForm ,
+                                params: {
+                                    t_id: sessionStorage.getItem('t_id') ,
+                                    college: sessionStorage.getItem('college') ,
+                                    department: sessionStorage.getItem('department') ,
+                                    t_name: sessionStorage.getItem('t_name') ,
+                                    term: this.formInline.def_term
+                                } ,
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            }).then(res => {
+                                if (res.data.msg === 'success') {
+                                    this.$message.success('文件上传成功');
+                                    this.fileForm = new FormData();
+                                    this.fileList1.splice(0,1);
+                                    this.fileList2.splice(0,1);
+                                    this.fileList3.splice(0,1);
+                                    this.fileList4.splice(0,1);
+                                }
+                            });
+                        }
+                    });
+                }).catch(() => {
                 });
             } ,
             query() {
@@ -404,7 +430,7 @@
         width: 150px;
         height: 40px;
         position: absolute;
-        right: 150px;
+        left: 1200px;
     }
 
     .el-dropdown-link {

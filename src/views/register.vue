@@ -154,9 +154,10 @@
                                 email: this.ruleForm.t_email ,
                                 address: this.ruleForm.t_address ,
                                 sex: this.ruleForm.t_sex ,
+                                state_id: '0'
                             }
                         }).then(res => {
-                            if (res === 'success') {
+                            if (res.data === 'success') {
                                 this.$message.success('提交成功，请等待系主任审核后进入系统');
                                 setTimeout(() => {
                                     this.$router.push('/login')

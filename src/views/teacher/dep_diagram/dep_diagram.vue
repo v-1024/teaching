@@ -36,7 +36,7 @@
                 direction="rtl"
                 :show-close="false"
                 size="70%">
-            <tab_collection :index="cindex"></tab_collection>
+            <tab_collection :index="cindex" :tableData="contentData"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -71,7 +71,8 @@
                     {name: '教师奖励一览表' , state: false} ,
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
-                ]
+                ] ,
+                contentData: []
             }
         } ,
         created() {
@@ -87,7 +88,58 @@
             check(index , row) {
                 this.drawer = true;
                 this.cindex = index;
-            }
+                switch (index) {
+                    case 0:
+                        this.requestContent('');
+                        break;
+                    case 1:
+                        this.requestContent('HandOfDept/listenlesson');
+                        break;
+                    case 2:
+                        this.requestContent('HandOfDept/teachcheck');
+                        break;
+                    case 3:
+                        this.requestContent('');
+                        break;
+                    case 4:
+                        this.requestContent('HandOfDept/teachplancheck');
+                        break;
+                    case 5:
+                        this.requestContent('HandOfDept/attendance');
+                        break;
+                    case 6:
+                        this.requestContent('HandOfDept/experimentcheck');
+                        break;
+                    case 7:
+                        this.requestContent('HandOfDept/homeworkcheck');
+                        break;
+                    case 8:
+                        this.requestContent('HandOfDept/communication');
+                        break;
+                    case 9:
+                        this.requestContent('HandOfDept/teachaward');
+                        break;
+                    case 10:
+                        this.requestContent('HandOfDept/teachproject');
+                        break;
+                    case 11:
+                        this.requestContent('HandOfDept/departmentsummary');
+                        break;
+                }
+            } ,
+            requestContent(url) {
+                request({
+                    url: url ,
+                    method: 'post' ,
+                    params: {                  //登录后获取
+                        term: this.formInline.def_term ,
+                        college: sessionStorage.getItem('college') ,
+                        department: sessionStorage.getItem('department')
+                    }
+                }).then(res => {
+                    this.contentData = res.data;
+                })
+            } ,
         }
     }
 </script>
