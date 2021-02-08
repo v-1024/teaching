@@ -32,44 +32,29 @@
 
 <script>
     import {request} from "../../../network/request";
+    import {queryData} from "../../../pubRequest/queryData";
 
     export default {
         name: "reg_audit" ,
         data() {
             return {
-                tableData: [
-                    // {
-                    //     date: '2016-05-02',
-                    //     t_id: '150111' ,
-                    //     t_name: '张三',
-                    //     col_name: '计算机科学与工程学院' ,
-                    //     dep_name: '网络工程系' ,
-                    //     t_tel: '12345678911' ,
-                    // } ,
-                    // {
-                    //     date: '2016-05-01',
-                    //     t_id: '150110' ,
-                    //     t_name: '李四',
-                    //     col_name: '计算机科学与工程学院' ,
-                    //     dep_name: '软件工程系' ,
-                    //     t_tel: '12345678921' ,
-                    // }
-                ]
+                tableData: []
             }
         } ,
         created() {
-            request({
-                url: "HandOfDept/checkregister" ,
-                method: 'post' ,
-                params: {                  //登录信息中获得
-                    college: '1' ,
-                    department: '1'
-                }
-            }).then(res => {
-                this.tableData = res.data;
-            })
+            this.showData();
         } ,
         methods: {
+            showData() {
+                const url = 'HandOfDept/checkregister' ;
+                const data = {
+                    college: sessionStorage.getItem('college') ,
+                    department: sessionStorage.getItem('department')
+                };
+                queryData(url , data).then(res => {
+                    this.tableData = res.data;
+                })
+            } ,
             pass (index , row) {
                 //更新数据库，将通过的教师信息插入数据库（插入成功后给出成功提示信息并移除该条申请，反之..）
                 request({
@@ -80,11 +65,11 @@
                     }
                 }).then(res => {
                     if (res.data.msg === 'success') {
+                        this.showData();
                         this.$message({
                             type: 'success',
                             message: '操作成功!'
                         });
-                        this.tableData.splice(index - 1, 1);
                     }
                 })
             },

@@ -131,6 +131,7 @@
                     new_dep: '' ,
                     dep_id: ''
                 },
+                sel_college: '' ,
                 dialogFormVisible: false ,
                 tableData: []
             }
@@ -161,10 +162,12 @@
                 if (expandedRows.length) {//说明展开了
                     this.expands = [];
                     if (row) {
-                        this.expands.push(row.col_name)//只展开当前行的col_name
+                        this.expands.push(row.col_name);  //只展开当前行的col_name
+                        this.sel_college = row.col_name
                     }
                 } else {//说明收起了
-                    this.expands = []
+                    this.expands = [];
+                    this.sel_college = ''
                 }
             } ,
             querySearch(queryString, cb) {
@@ -280,19 +283,12 @@
                 })
             } ,
 
-            //------------------------------------------------------------有问题
             dep_switch(row , event) {
-                let c_id;
-                for (let i in this.tableData) {
-                    if (this.tableData[i].col_name === this.expands.col_name) {
-                        c_id = this.tableData[i].c_id;
-                    }
-                }
                 request({
                     url: 'Manager/updateDeptState' ,
                     method: 'put' ,
                     params: {
-                        c_id: c_id ,
+                        college: this.sel_college ,
                         d_id: row.d_id ,
                         state: event
                     }

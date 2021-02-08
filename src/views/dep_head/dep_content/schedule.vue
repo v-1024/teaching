@@ -94,14 +94,12 @@
         } ,
         methods: {
             requestDate() {
-                request({
-                    url: 'HandOfDept/teachercommitspeed' ,
-                    method: 'post' ,
-                    params: {                  //登录信息中获得
-                        college: '1' ,
-                        department: '1'
-                    }
-                }).then(res => {
+                const url = 'HandOfDept/teachercommitspeed';
+                const data = {
+                    college: sessionStorage.getItem('college') ,                  //登录信息中获得
+                    department: sessionStorage.getItem('department')
+                };
+                queryData(url , data).then(res =>{
                     this.tableData = res.data;
                 })
             } ,

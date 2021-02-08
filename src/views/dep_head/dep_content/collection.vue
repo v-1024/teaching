@@ -45,13 +45,14 @@
                 direction="rtl"
                 :show-close="false"
                 size="70%">
-            <tab_collection :index="cindex" :tableData="contentData"></tab_collection>
+            <tab_collection :index="cindex" :tableData="contentData" :term="def_term"></tab_collection>
         </el-drawer>
     </div>
 </template>
 
 <script>
     import {request} from "../../../network/request";
+    import {queryTermLast} from "../../../pubRequest/queryTerm";
     import Tab_collection from "../../../components/tab_collection";
 
     export default {
@@ -61,6 +62,7 @@
             return {
                 drawer: false ,
                 cindex: '' ,
+                def_term: '' ,
                 tableData: [
                     {name: '公开课评课记录' , state: false} ,
                     {name: '听课统计表' , state: false} ,
@@ -77,6 +79,11 @@
                 ] ,
                 contentData: []
             }
+        } ,
+        created() {
+            queryTermLast().then(res => {
+                this.def_term = res.res.data[0].term;
+            })
         } ,
         methods: {
             check(index , row) {
@@ -126,7 +133,7 @@
                     url: url ,
                     method: 'post' ,
                     params: {                  //登录后获取
-                        term: sessionStorage.getItem('term') ,
+                        term: this.def_term ,
                         college: sessionStorage.getItem('college') ,
                         department: sessionStorage.getItem('department')
                     }
@@ -134,9 +141,6 @@
                     this.contentData = res.data;
                 })
             } ,
-            submitUpload() {
-                this.$refs.upload.submit();
-            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },

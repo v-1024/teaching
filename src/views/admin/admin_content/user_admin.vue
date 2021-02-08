@@ -12,14 +12,14 @@
             </el-form-item>
             <el-form-item label="职位">
                 <el-select v-model="formInline.role" placeholder="职位" clearable>
-                    <el-option label="教师" value="教师"></el-option>
-                    <el-option label="系主任" value="系主任"></el-option>
-                    <el-option label="教务办" value="教务办"></el-option>
-                    <el-option label="院长" value="院长"></el-option>
+                    <el-option label="教师" value="1"></el-option>
+                    <el-option label="系主任" value="2"></el-option>
+                    <el-option label="院长/教务办" value="3"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
+                <el-button type="success" icon="el-icon-plus" @click="add_user()">添加成员</el-button>
             </el-form-item>
         </el-form>
         <template>
@@ -51,25 +51,58 @@
             </el-table>
         </template>
         <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible"
-                   :before-close="before_close" width="700px">
-            <el-form :inline="true" class="demo-form-inline">
-                <el-form-item label="学院" label-width="100px">
-                    <el-input v-model="dialogForm.college" style="width: 300px" clearable></el-input>
+                               :before-close="before_close" width="700px">
+        <el-form :inline="true" class="demo-form-inline">
+            <el-form-item label="学院" label-width="100px">
+                <el-input v-model="dialogForm.college" style="width: 300px" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="系部" label-width="100px">
+                <el-input v-model="dialogForm.department" style="width: 300px" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="职位" label-width="100px">
+                <el-input v-model="dialogForm.role" style="width: 300px" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="办公地点" label-width="100px">
+                <el-input v-model="dialogForm.address" style="width: 300px" clearable></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="warning" @click="reset_pwd()">重置密码</el-button>
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="save">确 定</el-button>
+        </div>
+    </el-dialog>
+
+        <el-dialog title="增加新用户" :visible.sync="addUserDialogForm"
+                    :before-close="add_before_close" width="1000px">
+            <el-form :inline="true">
+                <el-form-item label="员工号" label-width="100px" required>
+                    <el-input v-model="dialogForm.t_id" style="width: 300px" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="系部" label-width="100px">
-                    <el-input v-model="dialogForm.department" style="width: 300px" clearable></el-input>
+                <el-form-item label="姓名" label-width="100px" required>
+                    <el-input v-model="dialogForm.t_name" style="width: 300px" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="职位" label-width="100px">
-                    <el-input v-model="dialogForm.role" style="width: 300px" clearable></el-input>
+                <el-form-item label="职位" label-width="100px" required>
+                    <el-select v-model="dialogForm.role" placeholder="职位" style="width: 300px" clearable>
+                        <el-option label="教师" value="1"></el-option>
+                        <el-option label="系主任" value="2"></el-option>
+                        <el-option label="院长/教务办" value="3"></el-option>
+                    </el-select>
                 </el-form-item>
-                <el-form-item label="办公地点" label-width="100px">
-                    <el-input v-model="dialogForm.address" style="width: 300px" clearable></el-input>
+                <el-form-item label="性别" label-width="100px" required>
+                    <el-select v-model="dialogForm.sex" placeholder="性别" style="width: 300px" clearable>
+                        <el-option label="男" value="男"></el-option>
+                        <el-option label="女" value="女"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="学院/系部" label-width="512px" required>
+                    <el-cascader style="width: 300px"
+                            :options="col_dep" clearable v-model="dialogForm.ColDep"></el-cascader>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="warning" @click="reset_pwd()">重置密码</el-button>
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="save">确 定</el-button>
+                <el-button @click="addUserDialogForm = false">取 消</el-button>
+                <el-button type="primary" @click="add_affirm">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -90,14 +123,19 @@
                     role: '' ,
                 } ,
                 dialogFormVisible: false ,
+                addUserDialogForm: false ,
                 tableData: [] ,
                 dialogForm: {
                     t_id: '' ,
                     college: '' ,
                     department: '' ,
                     role: '' ,
-                    address: ''
-                }
+                    address: '' ,
+                    t_name: '' ,
+                    sex: '' ,
+                    ColDep: '' ,
+                } ,
+                col_dep: []
             }
         } ,
         created() {
@@ -110,7 +148,12 @@
                    method: 'get'
                }).then(res => {
                    this.tableData = res.data;
-               })
+               });
+                request({
+                    url: 'user/getCollege' ,
+                }).then(res => {
+                    this.col_dep = res.data;
+                })
             } ,
             edit(row) {
                 this.dialogForm.college = row.college;
@@ -194,7 +237,39 @@
                 queryData(url , data).then(res => {
                     this.tableData = res.data
                 })
-            }
+            } ,
+            add_user() {
+                this.addUserDialogForm = true;
+            } ,
+            add_affirm() {
+
+                request({
+                    url: 'Manager/AddUsers' ,
+                    method: 'post' ,
+                    params: {
+                        password: this.dialogForm.t_id ,
+                        t_id: this.dialogForm.t_id ,
+                        t_name: this.dialogForm.t_name ,
+                        sex: this.dialogForm.sex ,
+                        college: this.dialogForm.ColDep[0] ,
+                        department: this.dialogForm.ColDep[1] ,
+                        role: this.dialogForm.role
+                    }
+                }).then(res => {
+                    if (res.data.msg === 'success') {
+                        this.$message.success('新增成员成功');
+                        this.requestDate();
+                        this.addUserDialogForm = false;
+                    }
+                })
+            } ,
+            add_before_close() {
+                this.dialogForm.t_id =  '';
+                this.dialogForm.t_name =  '';
+                this.dialogForm.role =  '';
+                this.dialogForm.sex =  '';
+                this.addUserDialogForm = false;
+            } ,
         }
     }
 </script>

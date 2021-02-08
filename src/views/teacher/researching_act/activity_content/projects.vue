@@ -126,6 +126,8 @@
                 } ,
                 tableData: [],
                 btn_show: true ,
+                fileList: [] ,
+                fileForm: new FormData()
             };
         },
         created() {

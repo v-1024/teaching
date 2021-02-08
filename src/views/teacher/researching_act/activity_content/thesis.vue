@@ -170,7 +170,6 @@
                 }).then(() => {
                     if (this.fileForm.file !== '')
                         this.$refs.upload.submit();
-                    this.fileForm.append('file' , file);
                     this.tableData[0].term = this.formInline.def_term;
                     this.tableData[0].state = '1';
                     this.tableData[0].t_id = sessionStorage.getItem('t_id');

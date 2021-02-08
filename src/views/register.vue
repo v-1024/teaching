@@ -127,7 +127,6 @@
             request({
                 url: 'user/getCollege' ,
             }).then(res => {
-                console.log(res.data);
                 this.ruleForm.col_dep = res.data;
             })
         } ,

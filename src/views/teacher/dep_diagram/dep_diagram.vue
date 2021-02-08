@@ -36,7 +36,7 @@
                 direction="rtl"
                 :show-close="false"
                 size="70%">
-            <tab_collection :index="cindex" :tableData="contentData"></tab_collection>
+            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term"></tab_collection>
         </el-drawer>
     </div>
 </template>

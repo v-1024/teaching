@@ -42,7 +42,7 @@
                 direction="rtl"
                 :show-close="false"
                 size="70%">
-            <tab_collection :index="cindex"></tab_collection>
+            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -79,7 +79,8 @@
                     {name: '教师奖励一览表' , state: false} ,
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
-                ]
+                ] ,
+                contentData: []
             }
         } ,
         created() {
@@ -98,7 +99,7 @@
                     url: 'HandOfCollege/getdept' ,
                     method: 'post' ,
                     params: {
-                        college_name: '2' //院信息在登录时保存起来
+                        college_name: sessionStorage.getItem('college') //院信息在登录时保存起来
                     }
                 }).then(res => {
                     this.formInline.dep_name = res.data;
@@ -108,7 +109,58 @@
             check(index , row) {
                 this.drawer = true;
                 this.cindex = index;
-            }
+                switch (index) {
+                    case 0:
+                        this.requestContent('');
+                        break;
+                    case 1:
+                        this.requestContent('HandOfDept/listenlesson');
+                        break;
+                    case 2:
+                        this.requestContent('HandOfDept/teachcheck');
+                        break;
+                    case 3:
+                        this.requestContent('');
+                        break;
+                    case 4:
+                        this.requestContent('HandOfDept/teachplancheck');
+                        break;
+                    case 5:
+                        this.requestContent('HandOfDept/attendance');
+                        break;
+                    case 6:
+                        this.requestContent('HandOfDept/experimentcheck');
+                        break;
+                    case 7:
+                        this.requestContent('HandOfDept/homeworkcheck');
+                        break;
+                    case 8:
+                        this.requestContent('HandOfDept/communication');
+                        break;
+                    case 9:
+                        this.requestContent('HandOfDept/teachaward');
+                        break;
+                    case 10:
+                        this.requestContent('HandOfDept/teachproject');
+                        break;
+                    case 11:
+                        this.requestContent('HandOfDept/departmentsummary');
+                        break;
+                }
+            } ,
+            requestContent(url) {
+                request({
+                    url: url ,
+                    method: 'post' ,
+                    params: {                  //登录后获取
+                        term: this.formInline.def_term ,
+                        college: sessionStorage.getItem('college') ,
+                        department: this.formInline.def_dep
+                    }
+                }).then(res => {
+                    this.contentData = res.data;
+                })
+            } ,
         }
     }
 </script>

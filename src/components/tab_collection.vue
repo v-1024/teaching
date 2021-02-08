@@ -259,14 +259,14 @@
         name: "tab_collection" ,
         data() {
             return {
-                college: '计算机科学与工程学院' ,
-                department: '网络工程系' ,
-                term: '2019-2020-2' ,
-                time: '2020.5.20' ,
+                college: sessionStorage.getItem('college') ,
+                department: sessionStorage.getItem('department') ,
+                time: this.term + '10-11周' ,
                 dep_head: '张三' ,
             }
         } ,
         props: {
+            term: '' ,
             index: '' ,
             tableData: {
                 default: [] ,
