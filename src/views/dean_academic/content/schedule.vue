@@ -111,7 +111,7 @@
                 this.cindex = index;
                 switch (index) {
                     case 0:
-                        this.requestContent('');
+                        this.requestContent('HandOfDept/openclassrecord');
                         break;
                     case 1:
                         this.requestContent('HandOfDept/listenlesson');
@@ -120,7 +120,7 @@
                         this.requestContent('HandOfDept/teachcheck');
                         break;
                     case 3:
-                        this.requestContent('');
+                        this.requestContent('HandOfDept/summaryandmidtermdata');
                         break;
                     case 4:
                         this.requestContent('HandOfDept/teachplancheck');
@@ -144,7 +144,7 @@
                         this.requestContent('HandOfDept/teachproject');
                         break;
                     case 11:
-                        this.requestContent('HandOfDept/departmentsummary');
+                        this.requestContent('HandOfDept/summaryandmidtermdata');
                         break;
                 }
             } ,
