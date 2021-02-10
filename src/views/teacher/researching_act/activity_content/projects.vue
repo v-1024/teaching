@@ -224,7 +224,7 @@
                     this.btn_show = false;
                 else
                     this.btn_show = true;
-                const url = 'Researchactivity/Project_show ';
+                const url = 'Researchactivity/Project_show';
                 const data = {
                     term: this.formInline.def_term ,
                     t_id: sessionStorage.getItem('t_id') ,

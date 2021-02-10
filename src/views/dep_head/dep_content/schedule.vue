@@ -59,6 +59,14 @@
                 </template>
             </el-table-column>
         </el-table>
+
+        <el-drawer
+                :visible.sync="drawer"
+                direction="rtl"
+                :show-close="false"
+                size="70%">
+                <schedule_tab :term="formInline.def_term" :t_id="c_t_id"></schedule_tab>
+        </el-drawer>
     </div>
 </template>
 
@@ -67,9 +75,11 @@
     import {queryTerm} from "../../../pubRequest/queryTerm";
     import {queryTermLast} from "../../../pubRequest/queryTerm";
     import {queryData} from "../../../pubRequest/queryData";
+    import Schedule_tab from "../../../components/schedule_tab";
 
     export default {
         name: "schedule" ,
+        components: {Schedule_tab},
         data() {
             return {
                 formInline: {
@@ -79,7 +89,9 @@
                     def_term: '' ,  //当前学年（后端获取）：默认选中
                     term: []       //学年从后端获取
                 } ,
-                tableData: []
+                tableData: [] ,
+                drawer: false ,
+                c_t_id: ''
             }
         } ,
         created() {
@@ -105,10 +117,8 @@
             } ,
             details (index , row) {
                 //转到该教师提交的材料的详情页
-                this.$message({
-                    type: 'success',
-                    message: '操作成功!'
-                });
+                this.c_t_id = row.t_id;
+                this.drawer = true;
             },
             reject(index , row) {
                 console.log(row);
@@ -126,7 +136,7 @@
                         }
                     }).then(res => {
                         if (res.data.msg === 'success') {
-                            this.qurey();
+                            this.requestDate();
                             this.$message({
                                 type: 'success',
                                 message: '操作成功!'
@@ -146,8 +156,8 @@
                     term: this.formInline.def_term ,
                     t_id: this.formInline.t_id ,
                     t_name: this.formInline.t_name ,
-                    college: '1' ,                  //登录信息中获得
-                    department: '1'
+                    college: sessionStorage.getItem('college') ,                  //登录信息中获得
+                    department: sessionStorage.getItem('department')
                 };
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;

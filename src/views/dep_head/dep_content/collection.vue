@@ -23,7 +23,7 @@
             </el-table>
         <div class="upload">
             <el-upload
-                    ref="upload"
+                    ref="upload1"
                     action=""
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
@@ -31,12 +31,29 @@
                     :auto-upload="false"
                     multiple
                     :limit="3"
-                    :http-request="upFile"
+                    :http-request="upFile1"
                     :on-exceed="handleExceed"
-                    style="width: 30%">
+                    style="width: 25%">
                 <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
                 <div slot="tip" class="el-upload__tip">上传计划与总结</div>
             </el-upload>
+
+            <el-upload
+                    ref="upload2"
+                    action=""
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="3"
+                    :http-request="upFile2"
+                    :on-exceed="handleExceed"
+                    style="width: 10%">
+                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
+                <div slot="tip" class="el-upload__tip">上传期中教学检查基本数据统计表</div>
+            </el-upload>
+
             <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
         </div>
 
@@ -77,12 +94,15 @@
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
                 ] ,
-                contentData: []
+                contentData: [] ,
+                fileList1: [] ,
+                fileList2: [] ,
+                fileForm: new FormData()
             }
         } ,
         created() {
             queryTermLast().then(res => {
-                this.def_term = res.res.data[0].term;
+                this.def_term = res.data[0].term;
             })
         } ,
         methods: {
@@ -91,7 +111,7 @@
                 this.cindex = index;
                 switch (index) {
                     case 0:
-                        this.requestContent('');
+                        this.requestContent('HandOfDept/openclassrecord');
                         break;
                     case 1:
                         this.requestContent('HandOfDept/listenlesson');
@@ -100,7 +120,7 @@
                         this.requestContent('HandOfDept/teachcheck');
                         break;
                     case 3:
-                        this.requestContent('');
+                        this.requestContent('HandOfDept/summaryandmidtermdata');
                         break;
                     case 4:
                         this.requestContent('HandOfDept/teachplancheck');
@@ -124,7 +144,7 @@
                         this.requestContent('HandOfDept/teachproject');
                         break;
                     case 11:
-                        this.requestContent('HandOfDept/departmentsummary');
+                        this.requestContent('HandOfDept/summaryandmidtermdata');
                         break;
                 }
             } ,
@@ -162,8 +182,8 @@
                     method: 'post' ,
                     params: {
                         info: index+1 ,
-                        t_id: '1' ,
-                        term: '2' ,
+                        t_id: sessionStorage.getItem('t_id') ,
+                        term: this.def_term ,
                         num: state
                     }
                 }).then(res => {
@@ -171,13 +191,51 @@
                         this.$message.success('操作成功')
                 })
             } ,
-            upFile(param) {
+            upFile1(param) {
                 const file = param.file;
-                let fileForm = new FormData();
-                fileForm.append()
+                console.log(file);
+                this.fileForm.append('summary' , file);
+                this.fileList1.push({
+                    name: file.name ,
+                });
+            } ,
+            upFile2(param) {
+                const file = param.file;
+                console.log(file);
+                this.fileForm.append('datastatistics' , file);
+                this.fileList2.push({
+                    name: file.name ,
+                });
             } ,
             submit() {
-                this.$refs.uplode.submit();
+                this.$confirm('提交后不能修改，信息将上交给学院，请确保所有信息正确以及文件上传无误', '提示', {
+                    type: 'warning'
+                }).then(() => {
+                    if (this.fileForm.teachplan !== '')
+                        this.$refs.upload1.submit();
+                    if (this.fileForm.homework !== '')
+                        this.$refs.upload2.submit();
+                    request({
+                        url: 'HandOfDept/deptsummary',
+                        method: 'post',
+                        data: this.fileForm ,
+                        params: {
+                            t_id: sessionStorage.getItem('t_id') ,
+                            term: this.def_term
+                        } ,
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.$message.success('文件上传成功');
+                            this.fileForm = new FormData();
+                            this.fileList1.splice(0,1);
+                            this.fileList2.splice(0,1);
+                        }
+                    });
+                }).catch(() => {
+                });
             }
         }
     }
@@ -202,6 +260,6 @@
          width: 150px;
          height: 40px;
          position: absolute;
-         right: 150px;
+         left: 1200px;
      }
 </style>

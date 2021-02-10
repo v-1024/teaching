@@ -1,12 +1,45 @@
 <template>
     <div>
+        <!--0.评课记录表-->
+        <el-card class="box-card" v-if="index === 0">
+            <div slot="header" style="text-align: center">
+                <span class="title">公开课评课记录</span>
+            </div>
+            <div class="body">
+                <span class="item">系部：{{department}}</span>
+                <span class="item">统计时间：{{time}}</span>
+
+            </div>
+
+            <div class="table">
+                <el-table
+                        :data="tableData"
+                        border
+                        height="550px"
+                        style="width: 100%">
+                    <el-table-column prop="t_id" label="员工号"></el-table-column>
+                    <el-table-column prop="t_name" label="姓名"></el-table-column>
+                    <el-table-column label="下载">
+                        <template slot-scope="scope">
+                            <el-dropdown>
+                          <span class="el-dropdown-link" @click="downLoad(scope.row.ll)">
+                              文件下载
+                          </span>
+                            </el-dropdown>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+
+        </el-card>
+
         <!--1.听课统计表-->
         <el-card class="box-card" v-if="index === 1">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机学院各系部听课评课次数统计表</span>
+                <span class="title">{{term}}{{college}}各系部听课评课次数统计表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -59,17 +92,48 @@
                     </el-table>
                 </div>
 
-            </el-card >
+        </el-card >
 
         <!--3.期中教学检查基本数据统计表-->
+        <el-card class="box-card" v-if="index === 3">
+            <div slot="header" style="text-align: center">
+                <span class="title">系部期中教学检查基本数据统计表</span>
+            </div>
+            <div class="body">
+                <span class="item">学院：{{college}}</span>
+                <span class="item">统计时间：{{time}}</span>
+
+            </div>
+
+            <div class="table">
+                <el-table
+                        :data="tableData"
+                        border
+                        height="550px"
+                        style="width: 100%">
+                    <el-table-column prop="college" label="学院"></el-table-column>
+                    <el-table-column prop="department" label="系部"></el-table-column>
+                    <el-table-column label="下载">
+                        <template slot-scope="scope">
+                            <el-dropdown>
+                          <span class="el-dropdown-link" @click="downLoad(scope.row.datastatistics)">
+                              文件下载
+                          </span>
+                            </el-dropdown>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+
+        </el-card>
 
         <!--4.系部教案检查登记表-->
         <el-card class="box-card" v-if="index === 4">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机学院各系部教案检查登记表</span>
+                <span class="title">{{term}}{{college}}各系部教案检查登记表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -92,10 +156,10 @@
         <!--5.系部考勤统计表-->
         <el-card class="box-card" v-if="index === 5">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机学院各系部考勤统计表</span>
+                <span class="title">{{term}}{{college}}各系部考勤统计表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -118,10 +182,10 @@
         <!--6.系部实验报告检查登记表-->
         <el-card class="box-card" v-if="index === 6">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机学院各系部实验报告检查登记表</span>
+                <span class="title">{{term}}{{college}}各系部实验报告检查登记表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -144,10 +208,10 @@
         <!--7.系部作业检查登记表-->
         <el-card class="box-card" v-if="index === 7">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机学院各系部作业检查登记表</span>
+                <span class="title">{{term}}{{college}}各系部作业检查登记表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -170,10 +234,10 @@
         <!--8.教师对外交流情况一览表-->
         <el-card class="box-card" v-if="index === 8">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机科学与工程学院教师对外交流情况一览表</span>
+                <span class="title">{{term}}{{college}}教师对外交流情况一览表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -197,10 +261,10 @@
         <!--9.教师奖励一览表-->
         <el-card class="box-card" v-if="index === 9">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机科学与工程学院教师奖励一览表</span>
+                <span class="title">{{term}}{{college}}教师奖励一览表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -223,10 +287,10 @@
         <!--10.教研项目一览表-->
         <el-card class="box-card" v-if="index === 10">
             <div slot="header" style="text-align: center">
-                <span class="title">{{term}}计算机科学与工程学院教研项目一览表</span>
+                <span class="title">{{term}}{{college}}教研项目一览表</span>
             </div>
             <div class="body">
-                <span class="item">{{department}}系</span>
+                <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
 
             </div>
@@ -248,7 +312,36 @@
         </el-card>
 
         <!--11.计划与总结-->
+        <el-card class="box-card" v-if="index === 11">
+            <div slot="header" style="text-align: center">
+                <span class="title">系部计划与总结</span>
+            </div>
+            <div class="body">
+                <span class="item">学院：{{college}}</span>
+                <span class="item">统计时间：{{time}}</span>
+            </div>
 
+            <div class="table">
+                <el-table
+                        :data="tableData"
+                        border
+                        height="550px"
+                        style="width: 100%">
+                    <el-table-column prop="college" label="学院"></el-table-column>
+                    <el-table-column prop="department" label="系部"></el-table-column>
+                    <el-table-column label="下载">
+                        <template slot-scope="scope">
+                            <el-dropdown>
+                          <span class="el-dropdown-link" @click="downLoad(scope.row.summary)">
+                              文件下载
+                          </span>
+                            </el-dropdown>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+
+        </el-card>
 
 
     </div>
@@ -272,7 +365,21 @@
                 default: [] ,
                 type: Array
             }
+        } ,
+        methods: {
+            downLoad(command) {
+                if (command) {
+                    let a = document.createElement("a");
+                    a.href = '/api/file/down?url=' + command;
+                    document.body.appendChild(a);
+                    a.click()
+                }
+                else {
+                    this.$message.error('文件下载失败，可能原因是未上传该文件')
+                }
+            }
         }
+
     }
 </script>
 
@@ -296,5 +403,10 @@
     .box-card {
         height: 1200px;
         margin-top: -50px;
+    }
+
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
     }
 </style>
