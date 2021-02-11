@@ -36,7 +36,8 @@
                 direction="rtl"
                 :show-close="false"
                 size="70%">
-            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term"></tab_collection>
+            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term"
+                            :department="sessionStorage.getItem('department')"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -123,7 +124,7 @@
                         this.requestContent('HandOfDept/teachproject');
                         break;
                     case 11:
-                        this.requestContent('HandOfDept/openclassrecord');
+                        this.requestContent('HandOfDept/summaryandmidtermdata');
                         break;
                 }
             } ,

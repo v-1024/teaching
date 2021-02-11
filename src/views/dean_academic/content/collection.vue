@@ -38,7 +38,7 @@
                 direction="rtl"
                 :show-close="false"
                 size="70%">
-            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term"></tab_collection>
+            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term" :department="dep"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -75,7 +75,8 @@
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
                 ] ,
-                contentData: []
+                contentData: [] ,
+                dep: ''
             }
         } ,
         created() {
@@ -90,8 +91,6 @@
             })
         } ,
         methods: {
-
-            //院级的汇总表的接口是什么？？？
             check(index , row) {
                 this.drawer = true;
                 this.cindex = index;
@@ -143,6 +142,7 @@
                         college: sessionStorage.getItem('college') ,
                     }
                 }).then(res => {
+                    this.dep = sessionStorage.getItem('college') + '各系部';
                     this.contentData = res.data;
                 })
             } ,

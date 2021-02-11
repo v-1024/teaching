@@ -69,7 +69,6 @@
                     <span class="item">系部：{{department}}</span>
                     <span class="item">学期：{{term}}</span>
                     <span class="item">时间：{{time}}</span>
-                    <span class="item">系主任：{{dep_head}}</span>
                 </div>
 
                 <div class="table">
@@ -291,7 +290,7 @@
             </div>
             <div class="body">
                 <span class="item">系部：{{department}}</span>
-                <span class="item">统计时间：{{time}}</span>
+                <span class="item">统计时间-：{{time}}</span>
 
             </div>
 
@@ -353,14 +352,13 @@
         data() {
             return {
                 college: sessionStorage.getItem('college') ,
-                department: sessionStorage.getItem('department') ,
-                time: this.term + '10-11周' ,
-                dep_head: '张三' ,
+                time: this.term + '-10-11周' ,
             }
         } ,
         props: {
             term: '' ,
             index: '' ,
+            department: '' ,
             tableData: {
                 default: [] ,
                 type: Array

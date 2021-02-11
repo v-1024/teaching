@@ -41,8 +41,9 @@
                 :visible.sync="drawer"
                 direction="rtl"
                 :show-close="false"
-                size="70%">
-            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term"></tab_collection>
+                size="70%"
+                :before-close="beforeClose">
+            <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term" :department="dep"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -80,7 +81,8 @@
                     {name: '教研项目一览表' , state: false} ,
                     {name: '计划与总结' , state: false}
                 ] ,
-                contentData: []
+                contentData: [] ,
+                dep: ''
             }
         } ,
         created() {
@@ -158,6 +160,10 @@
                         department: this.formInline.def_dep
                     }
                 }).then(res => {
+                    if (this.formInline.def_dep === '')
+                        this.dep = sessionStorage.getItem('college') + '各系部';
+                    else
+                        this.dep = this.formInline.def_dep;
                     this.contentData = res.data;
                 })
             } ,
