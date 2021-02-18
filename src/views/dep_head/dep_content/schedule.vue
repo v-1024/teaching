@@ -23,7 +23,8 @@
                 stripe
                 :data="tableData"
                 height="600px"
-                style="width: 100%">
+                style="width: 100%"
+                :cell-style="setCellStyle">
             <el-table-column prop="t_id" label="员工号"></el-table-column>
             <el-table-column prop="t_name" label="姓名"></el-table-column>
             <el-table-column label="教学活动">
@@ -42,7 +43,7 @@
             <el-table-column label="对外交流">
                 <el-table-column prop="communication_state" label="交流考察"></el-table-column>
             </el-table-column>
-            <el-table-column prop="teachercommit_state" label="状态"></el-table-column>
+            <el-table-column prop="teachercommit_state" label="教师是否确认"></el-table-column>
             <el-table-column label="是否通过" width="190px">
                 <template slot-scope="scope">
                     <el-tooltip content="查看教师提交材料的详细内容" placement="left-start" effect="light">
@@ -162,6 +163,45 @@
                 queryData(url , data).then(res =>{
                     this.tableData = res.data;
                 })
+            } ,
+            setCellStyle({row, column, rowIndex, columnIndex}) {
+                if (row.teachcheck_state === '已提交' && columnIndex === 2) {
+                    return 'color: #409EFF'
+                } else if (row.teachcheck_state === '未提交' && columnIndex === 2) {
+                    return 'color: #F56C6C'
+                }if (row.teachplancheck_state === '已提交' && columnIndex === 3) {
+                    return 'color: #409EFF'
+                } else if (row.teachplancheck_state === '未提交' && columnIndex === 3) {
+                    return 'color: #F56C6C'
+                }if (row.achievement_state === '已提交' && columnIndex === 4) {
+                    return 'color: #409EFF'
+                } else if (row.achievement_state === '未提交' && columnIndex === 4) {
+                    return 'color: #F56C6C'
+                }if (row.project_state === '已提交' && columnIndex === 5) {
+                    return 'color: #409EFF'
+                } else if (row.project_state === '未提交' && columnIndex === 5) {
+                    return 'color: #F56C6C'
+                }if (row.award_state === '已提交' && columnIndex === 6) {
+                    return 'color: #409EFF'
+                } else if (row.award_state === '未提交' && columnIndex === 6) {
+                    return 'color: #F56C6C'
+                }if (row.thesis_state === '已提交' && columnIndex === 7) {
+                    return 'color: #409EFF'
+                } else if (row.thesis_state === '未提交' && columnIndex === 7) {
+                    return 'color: #F56C6C'
+                }if (row.studentcompetition_state === '已提交' && columnIndex === 8) {
+                    return 'color: #409EFF'
+                } else if (row.studentcompetition_state === '未提交' && columnIndex === 8) {
+                    return 'color: #F56C6C'
+                }if (row.communication_state === '已提交' && columnIndex === 9) {
+                    return 'color: #409EFF'
+                } else if (row.communication_state === '未提交' && columnIndex === 9) {
+                    return 'color: #F56C6C'
+                }if (row.teachercommit_state === '已确认' && columnIndex === 10) {
+                    return 'color: #409EFF'
+                } else if (row.teachercommit_state === '未确认' && columnIndex === 10) {
+                    return 'color: #F56C6C'
+                }
             }
         }
     }

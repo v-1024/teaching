@@ -135,7 +135,7 @@
                                border
                                style="width:1000px;">
                         <el-table-column
-                                prop="name"
+                                prop="t_name"
                                 label="教师姓名"
                                 width="180">
                         </el-table-column>

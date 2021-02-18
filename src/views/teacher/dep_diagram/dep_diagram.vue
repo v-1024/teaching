@@ -37,7 +37,7 @@
                 :show-close="false"
                 size="70%">
             <tab_collection :index="cindex" :tableData="contentData" :term="formInline.def_term"
-                            :department="sessionStorage.getItem('department')"></tab_collection>
+                            :department="dep"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -55,6 +55,7 @@
             return {
                 drawer: false ,
                 cindex: '' ,
+                dep: sessionStorage.getItem('department'),
                 formInline: {
                     def_term: '' ,
                     term: []        //学年从后端获取

@@ -22,7 +22,7 @@
                     <el-table-column label="下载">
                         <template slot-scope="scope">
                             <el-dropdown>
-                          <span class="el-dropdown-link" @click="downLoad(scope.row.ll)">
+                          <span class="el-dropdown-link" @click="downLoad(scope.row.evaluationrecordspath)">
                               文件下载
                           </span>
                             </el-dropdown>

@@ -63,7 +63,7 @@
                 :show-close="false"
                 size="70%">
             <tab_collection :index="cindex" :tableData="contentData" :term="def_term"
-                            :department="sessionStorage.getItem('department')"></tab_collection>
+                            :department="dep"></tab_collection>
         </el-drawer>
     </div>
 </template>
@@ -71,6 +71,7 @@
 <script>
     import {request} from "../../../network/request";
     import {queryTermLast} from "../../../pubRequest/queryTerm";
+    import {queryData} from "../../../pubRequest/queryData";
     import Tab_collection from "../../../components/tab_collection";
 
     export default {
@@ -81,20 +82,8 @@
                 drawer: false ,
                 cindex: '' ,
                 def_term: '' ,
-                tableData: [
-                    {name: '公开课评课记录' , state: false} ,
-                    {name: '听课统计表' , state: false} ,
-                    {name: '教师教学检查表' , state: false} ,
-                    {name: '期中教学检查基本数据统计表' , state: false} ,
-                    {name: '系部教案检查登记表' , state: false} ,
-                    {name: '系部考勤统计表' , state: false} ,
-                    {name: '系部实验报告检查登记表' , state: false} ,
-                    {name: '系部作业检查登记表' , state: false} ,
-                    {name: '教师对外交流情况一览表' , state: false} ,
-                    {name: '教师奖励一览表' , state: false} ,
-                    {name: '教研项目一览表' , state: false} ,
-                    {name: '计划与总结' , state: false}
-                ] ,
+                dep: sessionStorage.getItem('department') ,
+                tableData: [] ,
                 contentData: [] ,
                 fileList1: [] ,
                 fileList2: [] ,
@@ -104,6 +93,24 @@
         created() {
             queryTermLast().then(res => {
                 this.def_term = res.data[0].term;
+            });
+            const data = {
+                t_id: sessionStorage.getItem('t_id') ,
+            };
+            queryData('HandOfDept/getdeptsummarystate' , data).then(res => {
+                this.tableData =
+                    [{name: '公开课评课记录' , state: res.data[0].openclassrecordstate} ,
+                    {name: '听课统计表' , state: res.data[0].listenclassstate} ,
+                    {name: '教师教学检查表' , state: res.data[0].teachcheckstate} ,
+                    {name: '期中教学检查基本数据统计表' , state: res.data[0].datastate} ,
+                    {name: '系部教案检查登记表' , state: res.data[0].teachplanstate} ,
+                    {name: '系部考勤统计表' , state: res.data[0].investigatestate} ,
+                    {name: '系部实验报告检查登记表' , state: res.data[0].experimentstate} ,
+                    {name: '系部作业检查登记表' , state: res.data[0].homerworkcheckstate} ,
+                    {name: '教师对外交流情况一览表' , state: res.data[0].commiunicationstate} ,
+                    {name: '教师奖励一览表' , state: res.data[0].awardstate} ,
+                    {name: '教研项目一览表' , state: res.data[0].projectstate} ,
+                    {name: '计划与总结' , state: false}];
             })
         } ,
         methods: {

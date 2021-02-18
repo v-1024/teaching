@@ -8,6 +8,10 @@
                 <p class="hover" @click="profile">个人中心</p>
                 <p class="hover" v-show="role_id !== '1'" @click="change_role">切换角色</p>
                 <p class="hover" @click="quit">退出登录</p>
+                <el-tooltip v-show="role_name === '教师'" effect="dark" placement="bottom-start"
+                            content="所有材料提交完成后点击，系主任将会获得您的提交状态" >
+                    <p id="verify" class="hover" @click="identify">确认已提交</p>
+                </el-tooltip>
             </div>
             <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
         </el-popover>
@@ -121,6 +125,23 @@
             } ,
             profile() {
                 this.drawer = true;
+            } ,
+            identify() {
+                request({
+                    url: 'PersonCenter/makeSure' ,
+                    method: 'post' ,
+                    params: {
+                        t_id: sessionStorage.getItem('t_id') ,
+                        college: sessionStorage.getItem('college') ,
+                        department: sessionStorage.getItem('department')
+                    }
+                }).then(res => {
+                    if (res.data.msg === 'success') {
+                        document.getElementById('verify').style.color = '#409EFF';
+                        this.$message.success('操作成功')
+                    }
+
+                })
             } ,
             quit() {
                 sessionStorage.clear();
