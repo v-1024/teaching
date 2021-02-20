@@ -368,12 +368,19 @@
                 tableData: [],
             }
         } ,
+        watch: {
+           t_id: {
+               handle(o , n) {
+                   n = this.t_id;
+                   if (o !== n) {
+                       this.query('Teachingwork/TeachCheck_show');
+                   }
+               }
+           }
+        } ,
         props: {
             t_id: '' ,
             term: ''
-        } ,
-        mounted() {
-           this.query('Teachingwork/TeachCheck_show');
         } ,
         methods: {
             handleClick(tab, event) {
