@@ -372,7 +372,7 @@
             t_id: '' ,
             term: ''
         } ,
-        created() {
+        mounted() {
            this.query('Teachingwork/TeachCheck_show');
         } ,
         methods: {

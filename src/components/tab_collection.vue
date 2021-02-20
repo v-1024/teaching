@@ -21,11 +21,10 @@
                     <el-table-column prop="t_name" label="姓名"></el-table-column>
                     <el-table-column label="下载">
                         <template slot-scope="scope">
-                            <el-dropdown>
-                          <span class="el-dropdown-link" @click="downLoad(scope.row.evaluationrecordspath)">
+                          <a    class="el-dropdown-link"
+                                @click="downLoad(scope.row.evaluationrecordspath)">
                               文件下载
-                          </span>
-                            </el-dropdown>
+                          </a>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -41,7 +40,6 @@
             <div class="body">
                 <span class="item">系部：{{department}}</span>
                 <span class="item">统计时间：{{time}}</span>
-
             </div>
 
             <div class="table">
@@ -114,11 +112,10 @@
                     <el-table-column prop="department" label="系部"></el-table-column>
                     <el-table-column label="下载">
                         <template slot-scope="scope">
-                            <el-dropdown>
-                          <span class="el-dropdown-link" @click="downLoad(scope.row.datastatistics)">
+                          <a class="el-dropdown-link"
+                                @click="downLoad(scope.row.datastatistics)">
                               文件下载
-                          </span>
-                            </el-dropdown>
+                          </a>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -330,11 +327,10 @@
                     <el-table-column prop="department" label="系部"></el-table-column>
                     <el-table-column label="下载">
                         <template slot-scope="scope">
-                            <el-dropdown>
-                          <span class="el-dropdown-link" @click="downLoad(scope.row.summary)">
+                          <a class="el-dropdown-link"
+                                @click="downLoad(scope.row.summary)">
                               文件下载
-                          </span>
-                            </el-dropdown>
+                          </a>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -360,8 +356,7 @@
             index: '' ,
             department: '' ,
             tableData: {
-                default: [] ,
-                type: Array
+                default: []
             }
         } ,
         methods: {

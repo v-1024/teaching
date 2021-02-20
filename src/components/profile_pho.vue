@@ -77,6 +77,7 @@
 
 <script>
     import {request} from "../network/request";
+    import {queryData} from "../pubRequest/queryData";
 
     export default {
         name: "profile_pho" ,
@@ -109,6 +110,13 @@
             return this.head =  this.role_name + '：'+ this.t_name;
             sessionStorage.setItem('flag' , '0')
         } ,
+        mounted() {
+            const data = {t_id: sessionStorage.getItem('t_id')};
+            queryData('PersonCenter/makeSure_show' , data).then(res => {
+                if (res.data.msg === 'success')
+                    document.getElementById('verify').style.color = '#409EFF';
+            })
+        } ,
         methods: {
             change_role() {
                 if (sessionStorage.getItem('flag') === '0') {
@@ -127,21 +135,24 @@
                 this.drawer = true;
             } ,
             identify() {
-                request({
-                    url: 'PersonCenter/makeSure' ,
-                    method: 'post' ,
-                    params: {
-                        t_id: sessionStorage.getItem('t_id') ,
-                        college: sessionStorage.getItem('college') ,
-                        department: sessionStorage.getItem('department')
-                    }
-                }).then(res => {
-                    if (res.data.msg === 'success') {
-                        document.getElementById('verify').style.color = '#409EFF';
-                        this.$message.success('操作成功')
-                    }
+                this.$confirm('确认提交后不可修改，系主任将会获得您的提交状态，请在所有材料上交完成后确认' ,
+                    '提示' , {type : 'warning'}).then(() => {
+                    request({
+                        url: 'PersonCenter/makeSure' ,
+                        method: 'post' ,
+                        params: {
+                            t_id: sessionStorage.getItem('t_id') ,
+                            college: sessionStorage.getItem('college') ,
+                            department: sessionStorage.getItem('department')
+                        }
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            document.getElementById('verify').style.color = '#409EFF';
+                            this.$message.success('操作成功')
+                        }
 
-                })
+                    })
+                }).catch(() =>{})
             } ,
             quit() {
                 sessionStorage.clear();

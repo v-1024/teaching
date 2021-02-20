@@ -55,7 +55,7 @@
             return {
                 drawer: false ,
                 cindex: '' ,
-                dep: sessionStorage.getItem('department'),
+                dep: sessionStorage.getItem('department') ,
                 formInline: {
                     def_term: '' ,
                     term: []        //学年从后端获取
