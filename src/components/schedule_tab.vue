@@ -374,6 +374,7 @@
                    n = this.t_id;
                    if (o !== n) {
                        this.query('Teachingwork/TeachCheck_show');
+                       this.activeName = '1'
                    }
                }
            }
