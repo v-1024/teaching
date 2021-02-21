@@ -370,7 +370,7 @@
         } ,
         watch: {
            t_id: {
-               handle(o , n) {
+               handler(n , o) {
                    n = this.t_id;
                    if (o !== n) {
                        this.query('Teachingwork/TeachCheck_show');
@@ -382,6 +382,9 @@
         props: {
             t_id: '' ,
             term: ''
+        } ,
+        created(){
+            this.query('Teachingwork/TeachCheck_show');
         } ,
         methods: {
             handleClick(tab, event) {
