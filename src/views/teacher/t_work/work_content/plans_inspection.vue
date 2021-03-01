@@ -2,9 +2,9 @@
     <div class="content">
 
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学年">
+            <el-form-item label="学期">
                 <!--v-model:默认选中当前学年-->
-                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>
@@ -27,104 +27,104 @@
                    :data="tableData"
                    height="350px"
                    border
-                   style="margin-bottom: 0;width:100%">
-            <el-table-column prop="t_name" label="姓名">
+                   style="width:97%">
+            <el-table-column prop="t_name" label="姓名" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="elecplan" label="是否是电子教案">
+            <el-table-column prop="elecplan" label="是否是电子教案" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.elecplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.elecplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="textplan" label="是否是文本文档">
+            <el-table-column prop="textplan" label="是否是文本文档" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.textplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.textplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="planintegrated" label="教案是否完善">
+            <el-table-column prop="planintegrated" label="教案是否完善" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.planintegrated"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.planintegrated}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendancenum" label="考勤次数">
+            <el-table-column prop="attendancenum" label="考勤次数" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.attendancenum"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancenum}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendancerecord" label="考情是否有记录">
+            <el-table-column prop="attendancerecord" label="考情是否有记录" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.attendancerecord"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancerecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="hearclass" label="听课次数">
+            <el-table-column prop="hearclass" label="听课次数" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.hearclass"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.hearclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="assessclass" label="评课次数">
+            <el-table-column prop="assessclass" label="评课次数" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.assessclass"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.assessclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="classrecord" label="听课是否有记录">
+            <el-table-column prop="classrecord" label="听课是否有记录" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.classrecord"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.classrecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="arrangehomework" label="布置作业次数">
+            <el-table-column prop="arrangehomework" label="布置作业次数" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.arrangehomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.arrangehomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="correctinghomework" label="批改作业次数">
+            <el-table-column prop="correctinghomework" label="批改作业次数" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.correctinghomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctinghomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="experimentcount" label="实验次数">
+            <el-table-column prop="experimentcount" label="实验次数" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.experimentcount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.experimentcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="correctreportcount" label="批改实验报告次数">
+            <el-table-column prop="correctreportcount" label="批改实验报告次数" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.correctreportcount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctreportcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="homeworktype" label="电子作业/纸质作业">
+            <el-table-column prop="homeworktype" label="电子作业/纸质作业" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.homeworktype"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.homeworktype}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="experimenttype" label="实验类型">
+            <el-table-column prop="experimenttype" label="实验类型" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.experimenttype"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.experimenttype}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="100px" v-if="btn_show">
+            <el-table-column label="操作" width="100px" v-if="btn_show" align="center">
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>
                     <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
                 </template>
             </el-table-column>
-            <el-table-column label="下载" width="100px" v-if="!btn_show">
+            <el-table-column label="下载" width="100px" v-if="!btn_show" align="center">
                 <template slot-scope="scope">
                     <el-dropdown @command="handleCommand">
                           <span class="el-dropdown-link">

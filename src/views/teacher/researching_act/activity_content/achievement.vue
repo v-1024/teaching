@@ -1,9 +1,9 @@
 <template>
     <div class="content">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学年">
+            <el-form-item label="学期">
                 <!--v-model:默认选中当前学年-->
-                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>
@@ -26,11 +26,11 @@
                    :data="tableData"
                    height="350px"
                    border
-                   style="width:1000px;">
+                   style="width:97%;">
             <el-table-column
                     prop="t_name"
                     label="教师姓名"
-                    width="180">
+                    width="180" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.name"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.name}}</span>
@@ -39,7 +39,7 @@
             <el-table-column
                     prop="achievementname"
                     label="成果名称"
-                    width="250">
+                    width="250" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.achievementname"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.achievementname}}</span>
@@ -48,7 +48,7 @@
             <el-table-column
                     prop="level"
                     label="级别"
-                    width="180">
+                    width="180" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.level"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.level}}</span>
@@ -56,19 +56,19 @@
             </el-table-column>
             <el-table-column
                     prop="examination"
-                    label="审批部门">
+                    label="审批部门" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.examination"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.examination}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" v-if="btn_show">
+            <el-table-column label="操作" v-if="btn_show" align="center">
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true">编辑</el-button>
                     <el-button @click="scope.row.show =false">保存</el-button>
                 </template>
             </el-table-column>
-            <el-table-column label="下载" v-if="!btn_show">
+            <el-table-column label="下载" v-if="!btn_show" align="center">
                 <template slot-scope="scope">
                     <el-dropdown >
                         <span class="el-dropdown-link" @click="downLoad(scope.row.achieveprovepath)">

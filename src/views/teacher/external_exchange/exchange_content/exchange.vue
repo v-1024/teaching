@@ -1,9 +1,9 @@
 <template>
     <div class="content">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学年">
+            <el-form-item label="学期">
                 <!--v-model:默认选中当前学年-->
-                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>
@@ -26,11 +26,11 @@
                         :data="tableData"
                         height="350px"
                         border
-                        style="width:1100px;">
+                        style="width:97%;">
                     <el-table-column
                             prop="time"
                             label="时间"
-                            width="180">
+                            width="180" align="center">
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.time"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.time}}</span>
@@ -39,7 +39,7 @@
                     <el-table-column
                             prop="content"
                             label="教学交流、考察、学习内容"
-                            width="220">
+                            width="220" align="center">
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.content"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.content}}</span>
@@ -48,7 +48,7 @@
                     <el-table-column
                             prop="address"
                             label="地点"
-                            width="180">
+                            width="180" align="center">
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.address"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.address}}</span>
@@ -57,7 +57,7 @@
                     <el-table-column
                             prop="teachername"
                             label="教师"
-                            width="150">
+                            width="150" align="center">
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.teachername"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.teachername}}</span>
@@ -65,19 +65,19 @@
                     </el-table-column>
                     <el-table-column
                             prop="remarks"
-                            label="备注">
+                            label="备注" align="center">
                         <template slot-scope="scope">
                             <el-input  v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
                             <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" v-if="btn_show">
+                    <el-table-column label="操作" v-if="btn_show" align="center">
                         <template slot-scope="scope">
                             <el-button @click="scope.row.show =true">编辑</el-button>
                             <el-button @click="scope.row.show =false">保存</el-button>
                         </template>
                     </el-table-column>
-                    <el-table-column label="下载" v-if="!btn_show">
+                    <el-table-column label="下载" v-if="!btn_show" align="center">
                         <template slot-scope="scope">
                             <el-dropdown >
                                 <span class="el-dropdown-link" @click="downLoad(scope.row.communicationpath)">

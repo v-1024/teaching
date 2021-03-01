@@ -1,9 +1,9 @@
 <template>
     <div class="box">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学年">
+            <el-form-item label="学期">
                 <!--v-model:默认选中当前学年-->
-                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>

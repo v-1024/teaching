@@ -1,9 +1,9 @@
 <template>
     <div class="content">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学年">
+            <el-form-item label="学期">
                 <!--v-model:默认选中当前学年-->
-                <el-select placeholder="学年" v-model="formInline.def_term" clearable>
+                <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>
@@ -26,11 +26,11 @@
                    :data="tableData"
                    height="350px"
                    border
-                   style="width:1000px;">
+                   style="width:97%;">
             <el-table-column
                     prop="teacher"
                     label="教师姓名"
-                    width="180">
+                    width="180" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
@@ -39,7 +39,7 @@
             <el-table-column
                     prop="thesis"
                     label="论文名称"
-                    width="250">
+                    width="250" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.thesisname"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.thesisname}}</span>
@@ -48,7 +48,7 @@
             <el-table-column
                     prop="periodical"
                     label="刊物名称"
-                    width="200">
+                    width="200" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.publicationname"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.publicationname}}</span>
@@ -56,19 +56,19 @@
             </el-table-column>
             <el-table-column
                     prop="time"
-                    label="发表时间">
+                    label="发表时间" align="center">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.publicationtime"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.publicationtime}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" v-if="btn_show">
+            <el-table-column label="操作" v-if="btn_show" align="center">
                 <template slot-scope="scope">
                     <el-button @click="scope.row.show =true">编辑</el-button>
                     <el-button @click="scope.row.show =false">保存</el-button>
                 </template>
             </el-table-column>
-            <el-table-column label="下载" v-if="!btn_show">
+            <el-table-column label="下载" v-if="!btn_show" align="center">
                 <template slot-scope="scope">
                     <el-dropdown >
                         <span class="el-dropdown-link" @click="downLoad(scope.row.thesispath)">

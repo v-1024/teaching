@@ -33,4 +33,8 @@
         text-align: center;
         line-height: 160px;
     }
+
+    .el-menu-item {
+        font-size: 17px;
+    }
 </style>

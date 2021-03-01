@@ -28,11 +28,11 @@
                     </tr>
                     <tr>
                         <td class="btn">
-                            <el-button type="primary" @click="login">登录</el-button>
+                            <el-button type="primary" @click="login" @keyup.enter="login">登录</el-button>
                         </td>
                     </tr>
                     <tr>
-                        <td class="td3" @click="register">
+                        <td class="td3" @click="register" @keyup.enter="register">
                             用户注册
                         </td>
                     </tr>
