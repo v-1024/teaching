@@ -146,10 +146,10 @@
             add_line() {
                 if (this.tableData.length === 0) {
                     this.tableData.push({
-                        name: '1',
-                        achievementname: '1',
-                        level: '1',
-                        examination: '1',
+                        name: '',
+                        achievementname: '',
+                        level: '',
+                        examination: '',
                         show: true ,
                         state: '0'
                     })
