@@ -2,7 +2,8 @@
     <div>
         <el-popover class="span"
                     placement="bottom"
-                    trigger="hover">
+                    trigger="hover"
+                    v-if="t_name">
             <div class="span">
                 <p>{{head}}</p> <el-divider></el-divider>
                 <p class="hover" @click="profile">个人中心</p>
@@ -13,7 +14,8 @@
                     <p id="verify" class="hover" @click="identify">确认已提交</p>
                 </el-tooltip>
             </div>
-            <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
+            <el-avatar icon="el-icon-user-solid" slot="reference"
+            style="margin-top: 35px ; margin-left: 1000px" ></el-avatar>
         </el-popover>
 
         <el-drawer
@@ -98,16 +100,29 @@
                 t_id: sessionStorage.getItem('t_id') ,
                 t_email: sessionStorage.getItem('email') ,
                 t_tel: sessionStorage.getItem('tel') ,
-                address: sessionStorage.getItem('address')
+                address: sessionStorage.getItem('address') ,
+                role_id: sessionStorage.getItem('role') ,
+                t_name: sessionStorage.getItem('t_name')
             }
         } ,
         props: {
-            role_id: '' ,
             role_name: '' ,
-            t_name: ''
         } ,
         created() {
-            return this.head =  this.role_name + '：'+ this.t_name;
+            switch (this.role_id) {
+                case '1':
+                    return this.head =  '教师' + '：'+ this.t_name;
+                    break;
+                case '2':
+                    return this.head =  '系主任' + '：'+ this.t_name;
+                    break;
+                case '3':
+                    return this.head =  '院长/教务办' + '：'+ this.t_name;
+                    break;
+                case '4':
+                    return this.head =  '系统管理员';
+                    break;
+            }
             sessionStorage.setItem('flag' , '0')
         } ,
         mounted() {
@@ -222,12 +237,11 @@
 
 <style scoped>
     .el-avatar {
-        position: absolute;
+        /*position: absolute;*/
         width: 40px;
         height: 40px;
         display: inline-block;
-        margin-top: 10px;
-        right: 100px;
+        /*right: 100px;*/
     }
 
     .span {

@@ -12,7 +12,7 @@
                     <el-menu-item index="/teacher/external_exchange" @click="exchange">对外交流</el-menu-item>
                     <el-menu-item index="/teacher/dep_diagram" @click="diagram">查看系部汇总表</el-menu-item>
 
-                    <profile_pho :role_id="role_id" :role_name="role_name" :t_name="t_name"></profile_pho>
+                    <!--<profile_pho :role_id="role_id" :role_name="role_name" :t_name="t_name"></profile_pho>-->
                 </el-menu>
             </el-header>
             <router-view></router-view>
