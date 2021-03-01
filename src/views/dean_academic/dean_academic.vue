@@ -8,8 +8,6 @@
                          :default-active="active_index">
                     <el-menu-item index="/dean_academic/schedule" @click="schedule">进度检查</el-menu-item>
                     <el-menu-item index="/dean_academic/collection" @click="collection">院汇总</el-menu-item>
-
-                    <profile_pho :role_id="role_id" :role_name="role_name" :t_name="t_name"></profile_pho>
                 </el-menu>
             </el-header>
             <router-view></router-view>

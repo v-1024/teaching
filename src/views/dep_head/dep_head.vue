@@ -9,8 +9,6 @@
                     <el-menu-item index="/dep_head/schedule" @click="schedule">进度检查</el-menu-item>
                     <el-menu-item index="/dep_head/collection" @click="collection">汇总上传</el-menu-item>
                     <el-menu-item index="/dep_head/reg_audit" @click="audit">注册审核</el-menu-item>
-
-                    <profile_pho :role_id="role_id" :role_name="role_name" :t_name="t_name"></profile_pho>
                 </el-menu>
             </el-header>
         </el-container>

@@ -8,16 +8,6 @@
                          :default-active="$route.path">
                     <el-menu-item index="/admin/user_admin" @click="user">用户管理</el-menu-item>
                     <el-menu-item index="/admin/system_admin" @click="system">设置系统信息</el-menu-item>
-
-                    <el-popover class="span"
-                                placement="bottom"
-                                trigger="hover">
-                        <div class="span">
-                            <p>系统管理员</p> <el-divider></el-divider>
-                            <p class="hover" @click="quit">退出登录</p>
-                        </div>
-                        <el-avatar icon="el-icon-user-solid" slot="reference"></el-avatar>
-                    </el-popover>
                 </el-menu>
             </el-header>
             <router-view></router-view>

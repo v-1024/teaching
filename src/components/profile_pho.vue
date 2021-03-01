@@ -9,10 +9,6 @@
                 <p class="hover" @click="profile">个人中心</p>
                 <p class="hover" v-show="role_id !== '1'" @click="change_role">切换角色</p>
                 <p class="hover" @click="quit">退出登录</p>
-                <el-tooltip v-show="role_name === '教师'" effect="dark" placement="bottom-start"
-                            content="所有材料提交完成后点击，系主任将会获得您的提交状态" >
-                    <p id="verify" class="hover" @click="identify">确认已提交</p>
-                </el-tooltip>
             </div>
             <el-avatar icon="el-icon-user-solid" slot="reference"
             style="margin-top: 35px ; margin-left: 1000px" ></el-avatar>
@@ -125,13 +121,6 @@
             }
             sessionStorage.setItem('flag' , '0')
         } ,
-        mounted() {
-            const data = {t_id: sessionStorage.getItem('t_id')};
-            queryData('PersonCenter/makeSure_show' , data).then(res => {
-                if (res.data.msg === 'success')
-                    document.getElementById('verify').style.color = '#409EFF';
-            })
-        } ,
         methods: {
             change_role() {
                 if (sessionStorage.getItem('flag') === '0') {
@@ -148,26 +137,6 @@
             } ,
             profile() {
                 this.drawer = true;
-            } ,
-            identify() {
-                this.$confirm('确认提交后不可修改，系主任将会获得您的提交状态，请在所有材料上交完成后确认' ,
-                    '提示' , {type : 'warning'}).then(() => {
-                    request({
-                        url: 'PersonCenter/makeSure' ,
-                        method: 'post' ,
-                        params: {
-                            t_id: sessionStorage.getItem('t_id') ,
-                            college: sessionStorage.getItem('college') ,
-                            department: sessionStorage.getItem('department')
-                        }
-                    }).then(res => {
-                        if (res.data.msg === 'success') {
-                            document.getElementById('verify').style.color = '#409EFF';
-                            this.$message.success('操作成功')
-                        }
-
-                    })
-                }).catch(() =>{})
             } ,
             quit() {
                 sessionStorage.clear();

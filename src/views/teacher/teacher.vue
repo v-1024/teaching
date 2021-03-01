@@ -12,7 +12,10 @@
                     <el-menu-item index="/teacher/external_exchange" @click="exchange">对外交流</el-menu-item>
                     <el-menu-item index="/teacher/dep_diagram" @click="diagram">查看系部汇总表</el-menu-item>
 
-                    <!--<profile_pho :role_id="role_id" :role_name="role_name" :t_name="t_name"></profile_pho>-->
+                    <el-tooltip effect="dark" placement="bottom-start"
+                                content="所有材料提交完成后点击，系主任将会获得您的提交状态" >
+                        <el-button @click="identify" style="margin-left: 160px">确认已提交</el-button>
+                    </el-tooltip>
                 </el-menu>
             </el-header>
             <router-view></router-view>
@@ -26,6 +29,9 @@
     import Navigation from "../../components/navigation";
     import Teaching_work from "./t_work/teaching_work";
     import Profile_pho from "../../components/profile_pho";
+    import {request} from "../../network/request";
+    import {queryData} from "../../pubRequest/queryData";
+
     export default {
         name: "teacher",
         components: {Profile_pho, Teaching_work, Navigation} ,
@@ -54,6 +60,32 @@
             } ,
             diagram() {
                 this.$router.push("/teacher/dep_diagram");
+            } ,
+            identify() {
+                this.$confirm('确认提交后不可修改，系主任将会获得您的提交状态，请在所有材料上交完成后确认' ,
+                    '提示' , {type : 'warning'}).then(() => {
+                    const data = {t_id: sessionStorage.getItem('t_id')};
+                    queryData('PersonCenter/makeSure_show' , data).then(res => {
+                        if (res.data.msg === 'success') {
+                            request({
+                                url: 'PersonCenter/makeSure' ,
+                                method: 'post' ,
+                                params: {
+                                    t_id: sessionStorage.getItem('t_id') ,
+                                    college: sessionStorage.getItem('college') ,
+                                    department: sessionStorage.getItem('department')
+                                }
+                            }).then(res => {
+                                if (res.data.msg === 'success') {
+                                    this.$message.success('操作成功')
+                                }
+                            })
+                        }
+                        else {
+                            this.$message.warning('您已确认提交，无需重复确认')
+                        }
+                    })
+                }).catch(() =>{})
             } ,
         } ,
         computed: {
