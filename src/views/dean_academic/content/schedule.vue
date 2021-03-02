@@ -33,6 +33,10 @@
                             size="small"
                             type="primary"
                             @click="check(scope.$index, scope.row)">查看</el-button>  <!--查看做成dialog形式-->
+
+                    <el-button
+                            size="small"
+                            @click="">下载</el-button>
                 </template>
             </el-table-column>
         </el-table>

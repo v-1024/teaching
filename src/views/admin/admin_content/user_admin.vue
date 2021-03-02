@@ -28,22 +28,22 @@
                     border
                     stripe
                     style="width: 100%">
-                <el-table-column prop="t_id" label="员工号" width="100px"></el-table-column>
-                <el-table-column prop="t_name" label="姓名" width="100px"></el-table-column>
-                <el-table-column prop="sex" label="性别" width="80px"></el-table-column>
-                <el-table-column prop="college" label="学院" width="200px"></el-table-column>
-                <el-table-column prop="department" label="系部"></el-table-column>
-                <el-table-column prop="role" label="职位" width="100px"></el-table-column>
-                <el-table-column prop="tel" label="电话号码"></el-table-column>
-                <el-table-column prop="address" label="办公地点"></el-table-column>
-                <el-table-column prop="email" label="Email"></el-table-column>
-                <el-table-column label="状态" width="90px">
+                <el-table-column prop="t_id" label="员工号" width="100px" align="center"></el-table-column>
+                <el-table-column prop="t_name" label="姓名" width="100px" align="center"></el-table-column>
+                <el-table-column prop="sex" label="性别" width="80px" align="center"></el-table-column>
+                <el-table-column prop="college" label="学院" width="200px" align="center"></el-table-column>
+                <el-table-column prop="department" label="系部" align="center"></el-table-column>
+                <el-table-column prop="role" label="职位" width="100px" align="center"></el-table-column>
+                <el-table-column prop="tel" label="电话号码" align="center"></el-table-column>
+                <el-table-column prop="address" label="办公地点" align="center"></el-table-column>
+                <el-table-column prop="email" label="Email" align="center"></el-table-column>
+                <el-table-column label="状态" width="90px" align="center">
                     <!--作用域插槽-->
                     <template slot-scope="scope">
                         <el-switch v-model="scope.row.state" @change="switch_change(scope.row , $event)"></el-switch>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作">
+                <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" @click="edit(scope.row)">修改信息</el-button>
                     </template>

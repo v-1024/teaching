@@ -21,14 +21,18 @@
                 style="width: 100%">
                 <el-table-column prop="name" label="名称" align="center"></el-table-column>
 
-                <el-table-column label="详情" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                size="small"
-                                type="primary"
-                                @click="check(scope.$index, scope.row)">查看</el-button>
-                    </template>
-                </el-table-column>
+            <el-table-column label="详情" align="center">
+                <template slot-scope="scope">
+                    <el-button
+                            size="small"
+                            type="primary"
+                            @click="check(scope.$index, scope.row)">查看</el-button>
+
+                    <el-button
+                            size="small"
+                            @click="">下载</el-button>
+                </template>
+            </el-table-column>
         </el-table>
 
         <el-drawer

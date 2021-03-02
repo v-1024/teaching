@@ -25,26 +25,26 @@
                 height="600px"
                 style="width: 100%"
                 :cell-style="setCellStyle">
-            <el-table-column prop="t_id" label="员工号"></el-table-column>
-            <el-table-column prop="t_name" label="姓名"></el-table-column>
-            <el-table-column label="教学活动">
-                <el-table-column prop="teachcheck_state" label="教学检查"></el-table-column>
-                <el-table-column prop="teachplancheck_state" label="教案检查"></el-table-column>
+            <el-table-column prop="t_id" label="员工号" align="center"></el-table-column>
+            <el-table-column prop="t_name" label="姓名" align="center"></el-table-column>
+            <el-table-column label="教学活动" align="center">
+                <el-table-column prop="teachcheck_state" label="教学检查" align="center"></el-table-column>
+                <el-table-column prop="teachplancheck_state" label="教案检查" align="center"></el-table-column>
             </el-table-column>
-            <el-table-column label="教研活动">
-                <el-table-column prop="achievement_state" label="教研成果"></el-table-column>
-                <el-table-column prop="project_state" label="教研项目"></el-table-column>
-                <el-table-column prop="award_state" label="教师奖励"></el-table-column>
-                <el-table-column prop="thesis_state" label="教研论文"></el-table-column>
+            <el-table-column label="教研活动" align="center">
+                <el-table-column prop="achievement_state" label="教研成果" align="center"></el-table-column>
+                <el-table-column prop="project_state" label="教研项目" align="center"></el-table-column>
+                <el-table-column prop="award_state" label="教师奖励" align="center"></el-table-column>
+                <el-table-column prop="thesis_state" label="教研论文" align="center"></el-table-column>
             </el-table-column>
-            <el-table-column label="学生培养">
-                <el-table-column prop="studentcompetition_state" label="学生竞赛"></el-table-column>
+            <el-table-column label="学生培养" align="center">
+                <el-table-column prop="studentcompetition_state" label="学生竞赛" align="center"></el-table-column>
             </el-table-column>
-            <el-table-column label="对外交流">
-                <el-table-column prop="communication_state" label="交流考察"></el-table-column>
+            <el-table-column label="对外交流" align="center">
+                <el-table-column prop="communication_state" label="交流考察" align="center"></el-table-column>
             </el-table-column>
-            <el-table-column prop="teachercommit_state" label="教师是否确认"></el-table-column>
-            <el-table-column label="是否通过" width="190px">
+            <el-table-column prop="teachercommit_state" label="教师是否确认" align="center"></el-table-column>
+            <el-table-column label="是否通过" width="190px" align="center">
                 <template slot-scope="scope">
                     <el-tooltip content="查看教师提交材料的详细内容" placement="left-start" effect="light">
                         <el-button

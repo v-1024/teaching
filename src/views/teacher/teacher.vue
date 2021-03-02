@@ -67,6 +67,9 @@
                     const data = {t_id: sessionStorage.getItem('t_id')};
                     queryData('PersonCenter/makeSure_show' , data).then(res => {
                         if (res.data.msg === 'success') {
+                            this.$message.warning('您已确认提交，无需重复确认')
+                        }
+                        else {
                             request({
                                 url: 'PersonCenter/makeSure' ,
                                 method: 'post' ,
@@ -80,9 +83,6 @@
                                     this.$message.success('操作成功')
                                 }
                             })
-                        }
-                        else {
-                            this.$message.warning('您已确认提交，无需重复确认')
                         }
                     })
                 }).catch(() =>{})
