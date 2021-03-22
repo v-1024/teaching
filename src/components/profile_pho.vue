@@ -2,12 +2,12 @@
     <div>
         <el-popover class="span"
                     placement="bottom"
-                    trigger="hover"
-                    v-if="t_name">
+                    trigger="hover">
+                    <!--v-if="t_name">-->
             <div class="span">
                 <p>{{head}}</p> <el-divider></el-divider>
                 <p class="hover" @click="profile">个人中心</p>
-                <p class="hover" v-show="role_id !== '1'" @click="change_role">切换角色</p>
+                <p class="hover" v-show="role_id !== '1' && role_id !== '4'" @click="change_role">切换角色</p>
                 <p class="hover" @click="quit">退出登录</p>
             </div>
             <el-avatar icon="el-icon-user-solid" slot="reference"

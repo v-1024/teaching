@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-aside width="220px">
+        <el-aside width="180px">
             <el-col>
                 <el-menu class="el-menu-vertical-demo" active-text-color="#6876ff"
                          :default-active="$route.path">

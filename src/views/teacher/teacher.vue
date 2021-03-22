@@ -14,7 +14,7 @@
 
                     <el-tooltip effect="dark" placement="bottom-start"
                                 content="所有材料提交完成后点击，系主任将会获得您的提交状态" >
-                        <el-button @click="identify" style="margin-left: 160px">确认已提交</el-button>
+                        <el-button @click="identify" style="margin-left:200px">确认已提交</el-button>
                     </el-tooltip>
                 </el-menu>
             </el-header>
@@ -91,7 +91,7 @@
         computed: {
             active_index() {
                 const head = this.$route.path.indexOf("/") , tail = this.$route.path.lastIndexOf("/");
-                if (tail - head == 8)
+                if (tail - head === 8)
                     return this.$route.path;
                 else
                     return this.$route.path.substring(head,tail);
@@ -101,17 +101,22 @@
 </script>
 
 <style scoped>
+    .el-menu--horizontal>.el-menu-item{
+        height: 50px;
+        line-height: 50px;
+    }
+
     .el-header {
-        background-color: rgb(245, 247, 250);
+        background-color: white;
         text-align: center;
-        height: 60px;
-        line-height: 60px;
+        height: 50px;
+        line-height: 50px;
     }
     .el-menu-demo {
-        background-color: rgb(245, 247, 250);
+        background-color: white;
         color:black;
-        height: 60px;
-        line-height: 60px;
+        height: 50px;
+        line-height: 50px;
     }
     .el-menu-item {
         width: 150px;

@@ -1,32 +1,32 @@
 <template>
     <div class="content">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学期">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm">
+            <el-form-item label="学期" class="top_form">
                 <!--v-model:默认选中当前学年-->
                 <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="提交状态">
+            <el-form-item label="提交状态" class="top_form">
                 <!--v-model:默认选中未提交-->
                 <el-select placeholder="提交状态" v-model="formInline.submit_state" clearable>
                     <el-option label="未提交" value="0"></el-option>
                     <el-option label="已提交" value="1"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
+            <el-form-item class="top_form">
+                <el-button style="width: 250px ; height: 40px" type="primary" icon="el-icon-search" @click="query">查询</el-button>
             </el-form-item>
-            <el-form-item>
-                <el-button icon="el-icon-plus" @click="add_line" v-if="btn_show">添加行</el-button>
-            </el-form-item>
+            <!--<el-form-item class="top_form">-->
+                <!--<el-button icon="el-icon-plus" @click="add_line" v-if="btn_show">添加行</el-button>-->
+            <!--</el-form-item>-->
         </el-form>
 
         <el-table class="table"
                   :data="tableData"
                   height="350px"
-                  border
+                  stripe
                   style="width: 97%">
 
             <el-table-column
@@ -117,12 +117,12 @@
                     <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" v-if="btn_show" align="center">
-                <template slot-scope="scope">
-                    <el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>
-                    <el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>
-                </template>
-            </el-table-column>
+            <!--<el-table-column label="操作" v-if="btn_show" align="center">-->
+                <!--<template slot-scope="scope">-->
+                    <!--<el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>-->
+                    <!--<el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>-->
+                <!--</template>-->
+            <!--</el-table-column>-->
             <el-table-column label="下载" width="100px" v-if="!btn_show" align="center">
                 <template slot-scope="scope">
                     <el-dropdown @command="handleCommand">
@@ -206,7 +206,24 @@
                     term: [] ,    //学年从后端获取
                     submit_state: '0' ,
                 },
-                tableData: [],
+                tableData: [
+                    {
+                        t_name: '',
+                        term: '',
+                        course: '',
+                        lessonplan: '',
+                        teachplan: '',
+                        attendancenum: '',
+                        attendancerate: '',
+                        correctinghomework: '',
+                        answerscount: '',
+                        onscheduleexperiment: '',
+                        exitprogram: '',
+                        remarks: '',
+                        show: true ,
+                        state: '0' ,
+                    }
+                ],
                 btn_show: true ,
                 file: {
                     lessonplan: '',
@@ -317,28 +334,28 @@
                 }).catch(() => {
                 });
             },
-            add_line() {
-                if (this.tableData.length === 0) {
-                    this.tableData.push({
-                        t_name: '',
-                        term: '',
-                        course: '',
-                        lessonplan: '',
-                        teachplan: '',
-                        attendancenum: '',
-                        attendancerate: '',
-                        correctinghomework: '',
-                        answerscount: '',
-                        onscheduleexperiment: '',
-                        exitprogram: '',
-                        remarks: '',
-                        show: true ,
-                        state: '0' ,
-                    })
-                }
-                else
-                    this.$message.warning('请先提交表格中的内容后再添加新的一行');
-            },
+            // add_line() {
+            //     if (this.tableData.length === 0) {
+            //         this.tableData.push({
+            //             t_name: '',
+            //             term: '',
+            //             course: '',
+            //             lessonplan: '',
+            //             teachplan: '',
+            //             attendancenum: '',
+            //             attendancerate: '',
+            //             correctinghomework: '',
+            //             answerscount: '',
+            //             onscheduleexperiment: '',
+            //             exitprogram: '',
+            //             remarks: '',
+            //             show: true ,
+            //             state: '0' ,
+            //         })
+            //     }
+            //     else
+            //         this.$message.warning('请先提交表格中的内容后再添加新的一行');
+            // },
             query() {
                 if (this.formInline.submit_state === '1')
                     this.btn_show = false;
@@ -369,11 +386,19 @@
     }
 </script>
 
-<style scoped>
+<style >
+    #quireForm .el-input__inner {
+        width: 320px;
+    }
+
     .table {
         align: center;
         margin: 0 auto 20px;
         font-size: 16px;
+    }
+
+    .table .el-input__inner {
+       border: 0;
     }
 
     .content {
@@ -398,5 +423,10 @@
     .el-dropdown-link {
         cursor: pointer;
         color: #409EFF;
+    }
+
+    .top_form {
+        width: 30%;
+        margin-top: 10px;
     }
 </style>
