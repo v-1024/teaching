@@ -62,12 +62,15 @@
                     <span v-show="!scope.row.show">{{scope.row.examination}}</span>
                 </template>
             </el-table-column>
-            <!--<el-table-column label="操作" v-if="btn_show" align="center">-->
-                <!--<template slot-scope="scope">-->
-                    <!--<el-button @click="scope.row.show =true">编辑</el-button>-->
-                    <!--<el-button @click="scope.row.show =false">保存</el-button>-->
-                <!--</template>-->
-            <!--</el-table-column>-->
+            <el-table-column label="上传附件" v-if="btn_show" align="center">
+                <template slot-scope="scope">
+                    <el-dropdown >
+                        <span class="el-dropdown-link" @click="dialogVisible = true">
+                            上传附件 <i class="el-icon-upload"></i>
+                        </span>
+                    </el-dropdown>
+                </template>
+            </el-table-column>
             <el-table-column label="下载" v-if="!btn_show" align="center">
                 <template slot-scope="scope">
                     <el-dropdown >
@@ -79,8 +82,29 @@
             </el-table-column>
         </el-table>
 
-        <div class="upload" v-if="btn_show">
-            <el-upload
+        <!--<div class="upload" v-if="btn_show">-->
+            <!--<el-upload-->
+                    <!--ref="upload"-->
+                    <!--action=""-->
+                    <!--:http-request="upFile"-->
+                    <!--:on-preview="handlePreview"-->
+                    <!--:on-remove="handleRemove"-->
+                    <!--:before-remove="beforeRemove"-->
+                    <!--:auto-upload="false"-->
+                    <!--multiple-->
+                    <!--:limit="1"-->
+                    <!--:on-exceed="handleExceed"-->
+                    <!--style="width: 30%">-->
+                <!--<el-button size="small" type="primary" slot="trigger">选取文件</el-button>-->
+                <!--<div slot="tip" class="el-upload__tip">上传材料</div>-->
+            <!--</el-upload>-->
+        <!--</div>            -->
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible"
+                width="40%">
+
+            <div class="upload"><el-upload
                     ref="upload"
                     action=""
                     :http-request="upFile"
@@ -89,14 +113,28 @@
                     :before-remove="beforeRemove"
                     :auto-upload="false"
                     multiple
-                    :limit="1"
+                    :limit="3"
                     :on-exceed="handleExceed"
+                    drag
                     style="width: 30%">
-                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
-                <div slot="tip" class="el-upload__tip">上传材料</div>
-            </el-upload>
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <div style="display: flex; flex: 1 ; margin: 20px">
+            <el-input
+                    style="width: 800px"
+                    type="textarea"
+                    :rows="3"
+                    v-model="fileItem"
+                    placeholder="已选择的文件"
+                    disabled></el-input>
             <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
         </div>
+
     </div>
 </template>
 
@@ -128,6 +166,7 @@
                 fileForm: new FormData() ,
                 fileList: [] ,
                 btn_show: true ,
+                dialogVisible: false
             };
         },
         created() {
@@ -250,6 +289,16 @@
 </script>
 
 <style>
+    .upload {
+        text-align: center;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        margin: 10px;
+    }
+    .upload .el-upload{
+        margin-left: 110px;
+    }
     .top_form {
         width: 30%;
         margin-top: 10px;
@@ -274,17 +323,11 @@
         text-align: center;
         margin-top: 10px;
     }
-    .upload {
-        display: flex;
-        text-align: center;
-        margin: 10px;
-    }
 
     .btn {
-        width: 150px;
+        width: 250px;
         height: 40px;
-        position: absolute;
-        left: 1200px;
+        margin-left: 150px;
     }
 
     .el-dropdown-link {

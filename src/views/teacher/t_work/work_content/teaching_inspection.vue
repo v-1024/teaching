@@ -265,6 +265,7 @@
                 this.fileList1.push({
                     name: file.name ,
                 });
+                this.fileContent = file.name
             },
             upFile2(param) {
                 const file = param.file;
@@ -371,7 +372,7 @@
                     this.tableData = res.data;
                 })
             } ,
-            handleCommand(command) {
+            handleCommand(command) {    //文件下载
                 if (command) {
                     let a = document.createElement("a");
                     a.href = '/api/file/down?url=' + command;
@@ -386,7 +387,7 @@
     }
 </script>
 
-<style >
+<style>
     #quireForm .el-input__inner {
         width: 320px;
     }
