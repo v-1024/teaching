@@ -1,25 +1,25 @@
 <template>
     <div class="box">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="教师">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm1">
+            <el-form-item label="教师" class="top_form">
                 <el-input v-model="formInline.t_name" placeholder="教师" clearable></el-input>
             </el-form-item>
-            <el-form-item label="教师状态">
+            <el-form-item label="教师状态" class="top_form">
                 <el-select v-model="formInline.state" placeholder="教师状态" clearable>
                     <el-option label="是" value="1"></el-option>
                     <el-option label="否" value="0"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="职位">
+            <el-form-item label="职位" class="top_form">
                 <el-select v-model="formInline.role" placeholder="职位" clearable>
                     <el-option label="教师" value="1"></el-option>
                     <el-option label="系主任" value="2"></el-option>
                     <el-option label="院长/教务办" value="3"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
-                <el-button type="success" icon="el-icon-plus" @click="add_user()">添加成员</el-button>
+            <el-form-item class="top_form">
+                <el-button style="width: 140px ; height: 40px" type="primary" icon="el-icon-search" @click="query">查询</el-button>
+                <el-button style="width: 140px ; height: 40px" type="success" icon="el-icon-plus" @click="add_user()">添加成员</el-button>
             </el-form-item>
         </el-form>
         <template>
@@ -274,9 +274,17 @@
     }
 </script>
 
-<style scoped>
-    .box {
+<style>
+     .box {
         margin-top: 10px;
         text-align: center;
+    }
+    #quireForm1 .top_form {
+        width: 20%;
+        margin-top: 10px;
+    }
+
+    #quireForm1 .el-input__inner {
+        width: 235px;
     }
 </style>

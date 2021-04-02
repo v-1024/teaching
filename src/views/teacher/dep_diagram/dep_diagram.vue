@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm9">
             <el-form-item label="学期" class="top_form">
                 <!--v-model:默认选中当前学年-->
                 <el-select placeholder="学期" v-model="formInline.def_term" clearable>
@@ -28,9 +28,9 @@
                             type="primary"
                             @click="check(scope.$index, scope.row)">查看</el-button>
 
-                    <el-button
-                            size="small"
-                            @click="">下载</el-button>
+                    <!--<el-button-->
+                            <!--size="small"-->
+                            <!--@click="">下载</el-button>-->
                 </template>
             </el-table-column>
         </el-table>
@@ -151,12 +151,12 @@
 </script>
 
 <style>
-    .top_form {
+    #quireForm9 .top_form {
         width: 30%;
         margin-top: 10px;
     }
 
-    #quireForm .el-input__inner {
+    #quireForm9 .el-input__inner {
         width: 320px;
     }
 

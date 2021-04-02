@@ -1,21 +1,21 @@
 <template>
     <div class="box">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学期设置" >
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm2">
+            <el-form-item label="学期设置" class="top_form">
                 <el-input v-model="formInline.term" placeholder="示例：2020-2021-1" clearable></el-input>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-date" @click="term_btn">确认</el-button>
+            <el-form-item class="top_btn">
+                <el-button style="width: 160px ; height: 40px" type="primary" icon="el-icon-date" @click="term_btn">确认</el-button>
             </el-form-item>
-            <el-form-item label="新增学院/系部">
+            <el-form-item label="新增学院/系部" class="top_form">
                 <el-autocomplete
                         clearable
                         v-model="formInline.col_name"
                         :fetch-suggestions="querySearch"
                         placeholder="输入学院"></el-autocomplete>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-plus" @click="col_add()">确认</el-button>
+            <el-form-item class="top_btn">
+                <el-button style="width: 160px ; height: 40px" type="primary" icon="el-icon-plus" @click="col_add()">确认</el-button>
             </el-form-item>
         </el-form>
 
@@ -301,10 +301,23 @@
     }
 </script>
 
-<style scoped>
+<style>
     .box {
         margin-top: 10px;
         text-align: center;
+    }
+    #quireForm2 .top_form {
+        width: 30%;
+        margin-top: 10px;
+    }
+
+    #quireForm2 .top_btn {
+        width: 15%;
+        margin-top: 10px;
+    }
+
+    #quireForm2 .el-input__inner {
+        width: 300px;
     }
 
     .demo-table-expand {

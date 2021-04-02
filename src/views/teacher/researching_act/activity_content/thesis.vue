@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm5">
             <el-form-item label="学期" class="top_form">
                 <!--v-model:默认选中当前学年-->
                 <el-select placeholder="学期" v-model="formInline.def_term" clearable>
@@ -121,10 +121,10 @@
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
             </el-upload></div>
             <span slot="footer" class="dialog-footer">
-            <el-button style="width: 200px" type="primary" @click="dialogVisible = false">确 定</el-button>
+            <el-button style="width: 200px" type="primary" @click="file_verify">确 定</el-button>
         </span>
         </el-dialog>
-        <div style="display: flex; flex: 1 ; margin: 20px">
+        <div v-if="btn_show" style="display: flex; flex: 1 ; margin: 20px">
             <el-input
                     style="width: 800px"
                     type="textarea"
@@ -178,6 +178,8 @@
         methods: {
             handleRemove(file, fileList) {
                 console.log(file, fileList);
+                this.fileList.splice(0,1);
+                this.fileItem = "暂未选择任何文件"
             },
             handlePreview(file) {
                 console.log(file);
@@ -188,6 +190,12 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
+            file_verify() {
+                this.dialogVisible = false;
+                if (this.fileForm.file !== '')
+                    this.$refs.upload.submit();
+                this.fileItem = this.fileList[0].name;
+            } ,
             // add_line(){
             //     if (this.tableData.length === 0) {
             //         this.tableData.push({
@@ -247,6 +255,7 @@
                                     this.$message.success('文件上传成功');
                                     this.fileForm = new FormData();
                                     this.fileList.splice(0,1);
+                                    this.fileItem = "暂未选择任何文件"
                                 }
                             })
                         }
@@ -294,12 +303,12 @@
     .table .el-input__inner {
         border: 0;
     }
-    .top_form {
+    #quireForm5 .top_form {
         width: 30%;
         margin-top: 10px;
     }
 
-    #quireForm .el-input__inner {
+    #quireForm5 .el-input__inner {
         width: 320px;
     }
 

@@ -27,92 +27,92 @@
                    :data="tableData"
                    height="350px"
                    stripe
-                   style="width:97%">
-            <el-table-column prop="t_name" label="姓名" align="center">
+                   style="width:1320px">
+            <el-table-column fixed prop="t_name" label="姓名" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input class="div"  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="elecplan" label="是否是电子教案" align="center">
+            <el-table-column prop="elecplan" label="是否是电子教案" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.elecplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.elecplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="textplan" label="是否是文本文档" align="center">
+            <el-table-column prop="textplan" label="是否是文本文档" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.textplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.textplan}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="planintegrated" label="教案是否完善" align="center">
+            <el-table-column prop="planintegrated" label="教案是否完善" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.planintegrated"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.planintegrated}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendancenum" label="考勤次数" align="center">
+            <el-table-column prop="attendancenum" label="考勤次数" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.attendancenum"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancenum}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="attendancerecord" label="考情是否有记录" align="center">
+            <el-table-column prop="attendancerecord" label="考情是否有记录" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.attendancerecord"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancerecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="hearclass" label="听课次数" align="center">
+            <el-table-column prop="hearclass" label="听课次数" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.hearclass"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.hearclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="assessclass" label="评课次数" align="center">
+            <el-table-column prop="assessclass" label="评课次数" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.assessclass"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.assessclass}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="classrecord" label="听课是否有记录" align="center">
+            <el-table-column prop="classrecord" label="听课是否有记录" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.classrecord"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.classrecord}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="arrangehomework" label="布置作业次数" align="center">
+            <el-table-column prop="arrangehomework" label="布置作业次数" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.arrangehomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.arrangehomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="correctinghomework" label="批改作业次数" align="center">
+            <el-table-column prop="correctinghomework" label="批改作业次数" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.correctinghomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctinghomework}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="experimentcount" label="实验次数" align="center">
+            <el-table-column prop="experimentcount" label="实验次数" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.experimentcount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.experimentcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="correctreportcount" label="批改实验报告次数" align="center">
+            <el-table-column prop="correctreportcount" label="批改实验报告次数" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.correctreportcount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctreportcount}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="homeworktype" label="电子作业/纸质作业" align="center">
+            <el-table-column prop="homeworktype" label="电子作业/纸质作业" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.homeworktype"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.homeworktype}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="experimenttype" label="实验类型" align="center">
+            <el-table-column prop="experimenttype" label="实验类型" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input  v-show="scope.row.show" v-model="scope.row.experimenttype"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.experimenttype}}</span>
@@ -124,9 +124,25 @@
                     <!--<el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>-->
                 <!--</template>-->
             <!--</el-table-column>-->
-            <el-table-column label="下载" width="100px" v-if="!btn_show" align="center">
-                <template slot-scope="scope">
+            <el-table-column fixed="right" label="上传附件" width="100px" v-if="btn_show" align="center">
+                <template slot-scope="scope" v-if="btn_show">
                     <el-dropdown @command="handleCommand">
+                          <span class="el-dropdown-link">
+                            上传附件  <i class="el-icon-upload"></i>
+                              <i class="el-icon-arrow-down el-icon--right"></i>
+                          </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command='教案'>教案</el-dropdown-item>
+                            <el-dropdown-item command='作业批改'>作业批改</el-dropdown-item>
+                            <el-dropdown-item command='实验计划'>实验计划</el-dropdown-item>
+                            <el-dropdown-item command='评课记录'>评课记录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </template>
+            </el-table-column>
+            <el-table-column label="下载" width="100px"  align="center" v-if="!btn_show">
+                <template slot-scope="scope" v-if="!btn_show" >
+                    <el-dropdown @command="handleCommand" >
                           <span class="el-dropdown-link">
                             文件下载<i class="el-icon-arrow-down el-icon--right"></i>
                           </span>
@@ -141,24 +157,37 @@
             </el-table-column>
     </el-table>
 
-        <div class="upload" v-if="btn_show">
-            <el-upload
-                ref="upload1"
-                action=""
-                :http-request="upFile1"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                :before-remove="beforeRemove"
-                :auto-upload="false"
-                enctype="multipart/form-data"
-                multiple
-                :limit="3"
-                :on-exceed="handleExceed"
-                style="width: 15%">
-            <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
-            <div slot="tip" class="el-upload__tip">上传教案</div>
-        </el-upload>
-            <el-upload
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible1"
+                width="40%">
+
+            <div class="upload"><el-upload
+                    ref="upload1"
+                    action=""
+                    :http-request="upFile1"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible1 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible2"
+                width="40%">
+
+            <div class="upload"><el-upload
                     ref="upload2"
                     action=""
                     :http-request="upFile2"
@@ -166,15 +195,24 @@
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :auto-upload="false"
-                    enctype="multipart/form-data"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
-                    style="width: 15%">
-                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
-                <div slot="tip" class="el-upload__tip">上传作业批改</div>
-            </el-upload>
-            <el-upload
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible2 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible3"
+                width="40%">
+
+            <div class="upload"><el-upload
                     ref="upload3"
                     action=""
                     :http-request="upFile3"
@@ -182,15 +220,24 @@
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :auto-upload="false"
-                    enctype="multipart/form-data"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
-                    style="width: 15%">
-                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
-                <div slot="tip" class="el-upload__tip">上传实验计划</div>
-            </el-upload>
-            <el-upload
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible3 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible4"
+                width="40%">
+
+            <div class="upload"><el-upload
                     ref="upload4"
                     action=""
                     :http-request="upFile4"
@@ -198,14 +245,26 @@
                     :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :auto-upload="false"
-                    enctype="multipart/form-data"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
-                    style="width: 15%">
-                <el-button size="small" type="primary" slot="trigger">选取文件</el-button>
-                <div slot="tip" class="el-upload__tip">上传评课记录</div>
-            </el-upload>
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible3 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <div v-if="btn_show" style="display: flex; flex: 1 ; margin: 20px" id="btn10">
+            <!--<el-input
+                    style="width: 800px"
+                    type="textarea"
+                    :rows="3"
+                    v-model="fileItem"
+                    placeholder="已选择的文件"
+                    disabled></el-input>-->
             <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
         </div>
     </div>
@@ -255,6 +314,10 @@
                     experiment: '' ,
                     evaluationrecords: ''
                 },
+                dialogVisible1: false ,
+                dialogVisible2: false ,
+                dialogVisible3: false ,
+                dialogVisible4: false ,
                 fileForm: new FormData() ,
                 fileList1: [] ,
                 fileList2: [] ,
@@ -398,9 +461,9 @@
             } ,
             query() {
                 if (this.formInline.submit_state === '1')
-                    this.btn_show = false;
+                    this.btn_show=false;
                 else
-                    this.btn_show = true;
+                    this.btn_show=true;
                 const url = 'Teachingwork/TeachPlan_show';
                 const data = {
                     term: this.formInline.def_term ,
@@ -412,15 +475,30 @@
                 })
             } ,
             handleCommand(command) {
-                if (command) {
-                    let a = document.createElement("a");
-                    a.href = '/api/file/down?url=' + command;
-                    document.body.appendChild(a);
-                    a.click()
+                if (command === '教案') {
+                    this.dialogVisible1 = true
+                }
+                else if (command === '作业批改') {
+                    this.dialogVisible2 = true
+                }
+                else if (command === '实验计划') {
+                    this.dialogVisible3 = true
+                }
+                else if (command === '评课记录') {
+                    this.dialogVisible4 = true
                 }
                 else {
-                    this.$message.error('文件下载失败，可能原因是未上传该文件')
+                    if (command) {
+                        let a = document.createElement("a");
+                        a.href = '/api/file/down?url=' + command;
+                        document.body.appendChild(a);
+                        a.click()
+                    }
+                    else {
+                        this.$message.error('文件下载失败，可能原因是未上传该文件')
+                    }
                 }
+
             }
         }
     }
@@ -449,16 +527,20 @@
     }
 
     .upload {
-        display: flex;
         text-align: center;
+        width: 100%;
+        height: 200px;
+        display: flex;
         margin: 10px;
     }
 
-    .btn {
-        width: 150px;
+    .upload .el-upload{
+        margin-left: 110px;
+    }
+    #btn10 .btn {
+        width: 250px;
         height: 40px;
-        position: absolute;
-        left: 1200px;
+        margin-left: 950px;
     }
 
     .el-dropdown-link {

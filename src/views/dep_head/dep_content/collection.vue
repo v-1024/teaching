@@ -12,6 +12,15 @@
                         <el-switch v-model="scope.row.state" @change="switch_change(scope.$index , $event)"></el-switch>
                     </template>
                 </el-table-column>
+                <el-table-column label="上传附件" align="center">
+            <template slot-scope="scope" v-if="showUpload(scope.$index)">
+                <el-dropdown >
+                    <span class="el-dropdown-link" @click="up_btn(scope.$index)">
+                        上传附件 <i class="el-icon-upload"></i>
+                    </span>
+                </el-dropdown>
+            </template>
+        </el-table-column>
                 <el-table-column label="详情" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -19,13 +28,64 @@
                                 type="primary"
                                 @click="check(scope.$index, scope.row)">查看</el-button>  <!--查看做成dialog形式-->
 
-                        <el-button
-                                size="small"
-                                @click="">下载</el-button>
+                        <!--<el-button-->
+                                <!--size="small"-->
+                                <!--@click="">下载</el-button>-->
                     </template>
                 </el-table-column>
             </el-table>
-        <div class="upload">
+
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible1"
+                width="40%">
+
+            <div class="upload"><el-upload
+                    ref="upload1"
+                    action=""
+                    :http-request="upFile1"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible1 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible2"
+                width="40%">
+
+            <div class="upload"><el-upload
+                    ref="upload2"
+                    action=""
+                    :http-request="upFile2"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible2 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <!--<div class="upload">
             <el-upload
                     ref="upload1"
                     action=""
@@ -59,8 +119,17 @@
             </el-upload>
 
             <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
+        </div>-->
+        <div style="display: flex; flex: 1 ; margin: 20px" id="btn10">
+            <!--<el-input
+                    style="width: 800px"
+                    type="textarea"
+                    :rows="3"
+                    v-model="fileItem"
+                    placeholder="已选择的文件"
+                    disabled></el-input>-->
+            <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
         </div>
-
         <el-drawer
                 :visible.sync="drawer"
                 direction="rtl"
@@ -87,7 +156,9 @@
                 cindex: '' ,
                 def_term: '' ,
                 dep: sessionStorage.getItem('department') ,
-                tableData: [] ,
+                tableData: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}] ,
+                dialogVisible1: false ,
+                dialogVisible2: false ,
                 contentData: [] ,
                 fileList1: [] ,
                 fileList2: [] ,
@@ -157,6 +228,21 @@
                         break;
                     case 11:
                         this.requestContent('HandOfDept/summaryandmidtermdata');
+                        break;
+                }
+            } ,
+            showUpload(index) {
+                if (index === 11 || index === 3)
+                    return true;
+                return false;
+            } ,
+            up_btn(index) {
+                switch (index) {
+                    case 3:
+                        this.dialogVisible1 = true;
+                        break;
+                    case 11:
+                        this.dialogVisible2 = true;
                         break;
                 }
             } ,
@@ -253,7 +339,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .box {
         margin: 10px auto;
         text-align: center;
@@ -264,14 +350,22 @@
     }
 
     .upload {
-        display: flex;
         text-align: center;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        margin: 10px;
     }
-
-     .btn {
-         width: 150px;
-         height: 40px;
-         position: absolute;
-         left: 1200px;
-     }
+    .upload .el-upload{
+        margin-left: 110px;
+    }
+    #btn10 .btn {
+        width: 250px;
+        height: 40px;
+        margin-left: 1150px;
+    }
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
+    }
 </style>

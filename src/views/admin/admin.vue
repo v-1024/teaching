@@ -45,17 +45,21 @@
 </script>
 
 <style scoped>
+    .el-menu--horizontal>.el-menu-item{
+        height: 50px;
+        line-height: 50px;
+    }
     .el-header {
-        background-color: rgb(245, 247, 250);
+        background-color: white;
         text-align: center;
-        height: 60px;
-        line-height: 60px;
+        height: 50px;
+        line-height: 50px;
     }
     .el-menu-demo {
-        background-color: rgb(245, 247, 250);
+        background-color: white;
         color:black;
-        height: 60px;
-        line-height: 60px;
+        height: 50px;
+        line-height: 50px;
     }
     .el-menu-item {
         width: 150px;
@@ -63,15 +67,6 @@
     }
     .el-menu-demo {
         margin-left: 200px;
-    }
-
-    .el-avatar {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        display: inline-block;
-        margin-top: 10px;
-        right: 100px;
     }
 
     .el-button {

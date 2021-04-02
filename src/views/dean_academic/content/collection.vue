@@ -1,15 +1,15 @@
 <template>
     <div class="box">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学期">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm10">
+            <el-form-item label="学期" class="top_form">
                 <!--v-model:默认选中当前学年-->
                 <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="">查询</el-button>
+            <el-form-item class="top_form">
+                <el-button style="width: 250px ; height: 40px" type="primary" icon="el-icon-search" @click="">查询</el-button>
             </el-form-item>
         </el-form>
 
@@ -29,9 +29,9 @@
                                 type="primary"
                                 @click="check(scope.$index, scope.row)">查看</el-button>  <!--查看做成dialog形式-->
 
-                        <el-button
-                                size="small"
-                                @click="">下载</el-button>
+                        <!--<el-button-->
+                                <!--size="small"-->
+                                <!--@click="">下载</el-button>-->
                     </template>
                 </el-table-column>
             </el-table-column>
@@ -154,9 +154,18 @@
     }
 </script>
 
-<style scoped>
+<style>
     .box {
         text-align: center;
         margin-top: 10px;
+    }
+
+    #quireForm10 .top_form {
+        width: 28%;
+        margin-top: 10px;
+    }
+
+    #quireForm10 .el-input__inner {
+        width: 320px;
     }
 </style>

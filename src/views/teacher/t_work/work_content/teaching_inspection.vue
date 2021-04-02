@@ -27,19 +27,21 @@
                   :data="tableData"
                   height="350px"
                   stripe
-                  style="width: 97%">
+                  style="width: 1320px">
 
             <el-table-column
+                    fixed
                     prop="t_name"
-                    label="姓名" align="center">
+                    label="姓名" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
             <el-table-column
+                    fixed
                     prop="course"
-                    label="课程" align="center">
+                    label="课程" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.course"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.course}}</span>
@@ -47,7 +49,7 @@
             </el-table-column>
             <el-table-column
                     prop="lessonplan"
-                    label="授课计划" align="center">
+                    label="授课计划" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.lessonplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.lessonplan}}</span>
@@ -55,7 +57,7 @@
             </el-table-column>
             <el-table-column
                     prop="teachplan"
-                    label="教案(有或无）" align="center">
+                    label="教案(有或无）" align="center" width="100px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.teachplan"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.teachplan}}</span>
@@ -63,7 +65,7 @@
             </el-table-column>
             <el-table-column
                     prop="attendancenum"
-                    label="课堂考勤(次)" align="center">
+                    label="课堂考勤(次)" align="center" width="120px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.attendancenum"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancenum}}</span>
@@ -71,7 +73,7 @@
             </el-table-column>
             <el-table-column
                     prop="attendancerate"
-                    label="学生出勤率" align="center">
+                    label="学生出勤率" align="center" width="120px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.attendancerate"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.attendancerate}}</span>
@@ -79,7 +81,7 @@
             </el-table-column>
             <el-table-column
                     prop="correctinghomework"
-                    label="作业批改(次)" align="center">
+                    label="作业批改(次)" align="center" width="120px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.correctinghomework"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.correctinghomework}}</span>
@@ -87,7 +89,7 @@
             </el-table-column>
             <el-table-column
                     prop="answerscount"
-                    label="辅导答疑(次)" align="center">
+                    label="辅导答疑(次)" align="center" width="120px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.answerscount"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.answerscount}}</span>
@@ -95,7 +97,7 @@
             </el-table-column>
             <el-table-column
                     prop="onscheduleexperiment"
-                    label="是否按计划设实验(随堂)" align="center">
+                    label="是否按计划设实验(随堂)" align="center" width="120px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.onscheduleexperiment"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.onscheduleexperiment}}</span>
@@ -103,7 +105,7 @@
             </el-table-column>
             <el-table-column
                     prop="exitprogram"
-                    label="教学中存在的问题" align="center">
+                    label="教学中存在的问题" align="center" width="120px">
                 <template slot-scope="scope">
                     <el-input v-show="scope.row.show" v-model="scope.row.exitprogram"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.exitprogram}}</span>
@@ -111,21 +113,30 @@
             </el-table-column>
             <el-table-column
                     prop="remarks"
-                    label="备注" align="center">
+                    label="备注" align="center" width="120px">
                 <template slot-scope="scope" align="center">
                     <el-input v-show="scope.row.show" v-model="scope.row.remarks"></el-input>
                     <span v-show="!scope.row.show">{{scope.row.remarks}}</span>
                 </template>
             </el-table-column>
-            <!--<el-table-column label="操作" v-if="btn_show" align="center">-->
-                <!--<template slot-scope="scope">-->
-                    <!--<el-button @click="scope.row.show =true" v-if="!scope.row.show">编辑</el-button>-->
-                    <!--<el-button @click="scope.row.show =false" v-if="scope.row.show">保存</el-button>-->
-                <!--</template>-->
-            <!--</el-table-column>-->
-            <el-table-column label="下载" width="100px" v-if="!btn_show" align="center">
-                <template slot-scope="scope">
+            <el-table-column fixed="right" label="上传附件" width="100px" v-if="btn_show" align="center">
+                <template slot-scope="scope" v-if="btn_show">
                     <el-dropdown @command="handleCommand">
+                    <span class="el-dropdown-link">
+                            上传附件  <i class="el-icon-upload"></i>
+                              <i class="el-icon-arrow-down el-icon--right"></i>
+                          </span>
+                    <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command='授课计划'>授课计划</el-dropdown-item>
+                    <el-dropdown-item command='课堂考勤'>课堂考勤</el-dropdown-item>
+                    <el-dropdown-item command='辅导答疑'>辅导答疑</el-dropdown-item>
+                    </el-dropdown-menu>
+                    </el-dropdown>
+                </template>
+            </el-table-column>
+            <el-table-column label="下载" width="100px" v-if="!btn_show" align="center">
+                <template slot-scope="scope" v-if="!btn_show">
+                    <el-dropdown @command="handleCommand" >
                           <span class="el-dropdown-link">
                             文件下载<i class="el-icon-arrow-down el-icon--right"></i>
                           </span>
@@ -139,7 +150,93 @@
             </el-table-column>
         </el-table>
 
-        <div class="upload" v-if="btn_show">
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible1"
+                width="40%">
+
+            <div class="upload"><el-upload
+                    ref="upload1"
+                    action=""
+                    :http-request="upFile1"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible1 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible2"
+                width="40%">
+
+            <div class="upload"><el-upload
+                    ref="upload2"
+                    action=""
+                    :http-request="upFile2"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible2 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <el-dialog
+                title="附件上传"
+                :visible.sync="dialogVisible3"
+                width="40%">
+
+            <div class="upload"><el-upload
+                    ref="upload3"
+                    action=""
+                    :http-request="upFile3"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :auto-upload="false"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    drag
+                    style="width: 30%">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            </el-upload></div>
+            <span slot="footer" class="dialog-footer">
+            <el-button style="width: 200px" type="primary" @click="dialogVisible3 = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <div v-if="btn_show" style="display: flex; flex: 1 ; margin: 20px" id="btn9">
+            <!--<el-input
+                    style="width: 800px"
+                    type="textarea"
+                    :rows="3"
+                    v-model="fileItem"
+                    placeholder="已选择的文件"
+                    disabled></el-input>-->
+            <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
+        </div>
+
+        <!--<div class="upload" v-if="btn_show">
             <el-upload
                     ref="upload1"
                     action=""
@@ -186,7 +283,7 @@
                 <div slot="tip" class="el-upload__tip">上传辅导答疑</div>
             </el-upload>
             <el-button size="medium" type="primary" class="btn" @click="submit">提交</el-button>
-        </div>
+        </div>-->
     </div>
 </template>
 
@@ -230,6 +327,9 @@
                     classattendance: '',
                     answer: ''
                 },
+                dialogVisible1: false ,
+                dialogVisible2: false ,
+                dialogVisible3: false ,
                 fileForm: new FormData() ,
                 fileList1: [] ,
                 fileList2: [] ,
@@ -372,16 +472,28 @@
                     this.tableData = res.data;
                 })
             } ,
-            handleCommand(command) {    //文件下载
-                if (command) {
-                    let a = document.createElement("a");
-                    a.href = '/api/file/down?url=' + command;
-                    document.body.appendChild(a);
-                    a.click()
+            handleCommand(command) {    //文件下载/上传
+                if (command === '授课计划') {
+                    this.dialogVisible1 = true
                 }
-                else {
-                    this.$message.error('文件下载失败，可能原因是未上传该文件')
+                else if (command === '课堂考勤') {
+                    this.dialogVisible2 = true
                 }
+                else if (command === '辅导答疑') {
+                    this.dialogVisible3 = true
+                }
+                else  {
+                    if (command) {
+                        let a = document.createElement("a");
+                        a.href = '/api/file/down?url=' + command;
+                        document.body.appendChild(a);
+                        a.click()
+                    }
+                    else {
+                        this.$message.error('文件下载失败，可能原因是未上传该文件')
+                    }
+                }
+
             }
         }
     }
@@ -409,16 +521,19 @@
     }
 
     .upload {
-        display: flex;
         text-align: center;
+        width: 100%;
+        height: 200px;
+        display: flex;
         margin: 10px;
     }
-
-    .btn {
-        width: 150px;
+    .upload .el-upload{
+        margin-left: 110px;
+    }
+    #btn9 .btn {
+        width: 250px;
         height: 40px;
-        position: absolute;
-        left: 1200px;
+        margin-left: 950px;
     }
 
     .el-dropdown-link {

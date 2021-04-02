@@ -1,21 +1,21 @@
 <template>
     <div class="box">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="学期">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm">
+            <el-form-item label="学期" class="top_form">
                 <!--v-model:默认选中当前学年-->
                 <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="员工号">
+            <el-form-item label="员工号" class="top_form">
                 <el-input v-model="formInline.t_id" placeholder="员工号" clearable></el-input>
             </el-form-item>
-            <el-form-item label="教师">
+            <el-form-item label="教师" class="top_form">
                 <el-input v-model="formInline.t_name" placeholder="教师" clearable></el-input>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="qurey">查询</el-button>
+            <el-form-item class="top_form">
+                <el-button style="width: 220px ; height: 40px" type="primary" icon="el-icon-search" @click="qurey">查询</el-button>
             </el-form-item>
         </el-form>
         <el-table
@@ -207,9 +207,19 @@
     }
 </script>
 
-<style scoped>
+<style>
     .box {
         margin-top: 10px;
         text-align: center;
+        width: 100%;
+    }
+
+    .top_form {
+        width: 20%;
+        margin-top: 10px;
+    }
+
+    #quireForm .el-input__inner {
+        width: 245px;
     }
 </style>

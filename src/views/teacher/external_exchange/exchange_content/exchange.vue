@@ -1,7 +1,7 @@
 <template>
     <div class="content">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm">
-            <el-form-item label="学期"  class="top_form">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm3">
+            <el-form-item label="学期" class="top_form">
                 <!--v-model:默认选中当前学年-->
                 <el-select placeholder="学期" v-model="formInline.def_term" clearable>
                     <el-option :label="item" :value="item" v-for="item in formInline.term">
@@ -134,7 +134,7 @@
             <el-button style="width: 200px" type="primary" @click="file_verify">确 定</el-button>
         </span>
         </el-dialog>
-        <div style="display: flex; flex: 1 ; margin: 20px">
+        <div v-if="btn_show" style="display: flex; flex: 1 ; margin: 20px">
             <el-input
                     style="width: 800px"
                     type="textarea"
@@ -318,7 +318,7 @@
     .upload .el-upload{
         margin-left: 110px;
     }
-    #quireForm .el-input__inner {
+    #quireForm3 .el-input__inner {
         width: 320px;
     }
 
@@ -332,7 +332,7 @@
         border: none;
     }
 
-    .top_form {
+    #quireForm3 .top_form {
         width: 30%;
         margin-top: 10px;
     }
