@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" id="te_quireForm">
             <el-form-item label="学期" class="top_form">
                 <!--v-model:默认选中当前学年-->
                 <el-select placeholder="学期" v-model="formInline.def_term" clearable>
@@ -500,7 +500,7 @@
 </script>
 
 <style>
-    #quireForm .el-input__inner {
+    #te_quireForm .el-input__inner {
         width: 320px;
     }
 
@@ -541,7 +541,7 @@
         color: #409EFF;
     }
 
-    .top_form {
+    #te_quireForm .top_form {
         width: 30%;
         margin-top: 10px;
     }
