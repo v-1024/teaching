@@ -32,8 +32,8 @@
                     label="教师姓名"
                     width="180" align="center">
                 <template slot-scope="scope">
-                    <el-input  v-show="scope.row.show" v-model="scope.row.name"></el-input>
-                    <span v-show="!scope.row.show">{{scope.row.name}}</span>
+                    <el-input  v-show="scope.row.show" v-model="scope.row.t_name"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.t_name}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -155,7 +155,7 @@
                 } ,
                 tableData:[
                     {
-                        name: '',
+                        t_name: '',
                         achievementname: '',
                         level: '',
                         examination: '',
@@ -194,20 +194,16 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-            // add_line() {
-            //     if (this.tableData.length === 0) {
-            //         this.tableData.push({
-            //             name: '',
-            //             achievementname: '',
-            //             level: '',
-            //             examination: '',
-            //             show: true ,
-            //             state: '0'
-            //         })
-            //     }
-            //     else
-            //         this.$message.warning('请先提交表格中的内容后再添加新的一行');
-            // } ,
+            add_line() {
+                this.tableData.push({
+                    t_name: '',
+                    achievementname: '',
+                    level: '',
+                    examination: '',
+                    show: true ,
+                    state: '0'
+                })
+            } ,
             file_verify() {
                 this.dialogVisible = false;
                 if (this.fileForm.file !== '')
@@ -240,6 +236,7 @@
                         if (res.data.msg === 'success') {
                             this.$message.success('表单上传成功');
                             this.tableData.splice(0,1);
+                            this.add_line();
                             request({
                                 url: 'FilePath/Achievement_file' ,
                                 method: 'post' ,
@@ -259,7 +256,7 @@
                                     this.$message.success('文件上传成功');
                                     this.fileForm = new FormData();
                                     this.fileList.splice(0,1);
-                                    this.fileItem = "暂未选择任何文件"
+                                    this.fileItem = "暂未选择任何文件";
                                 }
                             })
                         }
@@ -268,22 +265,25 @@
                 });
             } ,
             query() {
-                if (this.formInline.submit_state === '1')
+                if (this.formInline.submit_state === '1') {
                     this.btn_show = false;
-                else
+                    const url = 'Researchactivity/Achievement_show';
+                    const data = {
+                        term: this.formInline.def_term ,
+                        t_id: sessionStorage.getItem('t_id') ,
+                        state: this.formInline.submit_state
+                    };
+                    queryData(url , data).then(res =>{
+                        this.tableData = res.data;
+                    });
+                }
+                else {
                     this.btn_show = true;
-                const url = 'Researchactivity/Achievement_show';
-                const data = {
-                    term: this.formInline.def_term ,
-                    t_id: sessionStorage.getItem('t_id') ,
-                    state: this.formInline.submit_state
-                };
-                queryData(url , data).then(res =>{
-                    this.tableData = res.data;
-                })
+                    this.tableData.splice(0,this.tableData.length);
+                    this.add_line();
+                }
             } ,
             downLoad(command) {
-                console.log(command);
                 if (command) {
                     let a = document.createElement("a");
                     a.href = '/api/file/down?url=' + command;

@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div id="sys">
         <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm2">
             <el-form-item label="学期设置" class="top_form">
                 <el-input v-model="formInline.term" placeholder="示例：2020-2021-1" clearable></el-input>
@@ -19,7 +19,7 @@
             </el-form-item>
         </el-form>
 
-        <el-dialog title="编辑学院/系部信息" :visible.sync="dialogFormVisible" :before-close="before_close">
+        <el-dialog title="新增学院/系部" :visible.sync="dialogFormVisible" :before-close="before_close">
             <el-form>
                 <el-form-item label="学院id" label-width="120px">
                     <el-input v-model="formInline.col_id" style="width: 400px" clearable></el-input>
@@ -37,6 +37,21 @@
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
                 <el-button type="primary" @click="save">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        <el-dialog title="编辑学院/系部信息" :visible.sync="edit_show" :before-close="before_close">
+            <el-form>
+                <el-form-item label="学院名称" label-width="120px">
+                    <el-input v-model="formInline.col_name" style="width: 400px" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="系部名称" label-width="120px">
+                    <el-input v-model="formInline.new_dep" style="width: 400px" clearable></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="edit_show = false">取 消</el-button>
+                <el-button type="primary" @click="edit_save">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -62,14 +77,14 @@
                                 <el-switch @change="dep_switch(scope.row , $event)" v-model="scope.row.dep_state" ></el-switch>
                             </template>
                         </el-table-column>
-                        <!--<el-table-column label="操作" align="center">
+                        <el-table-column label="操作" align="center">
                             <template slot-scope="scope">
                                 <el-button
                                         size="medium"
                                         type="primary"
                                         @click="dep_editor(scope.$index, scope.row)">编辑</el-button>
                             </template>
-                        </el-table-column>-->
+                        </el-table-column>
                     </el-table>
                 </template>
             </el-table-column>
@@ -90,23 +105,14 @@
                     <el-switch v-model="scope.row.col_state" @change="col_switch(scope.row , $event)"></el-switch>
                 </template>
             </el-table-column>
-            <!--<el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
-                    <div class="div">
-                        <el-button
-                            size="medium"
-                            type="primary"
-                            v-show="scope.row.col_btn"
-                            @click="col_editor(scope.$index, scope.row)">编辑</el-button>
-
                     <el-button
-                            size="medium"
-                            type="primary"
-                            v-show="!scope.row.col_btn"
-                            @click="col_saver(scope.$index, scope.row)">保存</el-button>
-                    </div>
+                        size="medium"
+                        type="primary"
+                        @click="col_editor(scope.$index, scope.row)">编辑</el-button>
                 </template>
-            </el-table-column>-->
+            </el-table-column>
         </el-table>
     </div>
 </template>
@@ -133,7 +139,8 @@
                 },
                 sel_college: '' ,
                 dialogFormVisible: false ,
-                tableData: []
+                edit_show: false ,
+                tableData: [{},{}]
             }
         } ,
         created() {
@@ -181,21 +188,23 @@
                     return (college.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
                 };
             },
-            /*col_editor(index , row) {
-                this.tableData[index].col_edit = false;
-                this.tableData[index].col_btn = false
+            col_editor(index , row) {
+                this.formInline.col_name = row.col_name;
+                this.edit_show = true;
             } ,
-            col_saver(index , row) {     //修改后上传到数据库,未修改则不发请求
+            /*col_saver(index , row) {     //修改后上传到数据库,未修改则不发请求
                 this.tableData[index].col_edit = true;
                 this.tableData[index].col_btn = true
-            } ,
+            } ,*/
             dep_editor(index , row) {
                 //获取父级（学院）的信息
                 this.formInline.col_name = this.expands[0].col_name;
                 this.formInline.new_dep = row.dep_name;
-                this.flag = '0';
-                this.dialogFormVisible = true;
-            } ,*/
+                this.edit_show = true;
+            } ,
+            edit_save() {
+                this.edit_show = false;
+            } ,
             term_btn() {
                 if (this.formInline.term === '')
                     this.$message.warning('学期不能为空！');
@@ -302,7 +311,7 @@
 </script>
 
 <style>
-    .box {
+    #sys {
         margin-top: 10px;
         text-align: center;
     }

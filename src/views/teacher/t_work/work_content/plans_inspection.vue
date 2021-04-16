@@ -347,31 +347,27 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-            // add_line() {
-            //     if (this.tableData.length === 0) {
-            //         this.tableData.push({
-            //             t_name:'' ,
-            //             elecplan:'',
-            //             textplan:'',
-            //             planintegrated:'',
-            //             attendancenum:'',
-            //             attendancerecord:'',
-            //             hearclass:'',
-            //             assessclass:'',
-            //             classrecord:'',
-            //             arrangehomework:'',
-            //             correctinghomework:'',
-            //             experimentcount:'',
-            //             correctreportcount:'',
-            //             homeworktype: '',
-            //             experimenttype: '' ,
-            //             show: true ,
-            //             state: '0'
-            //         })
-            //     }
-            //     else
-            //         this.$message.warning('请先提交表格中的内容后再添加新的一行');
-            // } ,
+            add_line() {
+                    this.tableData.push({
+                        t_name:'' ,
+                        elecplan:'',
+                        textplan:'',
+                        planintegrated:'',
+                        attendancenum:'',
+                        attendancerecord:'',
+                        hearclass:'',
+                        assessclass:'',
+                        classrecord:'',
+                        arrangehomework:'',
+                        correctinghomework:'',
+                        experimentcount:'',
+                        correctreportcount:'',
+                        homeworktype: '',
+                        experimenttype: '' ,
+                        show: true ,
+                        state: '0'
+                    })
+            } ,
             upFile1(param) {
                 const file = param.file;
                 console.log(file);
@@ -430,6 +426,7 @@
                         if (res.data.msg === 'success') {
                             this.$message.success('表单上传成功');
                             this.tableData.splice(0,1);
+                            this.add_line();
                             request({
                                 url: 'FilePath/normalFile_plan',
                                 method: 'post',
@@ -460,19 +457,23 @@
                 });
             } ,
             query() {
-                if (this.formInline.submit_state === '1')
+                if (this.formInline.submit_state === '1') {
                     this.btn_show=false;
-                else
+                    const url = 'Teachingwork/TeachPlan_show';
+                    const data = {
+                        term: this.formInline.def_term ,
+                        t_id: sessionStorage.getItem('t_id') ,
+                        state: this.formInline.submit_state
+                    };
+                    queryData(url , data).then(res =>{
+                        this.tableData = res.data;
+                    })
+                }
+                else {
                     this.btn_show=true;
-                const url = 'Teachingwork/TeachPlan_show';
-                const data = {
-                    term: this.formInline.def_term ,
-                    t_id: sessionStorage.getItem('t_id') ,
-                    state: this.formInline.submit_state
-                };
-                queryData(url , data).then(res =>{
-                    this.tableData = res.data;
-                })
+                    this.tableData.splice(0,this.tableData.length);
+                    this.add_line();
+                }
             } ,
             handleCommand(command) {
                 if (command === '教案') {

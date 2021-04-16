@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div id="user" class="box">
         <el-form :inline="true" :model="formInline" class="demo-form-inline" id="quireForm1">
             <el-form-item label="教师" class="top_form">
                 <el-input v-model="formInline.t_name" placeholder="教师" clearable></el-input>
@@ -275,7 +275,7 @@
 </script>
 
 <style>
-     .box {
+    #user .box {
         margin-top: 10px;
         text-align: center;
     }

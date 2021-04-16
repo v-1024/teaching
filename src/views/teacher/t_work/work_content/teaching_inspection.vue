@@ -387,11 +387,11 @@
                 this.$confirm('提交后不能修改，请确保表格信息以及文件上传无误', '提示', {
                     type: 'warning'
                 }).then(() => {
-                    if (this.fileForm.lessonplan !== '')
+                    if (this.tableData.lessonplan !== '')
                         this.$refs.upload1.submit();
-                    if (this.fileForm.classattendance !== '')
+                    if (this.tableData.classattendance !== '')
                         this.$refs.upload2.submit();
-                    if (this.fileForm.answer !== '')
+                    if (this.tableData.answer !== '')
                         this.$refs.upload3.submit();
                     this.tableData[0].term = this.formInline.def_term;
                     this.tableData[0].state = '1';
@@ -407,6 +407,7 @@
                         if (res.data.msg === 'success') {
                             this.$message.success('表单上传成功');
                             this.tableData.splice(0,1);
+                            this.add_line();
                             request({
                                 url: 'FilePath/normalFile_teach',
                                 method: 'post',
@@ -435,42 +436,42 @@
                 }).catch(() => {
                 });
             },
-            // add_line() {
-            //     if (this.tableData.length === 0) {
-            //         this.tableData.push({
-            //             t_name: '',
-            //             term: '',
-            //             course: '',
-            //             lessonplan: '',
-            //             teachplan: '',
-            //             attendancenum: '',
-            //             attendancerate: '',
-            //             correctinghomework: '',
-            //             answerscount: '',
-            //             onscheduleexperiment: '',
-            //             exitprogram: '',
-            //             remarks: '',
-            //             show: true ,
-            //             state: '0' ,
-            //         })
-            //     }
-            //     else
-            //         this.$message.warning('请先提交表格中的内容后再添加新的一行');
-            // },
-            query() {
-                if (this.formInline.submit_state === '1')
-                    this.btn_show = false;
-                else
-                    this.btn_show = true;
-                const url = 'Teachingwork/TeachCheck_show';
-                const data = {
-                    term: this.formInline.def_term ,
-                    t_id: sessionStorage.getItem('t_id') ,
-                    state: this.formInline.submit_state
-                };
-                queryData(url , data).then(res =>{
-                    this.tableData = res.data;
+            add_line() {
+                this.tableData.push({
+                    t_name: '',
+                    term: '',
+                    course: '',
+                    lessonplan: '',
+                    teachplan: '',
+                    attendancenum: '',
+                    attendancerate: '',
+                    correctinghomework: '',
+                    answerscount: '',
+                    onscheduleexperiment: '',
+                    exitprogram: '',
+                    remarks: '',
+                    show: true ,
+                    state: '0' ,
                 })
+            },
+            query() {
+                if (this.formInline.submit_state === '1') {
+                    this.btn_show = false;
+                    const url = 'Teachingwork/TeachCheck_show';
+                    const data = {
+                        term: this.formInline.def_term ,
+                        t_id: sessionStorage.getItem('t_id') ,
+                        state: this.formInline.submit_state
+                    };
+                    queryData(url , data).then(res =>{
+                        this.tableData = res.data;
+                    })
+                }
+                else {
+                    this.btn_show = true;
+                    this.tableData.splice(0,this.tableData.length);
+                    this.add_line();
+                }
             } ,
             handleCommand(command) {    //文件下载/上传
                 if (command === '授课计划') {

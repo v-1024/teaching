@@ -202,20 +202,16 @@
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${file.name}？`);
             },
-            // add_line(){
-            //     if (this.tableData.length === 0) {
-            //         this.tableData.push({
-            //             time: '',
-            //             content: '',
-            //             teachername: '',
-            //             remarks:'',
-            //             show :true ,
-            //             state: '0'
-            //         })
-            //     }
-            //     else
-            //         this.$message.warning('请先提交表格中的内容后再添加新的一行');
-            // },
+            add_line(){
+                this.tableData.push({
+                    time: '',
+                    content: '',
+                    teachername: '',
+                    remarks:'',
+                    show :true ,
+                    state: '0'
+                })
+            },
             file_verify() {
                 this.dialogVisible = false;
                 if (this.fileForm.file !== '')
@@ -247,6 +243,7 @@
                         if (res.data.msg === 'success') {
                             this.$message.success('表单上传成功');
                             this.tableData.splice(0,1);
+                            this.add_line();
                             request({
                                 url: 'FilePath/Communication_file' ,
                                 method: 'post' ,
@@ -275,19 +272,23 @@
                 });
             } ,
             query() {
-                if (this.formInline.submit_state === '1')
+                if (this.formInline.submit_state === '1') {
                     this.btn_show = false;
-                else
+                    const url = 'Communication/Communication_show';
+                    const data = {
+                        term: this.formInline.def_term ,
+                        t_id: sessionStorage.getItem('t_id') ,
+                        state: this.formInline.submit_state
+                    };
+                    queryData(url , data).then(res =>{
+                        this.tableData = res.data;
+                    })
+                }
+                else {
                     this.btn_show = true;
-                const url = 'Communication/Communication_show';
-                const data = {
-                    term: this.formInline.def_term ,
-                    t_id: sessionStorage.getItem('t_id') ,
-                    state: this.formInline.submit_state
-                };
-                queryData(url , data).then(res =>{
-                    this.tableData = res.data;
-                })
+                    this.tableData.splice(0,this.tableData.length);
+                    this.add_line();
+                }
             } ,
             downLoad(command) {
                 console.log(command);

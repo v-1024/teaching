@@ -4,7 +4,7 @@
         <div class="grey"></div>
         <div class="background_img">
             <div class="box">
-                <table class="table">
+                <table id="table">
                     <tr><td class="td1">用户登录</td></tr>
                     <tr><td class="td2">员工号</td></tr>
                     <tr>
@@ -137,7 +137,7 @@
         height: 45px;
     }
 
-    .box {
+    #login .box {
         width: 400px;
         height: 450px;
         float: right;
@@ -147,7 +147,7 @@
         box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.11);
     }
 
-    .table {
+    #table {
         width: 350px;
         margin: 20px auto;
         height: 400px;
