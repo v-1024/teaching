@@ -3,7 +3,7 @@
         <navigation></navigation>
         <div class="grey"></div>
         <div class="background_img">
-            <div class="box">
+            <div class="lbox">
                 <table id="table">
                     <tr><td class="td1">用户登录</td></tr>
                     <tr><td class="td2">员工号</td></tr>
@@ -137,7 +137,7 @@
         height: 45px;
     }
 
-    #login .box {
+    #login .lbox {
         width: 400px;
         height: 450px;
         float: right;

@@ -42,10 +42,10 @@
 
         <el-dialog title="编辑学院/系部信息" :visible.sync="edit_show" :before-close="before_close">
             <el-form>
-                <el-form-item label="学院名称" label-width="120px">
+                <el-form-item label="学院名称" label-width="120px" v-if="edit === '1'">
                     <el-input v-model="formInline.col_name" style="width: 400px" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="系部名称" label-width="120px">
+                <el-form-item label="系部名称" label-width="120px" v-if="edit === '0'">
                     <el-input v-model="formInline.new_dep" style="width: 400px" clearable></el-input>
                 </el-form-item>
             </el-form>
@@ -140,6 +140,7 @@
                 sel_college: '' ,
                 dialogFormVisible: false ,
                 edit_show: false ,
+                edit: '1' ,
                 tableData: [{},{}]
             }
         } ,
@@ -190,6 +191,8 @@
             },
             col_editor(index , row) {
                 this.formInline.col_name = row.col_name;
+                this.formInline.col_id = row.c_id;
+                this.edit = '1';
                 this.edit_show = true;
             } ,
             /*col_saver(index , row) {     //修改后上传到数据库,未修改则不发请求
@@ -198,11 +201,44 @@
             } ,*/
             dep_editor(index , row) {
                 //获取父级（学院）的信息
-                this.formInline.col_name = this.expands[0].col_name;
+                this.formInline.col_name = this.expands[0];
                 this.formInline.new_dep = row.dep_name;
+                this.formInline.dep_id = row.d_id;
+                this.edit = '0';
                 this.edit_show = true;
             } ,
             edit_save() {
+                if (this.edit === '1') {
+                    request({
+                        url: 'Manager/modifyCollegeName' ,
+                        method: 'put' ,
+                        params: {
+                            c_id: this.formInline.col_id ,
+                            college: this.formInline.col_name
+                        }
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.$message.success('编辑学院信息成功');
+                            this.requestData();
+                        }
+                    })
+                }
+                else {
+                    request({
+                        url: 'Manager/modifyDepName' ,
+                        method: 'put' ,
+                        params: {
+                            d_id: this.formInline.dep_id ,
+                            department: this.formInline.new_dep ,
+                            college: this.formInline.col_name
+                        }
+                    }).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.$message.success('编辑系部信息成功');
+                            this.requestData();
+                        }
+                    })
+                }
                 this.edit_show = false;
             } ,
             term_btn() {
@@ -277,6 +313,7 @@
                 this.formInline.col_id =  '';
                 this.formInline.dep_id =  '';
                 this.dialogFormVisible = false;
+                this.edit_show = false;
             } ,
             col_switch(row , event) {
                 request({
