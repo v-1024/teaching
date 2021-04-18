@@ -148,6 +148,7 @@
     import Tab_collection from "../../../components/tab_collection";
 
     export default {
+        inject: ['reload'] ,
         name: "collection" ,
         components: {Tab_collection},
         data() {
@@ -327,6 +328,7 @@
                     }).then(res => {
                         if (res.data.msg === 'success') {
                             this.$message.success('文件上传成功');
+                            this.reload();
                             this.fileForm = new FormData();
                             this.fileList1.splice(0,1);
                             this.fileList2.splice(0,1);

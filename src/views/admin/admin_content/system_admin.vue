@@ -141,7 +141,7 @@
                 dialogFormVisible: false ,
                 edit_show: false ,
                 edit: '1' ,
-                tableData: [{},{}]
+                tableData: []
             }
         } ,
         created() {

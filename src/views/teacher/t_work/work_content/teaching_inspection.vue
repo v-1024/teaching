@@ -295,6 +295,7 @@
     import {fileDownLoad} from "../../../../pubRequest/downLoad";
 
     export default {
+        inject: ['reload'] ,
         name: "teaching_inspection",
         data() {
             return {
@@ -425,6 +426,7 @@
                             }).then(res => {
                                 if (res.data.msg === 'success') {
                                     this.$message.success('文件上传成功');
+                                    this.reload();
                                     this.fileForm = new FormData();
                                     this.fileList1.splice(0,1);
                                     this.fileList2.splice(0,1);

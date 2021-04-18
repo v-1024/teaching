@@ -278,6 +278,7 @@
     import {queryData} from "../../../../pubRequest/queryData";
 
     export default {
+        inject: ['reload'] ,
         name: "plans_inspection",
         data() {
             return {
@@ -445,6 +446,7 @@
                                 if (res.data.msg === 'success') {
                                     this.$message.success('文件上传成功');
                                     this.fileForm = new FormData();
+                                    this.reload();
                                     this.fileList1.splice(0,1);
                                     this.fileList2.splice(0,1);
                                     this.fileList3.splice(0,1);

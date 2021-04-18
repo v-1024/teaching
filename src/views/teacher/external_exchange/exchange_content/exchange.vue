@@ -154,6 +154,7 @@
     import {queryData} from "../../../../pubRequest/queryData";
 
     export default {
+        inject: ['reload'] ,
         name: "exchange",
         data() {
             return {
@@ -261,6 +262,7 @@
                             }).then(res => {
                                 if (res.data.msg === 'success') {
                                     this.$message.success('文件上传成功');
+                                    this.reload();
                                     this.fileForm = new FormData();
                                     this.fileList.splice(0,1);
                                     this.fileItem = "暂未选择任何文件"
