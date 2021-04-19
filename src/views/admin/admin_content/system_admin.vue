@@ -286,6 +286,7 @@
                             if (res.data.msg === 'success') {
                                 this.requestData();
                                 this.$message.success('新增学院和系部成功');
+                                this.before_close();
                             }
                         });
                     }
@@ -303,12 +304,14 @@
                             if (res.data.msg === 'success') {
                                 this.requestData();
                                 this.$message.success('新增系部成功');
-                                this.flag = '1'
+                                this.flag = '1';
+                                this.before_close();
                             }
                         });
                     }
                 }
-                this.before_close();
+                else
+                    this.$message.warning('所有信息均不能为空，请重新输入')
             } ,
             before_close() {
                 this.formInline.col_name = '';
