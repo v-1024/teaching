@@ -85,7 +85,6 @@
                         password: this.ruleForm.pwd
                     },
                 }).then(res=>{     //在这里要获取个人信息，存储在Vuex中
-                    console.log(res);
                     if (res.data === 'NotFound this userName' || res.data === 'Invalid username/password')
                         this.$message.error('用户名或密码错误,请重新输入');
                     else {

@@ -113,7 +113,7 @@
                     :before-remove="beforeRemove"
                     :auto-upload="false"
                     multiple
-                    :limit="3"
+                    :limit="1"
                     :on-exceed="handleExceed"
                     drag
                     style="width: 30%">

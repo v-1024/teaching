@@ -270,40 +270,43 @@
                 this.dialogFormVisible = true;
             } ,
             save() {     //插入新数据或更新系部信息(修改后传给后端)
-                if (this.flag === '1') {
-                    request({
-                        url: 'Manager/College' ,
-                        method: 'post' ,
-                        params: {
-                            c_id: this.formInline.col_id,
-                            college: this.formInline.col_name,
-                            d_id: this.formInline.dep_id,
-                            d_name: this.formInline.new_dep
-                        }
-                    }).then(res => {
-                        if (res.data.msg === 'success') {
-                            this.requestData();
-                            this.$message.success('新增学院和系部成功');
-                        }
-                    });
-                }
-                else {
-                    request({
-                        url: 'Manager/raeseDept' ,
-                        method: 'post' ,
-                        params: {
-                            c_id: this.formInline.col_id,
-                            college: this.formInline.col_name,
-                            d_id: this.formInline.dep_id,
-                            d_name: this.formInline.new_dep
-                        }
-                    }).then(res => {
-                        if (res.data.msg === 'success') {
-                            this.requestData();
-                            this.$message.success('新增系部成功');
-                            this.flag = '1'
-                        }
-                    });
+                if (this.formInline.col_id !== '' && this.formInline.col_name !== '' &&
+                    this.formInline.dep_id !== '' && this.formInline.new_dep !== '') {
+                    if (this.flag === '1') {
+                        request({
+                            url: 'Manager/College' ,
+                            method: 'post' ,
+                            params: {
+                                c_id: this.formInline.col_id,
+                                college: this.formInline.col_name,
+                                d_id: this.formInline.dep_id,
+                                d_name: this.formInline.new_dep
+                            }
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.requestData();
+                                this.$message.success('新增学院和系部成功');
+                            }
+                        });
+                    }
+                    else {
+                        request({
+                            url: 'Manager/raeseDept' ,
+                            method: 'post' ,
+                            params: {
+                                c_id: this.formInline.col_id,
+                                college: this.formInline.col_name,
+                                d_id: this.formInline.dep_id,
+                                d_name: this.formInline.new_dep
+                            }
+                        }).then(res => {
+                            if (res.data.msg === 'success') {
+                                this.requestData();
+                                this.$message.success('新增系部成功');
+                                this.flag = '1'
+                            }
+                        });
+                    }
                 }
                 this.before_close();
             } ,
